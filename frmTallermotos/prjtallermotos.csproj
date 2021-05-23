@@ -69,6 +69,7 @@
   <ItemGroup>
     <Content Include="CON_prjtallermotos.xml" />
     <Content Include="css\style.css" />
+    <Content Include="dbo_taller_motos.sql" />
     <Content Include="frmCliente.aspx" />
     <Content Include="frmLogin.aspx" />
     <Content Include="Web.config" />
