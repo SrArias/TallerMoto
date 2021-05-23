@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Parametros>
+  <Servidor>LAPTOP-MLRFN9SE</Servidor>
+  <BaseDatos>dbo_taller_motos</BaseDatos>
+  <Usuario></Usuario>
+  <clave></clave>
+  <SeguridadIntegrada>SI</SeguridadIntegrada>
+</Parametros>
