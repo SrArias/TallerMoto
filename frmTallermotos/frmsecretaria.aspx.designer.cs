@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace frmTallermotos
+namespace prjtallermotos
 {
 
 
-    public partial class frmLogin
+    public partial class frmsecretaria
     {
 
         /// <summary>
@@ -24,30 +24,39 @@ namespace frmTallermotos
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// txtusername control.
+        /// rdlOpciones control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtusername;
+        protected global::System.Web.UI.WebControls.RadioButtonList rdlOpciones;
 
         /// <summary>
-        /// txtpassword control.
+        /// pnlmecanico control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtpassword;
+        protected global::System.Web.UI.WebControls.Panel pnlmecanico;
 
         /// <summary>
-        /// btn control.
+        /// dpCarro control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn;
+        protected global::System.Web.UI.WebControls.DropDownList dpCarro;
+
+        /// <summary>
+        /// dpmecanico control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList dpmecanico;
     }
 }

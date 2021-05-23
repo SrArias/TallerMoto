@@ -49,11 +49,12 @@
 </div>
        
         
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.11/dist/sweetalert2.all.min.js"></script>
+    <script src="js/sweetalert.js" type="text/javascript"></script>
 
     </form>
 
-
-
+    
     
 </body>
 </html>

@@ -20,7 +20,11 @@ namespace frmTallermotos
         }
 
         
-
+        private void mensajes(string tipo,string mensajes)
+        {
+            string javaScript = $"mensajes('{tipo}','{mensajes}');";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "script", javaScript, true);
+        }
         protected void btn_Click(object sender, EventArgs e)
         {
             try
@@ -42,8 +46,17 @@ namespace frmTallermotos
                         Session["identificacion"] = objlogin.Username;
                         Response.Redirect("frmCliente.aspx");
                         break;
+                    case "Mecanico":
+                        Session["identificacion"] = objlogin.Username;
+                        Response.Redirect("frmmecanico.aspx");
+                        break;
+                    case "Secretaria":
+                        Session["identificacion"] = objlogin.Username;
+                        Response.Redirect("frmsecretaria.aspx");
+                        break;
                     
                     default:
+                        mensajes("error",objlogin.Tipo_usuario);
                         break;
                 }
             }
