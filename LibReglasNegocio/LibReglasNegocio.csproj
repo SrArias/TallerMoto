@@ -32,10 +32,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="libConexionBd">
-      <HintPath>D:\Descargas\Conexión\Conexión\5. Librerias Comunes\2. slnConexionBd\libConexionBd\bin\Debug\libConexionBd.dll</HintPath>
+      <HintPath>C:\Users\User\OneDrive\Documentos\Universidad\POO 2\Conexión\5. Librerias Comunes\3. slnLlenarControles\libLlenarGrids\bin\Debug\libConexionBd.dll</HintPath>
     </Reference>
     <Reference Include="libParametrosCnx">
-      <HintPath>D:\Descargas\Conexión\Conexión\5. Librerias Comunes\2. slnConexionBd\libConexionBd\bin\Debug\libParametrosCnx.dll</HintPath>
+      <HintPath>C:\Users\User\OneDrive\Documentos\Universidad\POO 2\Conexión\5. Librerias Comunes\3. slnLlenarControles\libLlenarGrids\bin\Debug\libParametrosCnx.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

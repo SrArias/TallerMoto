@@ -72,6 +72,10 @@
     <Content Include="dbo_taller_motos.sql" />
     <Content Include="frmCliente.aspx" />
     <Content Include="frmLogin.aspx" />
+    <Content Include="img\17743.jpg" />
+    <Content Include="img\17745.jpg" />
+    <Content Include="img\17751.jpg" />
+    <Content Include="img\17755.jpg" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +110,7 @@
       <Name>LibOperativa</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
