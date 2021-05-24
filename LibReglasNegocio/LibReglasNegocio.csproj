@@ -54,7 +54,7 @@
     <Compile Include="clsLlenarControles.cs" />
     <Compile Include="clsLoginRN.cs" />
     <Compile Include="clsMantenimientoRN.cs" />
-    <Compile Include="clsSecretaria.cs" />
+    <Compile Include="clsadminRN.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

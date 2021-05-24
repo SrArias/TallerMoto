@@ -72,8 +72,7 @@
     <Content Include="dbo_taller_motos.sql" />
     <Content Include="frmCliente.aspx" />
     <Content Include="frmLogin.aspx" />
-    <Content Include="frmmecanico.aspx" />
-    <Content Include="frmsecretaria.aspx" />
+    <Content Include="frmadmin.aspx" />
     <Content Include="img\17743.jpg" />
     <Content Include="img\17745.jpg" />
     <Content Include="img\17751.jpg" />
@@ -96,19 +95,12 @@
     <Compile Include="frmLogin.aspx.designer.cs">
       <DependentUpon>frmLogin.aspx</DependentUpon>
     </Compile>
-    <Compile Include="frmmecanico.aspx.cs">
-      <DependentUpon>frmmecanico.aspx</DependentUpon>
+    <Compile Include="frmadmin.aspx.cs">
+      <DependentUpon>frmadmin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="frmmecanico.aspx.designer.cs">
-      <DependentUpon>frmmecanico.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="frmsecretaria.aspx.cs">
-      <DependentUpon>frmsecretaria.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="frmsecretaria.aspx.designer.cs">
-      <DependentUpon>frmsecretaria.aspx</DependentUpon>
+    <Compile Include="frmadmin.aspx.designer.cs">
+      <DependentUpon>frmadmin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

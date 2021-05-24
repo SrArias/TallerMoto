@@ -45,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clsadminop.cs" />
+    <Compile Include="clsllenarope.cs" />
     <Compile Include="clsLogin.cs" />
     <Compile Include="clsmantenimiento.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

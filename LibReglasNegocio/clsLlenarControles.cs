@@ -26,6 +26,7 @@ namespace LibReglasNegocio
         private int identificacion;
 
         public int Identificacion { get => identificacion; set => identificacion = value; }
+        public string Error { get => strError; set => strError = value; }
 
         public clsLlenarControles(string NombreApp)
         {
@@ -97,7 +98,7 @@ namespace LibReglasNegocio
                     objcnx = null;
                     return false;
                 }
-                
+                objcnx = null;
                 return true;
             }
             catch (Exception ex)

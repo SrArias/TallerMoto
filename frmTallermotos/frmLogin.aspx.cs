@@ -46,13 +46,9 @@ namespace frmTallermotos
                         Session["identificacion"] = objlogin.Username;
                         Response.Redirect("frmCliente.aspx");
                         break;
-                    case "Mecanico":
+                    case "admin":
                         Session["identificacion"] = objlogin.Username;
-                        Response.Redirect("frmmecanico.aspx");
-                        break;
-                    case "Secretaria":
-                        Session["identificacion"] = objlogin.Username;
-                        Response.Redirect("frmsecretaria.aspx");
+                        Response.Redirect("frmadmin.aspx");
                         break;
                     
                     default:

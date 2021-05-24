@@ -11,7 +11,7 @@ namespace prjtallermotos
 {
 
 
-    public partial class frmsecretaria
+    public partial class frmadmin
     {
 
         /// <summary>
