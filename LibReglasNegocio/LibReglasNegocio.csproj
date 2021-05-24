@@ -34,11 +34,15 @@
     <Reference Include="libConexionBd">
       <HintPath>C:\Users\User\OneDrive\Documentos\Universidad\POO 2\Conexión\5. Librerias Comunes\3. slnLlenarControles\libLlenarGrids\bin\Debug\libConexionBd.dll</HintPath>
     </Reference>
+    <Reference Include="libLlenarCombos">
+      <HintPath>D:\Descargas\Conexión\Conexión\5. Librerias Comunes\3. slnLlenarControles\libLlenarCombos\bin\Debug\libLlenarCombos.dll</HintPath>
+    </Reference>
     <Reference Include="libParametrosCnx">
       <HintPath>C:\Users\User\OneDrive\Documentos\Universidad\POO 2\Conexión\5. Librerias Comunes\3. slnLlenarControles\libLlenarGrids\bin\Debug\libParametrosCnx.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,8 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clsLlenarControles.cs" />
     <Compile Include="clsLoginRN.cs" />
     <Compile Include="clsMantenimientoRN.cs" />
+    <Compile Include="clsSecretaria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

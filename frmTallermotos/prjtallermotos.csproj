@@ -126,6 +126,10 @@
       <Project>{94A64206-8A66-422B-902D-60348A597A85}</Project>
       <Name>LibOperativa</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LibReglasNegocio\LibReglasNegocio.csproj">
+      <Project>{8A6F5E87-0AA7-404B-92D5-C002E1985458}</Project>
+      <Name>LibReglasNegocio</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

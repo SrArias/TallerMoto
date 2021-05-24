@@ -17,10 +17,21 @@
         </div>
 
         <asp:Panel runat="server" Visible="false" ID="pnlmecanico">
-            <asp:DropDownList runat="server" AutoPostBack="true" ID="dpCarro" >
+            <asp:DropDownList runat="server" AutoPostBack="true" ID="ddlCarro" >
              </asp:DropDownList>
-            <asp:DropDownList runat="server" AutoPostBack="true" ID="dpmecanico">
+            <asp:DropDownList runat="server" AutoPostBack="true" ID="ddlmecanico">
              </asp:DropDownList>
+            <asp:Button runat="server" ID="btnregistrar" Text="Registrar"/>
+        </asp:Panel>
+
+        <asp:Panel runat="server" Visible="false" ID="pnlCliente">
+            <asp:TextBox runat="server" ID="txtidentificación" TextMode="Number" ></asp:TextBox>
+            <asp:TextBox runat="server" ID="txtnombre" ></asp:TextBox>
+            <asp:TextBox runat="server" ID="txttelefono" TextMode="Number" ></asp:TextBox>
+            <asp:TextBox runat="server" ID="txtdireccion" ></asp:TextBox>
+            <asp:DropDownList runat="server" AutoPostBack="true" ID="ddlvehiculo" >
+             </asp:DropDownList>
+            
         </asp:Panel>
     </form>
 </body>
