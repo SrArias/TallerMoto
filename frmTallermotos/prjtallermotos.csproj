@@ -73,12 +73,15 @@
     <Content Include="dbo_taller_motos.sql" />
     <Content Include="frmCliente.aspx" />
     <Content Include="frmLogin.aspx" />
+    <Content Include="frmmecanico.aspx" />
+    <Content Include="frmsecretaria.aspx" />
     <Content Include="img\17743.jpg" />
     <Content Include="img\17745.jpg" />
     <Content Include="img\17751.jpg" />
     <Content Include="img\17755.jpg" />
     <Content Include="img\580b585b2edbce24c47b2d08.png" />
     <Content Include="img\imageedit_3_5509983854.png" />
+    <Content Include="js\sweetalert.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -95,6 +98,20 @@
     </Compile>
     <Compile Include="frmLogin.aspx.designer.cs">
       <DependentUpon>frmLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="frmmecanico.aspx.cs">
+      <DependentUpon>frmmecanico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmmecanico.aspx.designer.cs">
+      <DependentUpon>frmmecanico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="frmsecretaria.aspx.cs">
+      <DependentUpon>frmsecretaria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmsecretaria.aspx.designer.cs">
+      <DependentUpon>frmsecretaria.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
