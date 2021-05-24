@@ -4,3 +4,29 @@
     align-items: center;
 }
 
+.form1 {
+    margin-top: 18%;
+    margin-left:10%;
+    position: relative;
+    background: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4));
+    width:50%;
+    
+}
+
+.size{
+    height:40%;
+    width: 40%;
+}
+
+.btn-info {
+    height: 50%;
+    width: 15%;
+}
+
+body {
+    background-image: url('../img/17745.jpg');
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+
+

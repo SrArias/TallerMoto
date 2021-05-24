@@ -14,12 +14,19 @@
         <form id="form1" runat="server">
 
 
-            <div class="card bg-dark text-white">
-  <img src="img/17745.jpg" class="card-img" alt="..."/>
+            <div class="card bg-dark text-white sizeimg">
+  
   <div class="card-img-overlay">
  
+       
+      <div class="form1" runat="server" >
+
+          <h1 class="Centrar-Medio">Taller de motos</h1>
+          <br />
+          <h4 class="Centrar-Medio">Inicio de sesión</h4>
+
        <div class="row justify-content-center">         
-        <div class="input-group mb-3 w-25 Centrar-Medio" >
+        <div class="input-group mb-3 Centrar-Medio size " >
           <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon1" >@</span>
           </div>
@@ -29,7 +36,7 @@
 
 
        <div class="row justify-content-center">
-        <div class="input-group mb-3 w-25" >
+        <div class="input-group mb-3 Centrar-Medio size" >
           <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon2">#</span>
           </div>
@@ -43,8 +50,10 @@
             <asp:Button  runat="server" ID="btn" CssClass="btn btn-info" Text="Ingresar" OnClick="btn_Click"/>
         </div>
 
+          <br />
+          <br />
 
-
+</div>
   </div>
 </div>
        
