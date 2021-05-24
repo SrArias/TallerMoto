@@ -23,12 +23,41 @@ namespace LibReglasNegocio
         private int idSport;
         private int intidteacher;
         private string intidgrupo;
-        private int intidstudent;
+        private int identificacion;
+
+        public int Identificacion { get => identificacion; set => identificacion = value; }
 
         public clsLlenarControles(string NombreApp)
         {
             objcnx = new clsLlenarCombos(NombreApp);
             
+        }
+        private bool AgregarParametros(string MetodoOrigen)
+        {
+            try
+            {
+                objDatosEscuela = null;
+
+                switch (MetodoOrigen.ToUpper())
+                {
+                    case "ddlvehiculoM":
+                        objDatosEscuela = new SqlParameter[1];
+                        objDatosEscuela[0] = new SqlParameter("identificacion", identificacion);
+                        break;
+                   
+
+                        
+                    default:
+                        strError = "Caso no valido en las reglas del negocio";
+                        return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
         public bool Llenarddl(DropDownList ddlGenerico)
         {
@@ -48,7 +77,13 @@ namespace LibReglasNegocio
                         strcampostext = "nombre";
                         objcnx.SQL = "sp_getmecanico";
                         break;
-                    
+                    case "ddlvehiculoM":
+                        strid = "vehiculo_id";
+                        strcampostext = "placa";
+                        objcnx.SQL = "sp_getvehiculoMecanico";
+                        objcnx.ParametrosSQL = objDatosEscuela;
+                        break;
+
                     default:
                         strError = "ddl no programado";
                         return false;

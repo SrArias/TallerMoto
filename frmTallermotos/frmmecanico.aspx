@@ -9,7 +9,17 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <p>Mecanico</p>
+            <asp:DropDownList runat="server" ID="ddlvehiculoM">
+
+            </asp:DropDownList>
+
+            <asp:TextBox runat="server" ID="txtDiagnostico">
+
+            </asp:TextBox>
+            <asp:TextBox runat="server" ID="txtprocedimiento">
+
+            </asp:TextBox>
+            <asp:Button runat="server" ID="btnGuardar"/>
         </div>
     </form>
 </body>
