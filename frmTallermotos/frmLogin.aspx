@@ -15,6 +15,8 @@
 
 
             <div class="card bg-dark text-white sizeimg">
+
+                <img src="img/17745.jpg" />
   
   <div class="card-img-overlay">
  
