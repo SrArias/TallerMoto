@@ -117,8 +117,8 @@
         <h5 class="Centrar-Medio">Si desea actualizar un empleado debe escoger su ID</h5>
 
         <div class="row justify-content-center">
-         <asp:DropDownList ID="drpIdEmpleado" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server" >
-                                                <asp:ListItem Text="Seleccione un ID" />
+         <asp:DropDownList ID="drpIdEmpleado" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server" OnSelectedIndexChanged="drpIdEmpleado_SelectedIndexChanged" >
+                                                
                                                 
        </asp:DropDownList>
 

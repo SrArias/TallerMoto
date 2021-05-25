@@ -89,10 +89,10 @@ namespace LibReglasNegocio
                         strcampostext = "nombre";
                         objcnx.SQL = "sp_getmecanico";
                         break;
-                    case "drpIdEmpleado":
+                    case "drpidempleado":
                         strid = "empleado_id";
                         strcampostext = "nombre";
-                        objGrid.ParametrosSQL = objDatosEscuela;
+                        objcnx.ParametrosSQL = objDatosEscuela;
                         objcnx.SQL = "sp_getempleados";
                         break;
                     case "ddlvehiculoM":

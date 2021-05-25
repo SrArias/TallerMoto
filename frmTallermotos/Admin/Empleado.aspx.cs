@@ -40,5 +40,10 @@ namespace prjtallermotos.Admin
             }
          
         }
+
+        protected void drpIdEmpleado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

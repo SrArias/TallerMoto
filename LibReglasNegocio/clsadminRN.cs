@@ -358,7 +358,13 @@ namespace LibReglasNegocio
                         objDatosEscuela[0] = new SqlParameter("fecha", datFecha);
                         objDatosEscuela[1] = new SqlParameter("cantidad_respuesto", intCant_Repuesto);
                         objDatosEscuela[2] = new SqlParameter("precio_mantenimiento", intPrecio_Mant);
-                   //revisar valores auto incrementables 
+                        //revisar valores auto incrementables 
+                        break;
+                    case "GETONEEMPLEADOS":
+                        objDatosEscuela = new SqlParameter[1];
+                        objDatosEscuela[0] = new SqlParameter("empleado_id", intEmpleado_id);
+
+                        //revisar valores auto incrementables 
                         break;
                     default:
 
@@ -604,6 +610,35 @@ namespace LibReglasNegocio
             {
 
                 throw ex;
+            }
+        }
+        public bool Obtener_Empleado()
+        {
+            try
+            {
+                if (!AgregarParametros("getoneempleado"))
+                {
+                    return false;
+                }
+                objcnx.SQL = "sp_getoneempleado";
+                objcnx.ParametrosSQL = objDatosEscuela;
+                if (!objcnx.llenarDataSet(true, true))
+                {
+                    strError = objcnx.Error;
+                    objcnx.cerrarCnx();
+                    objcnx = null;
+                    return false;
+                }
+                dsDatos = objcnx.DataSetLleno;
+                objcnx.cerrarCnx();
+                objcnx = null;
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }
