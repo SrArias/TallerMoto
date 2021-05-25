@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="frmsecretaria.aspx.cs" Inherits="prjtallermotos.frmsecretaria" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="frmadmin.aspx.cs" Inherits="prjtallermotos.frmadmin" %>
 
 <!DOCTYPE html>
 

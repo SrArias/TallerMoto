@@ -1,4 +1,4 @@
-﻿using LibReglasNegocio;
+﻿using LibOperativa;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +9,14 @@ using System.Web.UI.WebControls;
 
 namespace prjtallermotos
 {
-    public partial class frmsecretaria : System.Web.UI.Page
+    public partial class frmadmin : System.Web.UI.Page
     {
-        clsLlenarControles objcontroles;
+        clsllenarope objcontroles;
         private string strnombreapp;
         protected void Page_Load(object sender, EventArgs e)
         {
             strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
-            objcontroles = new clsLlenarControles(strnombreapp);
+            objcontroles = new clsllenarope(strnombreapp);
         }
 
         private void mostrarpanel()
@@ -33,12 +33,12 @@ namespace prjtallermotos
                     try
                     {
                         
-                        if (!objcontroles.Llenarddl(ddlmecanico))
+                        if (!objcontroles.llenarDrop(ddlmecanico))
                         {
                             objcontroles = null;
                             return;
                         }
-                        if (!objcontroles.Llenarddl(ddlCarro))
+                        if (!objcontroles.llenarDrop(ddlCarro))
                         {
                             objcontroles = null;
                             return;
@@ -56,7 +56,7 @@ namespace prjtallermotos
                     try
                     {
                         
-                        if (!objcontroles.Llenarddl(ddlvehiculo))
+                        if (!objcontroles.llenarDrop(ddlvehiculo))
                         {
                             objcontroles = null;
                             return;
