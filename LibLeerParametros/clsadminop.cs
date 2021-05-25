@@ -1,15 +1,13 @@
-﻿using libConexionBd;
+﻿using LibReglasNegocio;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibReglasNegocio
+namespace LibOperativa
 {
-    public class clsadminRN
+    public class clsadminop
     {
         private int intUsuario_id;
         private string strContrasena;
@@ -26,6 +24,8 @@ namespace LibReglasNegocio
         private string strNombreE;
         private string strTelefonoE;
         private string strDireccionE;
+        private int intCargo;
+        private int intTurno;
         private int intSalarioE;
         private int intProv_id;
         private string strNombreProv;
@@ -37,18 +37,15 @@ namespace LibReglasNegocio
         private int intUnidStock;
         private int intUnidOrdenadas;
         private int intPrecioUnid;
-        private int intcargo;
-        private int intsalario;
         private string strDiagnostico;
         private string strProc_Realizado;
         private DateTime datFecha;
         private int intCant_Repuesto;
         private int intPrecio_Mant;
         private string strNombreApp;
-        private SqlParameter[] objDatosEscuela;
-        private clsConexionBd objcnx;
         private string strError;
-        private DataSet dsDatos;
+        private string resultado;
+
 
         public int IntUsuario_id { get => intUsuario_id; set => intUsuario_id = value; }
         public string StrContrasena { get => strContrasena; set => strContrasena = value; }
@@ -72,35 +69,34 @@ namespace LibReglasNegocio
         public string StrTituloContacProv { get => strTituloContacProv; set => strTituloContacProv = value; }
         public string StrNumeroContacprov { get => strNumeroContacprov; set => strNumeroContacprov = value; }
         public string StrDireccionProv { get => strDireccionProv; set => strDireccionProv = value; }
+        public string Resultado { get => resultado; set => resultado = value; }
         public string StrNombreRep { get => strNombreRep; set => strNombreRep = value; }
         public int IntUnidStock { get => intUnidStock; set => intUnidStock = value; }
         public int IntUnidOrdenadas { get => intUnidOrdenadas; set => intUnidOrdenadas = value; }
         public int IntPrecioUnid { get => intPrecioUnid; set => intPrecioUnid = value; }
-        public int IntCargo { get => intcargo; set => intcargo = value; }
-        public int IntSalario { get => intsalario; set => intsalario = value; }
         public string StrDiagnostico { get => strDiagnostico; set => strDiagnostico = value; }
         public string StrProc_Realizado { get => strProc_Realizado; set => strProc_Realizado = value; }
         public DateTime DatFecha { get => datFecha; set => datFecha = value; }
         public int IntCant_Repuesto { get => intCant_Repuesto; set => intCant_Repuesto = value; }
         public int IntPrecio_Mant { get => intPrecio_Mant; set => intPrecio_Mant = value; }
-        public string StrError { get => strError; set => strError = value; }
-        public DataSet DsDatos { get => dsDatos; set => dsDatos = value; }
         public int IntEmpleado_id { get => intEmpleado_id; set => intEmpleado_id = value; }
+        public string StrError { get => strError; set => strError = value; }
+        public int IntCargo { get => intCargo; set => intCargo = value; }
+        public int IntTurno { get => intTurno; set => intTurno = value; }
 
-        public clsadminRN(string nombreapp)
+        public clsadminop(string nombreapp)
         {
             strNombreApp = nombreapp;
-            objcnx = new clsConexionBd(nombreapp);
         }
-
-        private bool validar(string MetodoOrigen)
+        private bool validar(string metodoOrigen)
         {
             if (string.IsNullOrEmpty(strNombreApp))
             {
-                strError = "Se debe enviar el nombre de la aplicación";
+                strError = "No envió el nombre de la aplicación.";
                 return false;
             }
-            switch (MetodoOrigen.ToLower())
+
+            switch (metodoOrigen.ToLower())
             {
                 case "user":
 
@@ -216,7 +212,7 @@ namespace LibReglasNegocio
                     {
                         strError = "Ingrese la direccion del empleado";
                     }
-                    if (intcargo <= 0)
+                    if (intCargo <= 0)
                     {
                         strError = "Seleccione un cargo";
                     }
@@ -287,134 +283,36 @@ namespace LibReglasNegocio
                         strError = "Ingrese la id del empleado";
                     }
                     break;
-
-                    //FALTA HACER MÉTODO EN BD
-                case "getonecliente":
-                    if (intEmpleado_id <= 0)
-                    {
-                        strError = "Ingrese la id del cliente";
-                    }
-                    break;
-                case "updateempleado":
-                    if (intEmpleado_id <= 0)
-                    {
-                        strError = "Ingrese la id del empleado";
-                    }
-                    if (strNombreE == string.Empty)
-                    {
-                        strError = "Ingrese el nombre del empleado";
-                    }
-                    if (strTelefonoE == string.Empty)
-                    {
-                        strError = "Ingrese el telefono del empleado";
-                    }
-                    if (strDireccionE == string.Empty)
-                    {
-                        strError = "Ingrese la direccion del empleado";
-                    }
-                    if (intcargo <= 0)
-                    {
-                        strError = "Seleccione un cargo";
-                    }
-                    if (intSalarioE <= 0)
-                    {
-                        strError = "Ingrese un salario";
-                    }                   
-                    break;
                 default:
                     strError = "Caso no válido OPE";
                     return false;
             }
             return true;
         }
-        private bool AgregarParametros(string MetodoOrigen)
+        public bool Ingresar_Usuario()
         {
             try
             {
-                if (!validar(MetodoOrigen))
+                if (!validar("user"))
                 {
                     return false;
                 }
-                switch (MetodoOrigen.ToUpper())
+                clsadminRN objadminRn = new clsadminRN(strNombreApp);
+                objadminRn.IntUsuario_id = intUsuario_id;
+                objadminRn.StrNombreC = StrNombreC;
+                objadminRn.StrTelefonoC = strTelefonoC;
+                objadminRn.StrDireccionC = strDireccionC;
+                objadminRn.StrVehiculo_id = strVehiculo_id;
+                objadminRn.StrContrasena = strContrasena;
+
+                if (!objadminRn.Usuario())
                 {
-                    case "USER":
-                        objDatosEscuela = new SqlParameter[6];
-                        objDatosEscuela[0] = new SqlParameter("cliente_id", intUsuario_id);
-                        objDatosEscuela[1] = new SqlParameter("nombre", strNombreC);
-                        objDatosEscuela[2] = new SqlParameter("telefono", strTelefonoC);
-                        objDatosEscuela[3] = new SqlParameter("direccion", strDireccionC);
-                        objDatosEscuela[4] = new SqlParameter("vehiculo_id", strVehiculo_id);
-                        objDatosEscuela[5] = new SqlParameter("password", strContrasena);
-                        break;
-                    case "EMPLEADO":
-                        objDatosEscuela = new SqlParameter[7];
-                        objDatosEscuela[0] = new SqlParameter("empleado", intEmpleado_id);
-                        objDatosEscuela[1] = new SqlParameter("nombre", strNombreE);
-                        objDatosEscuela[2] = new SqlParameter("telefono", strTelefonoE);
-                        objDatosEscuela[3] = new SqlParameter("direccion", strDireccionE);
-                        objDatosEscuela[4] = new SqlParameter("cargo", intcargo);
-                        objDatosEscuela[5] = new SqlParameter("salario", intsalario);
-                        objDatosEscuela[6] = new SqlParameter("password", strContrasena);
-                        break;
-                    case "PROVEEDORES":
-                        objDatosEscuela = new SqlParameter[6];
-                        objDatosEscuela[0] = new SqlParameter("proveedor_id", intProv_id);
-                        objDatosEscuela[1] = new SqlParameter("nombre_compañia", strNombreProv);
-                        objDatosEscuela[2] = new SqlParameter("nombre_contacto", strNombreContacProv);
-                        objDatosEscuela[3] = new SqlParameter("titulo_contacto", strTituloContacProv);
-                        objDatosEscuela[4] = new SqlParameter("numero_contacto", strNumeroContacprov);
-                        objDatosEscuela[5] = new SqlParameter("direccion", strDireccionProv);
-                        break;
-                    case "MANTENIMIENTO":
-                        objDatosEscuela = new SqlParameter[4];
-                        objDatosEscuela[0] = new SqlParameter("Vehículo_id", strVehiculo_id);
-                        objDatosEscuela[1] = new SqlParameter("empleado_id", intEmpleado_id);
-                        objDatosEscuela[2] = new SqlParameter("diagnostico", strDiagnostico);
-                        objDatosEscuela[3] = new SqlParameter("procedimiento_realizado", strProc_Realizado);
-                        break;
-                    case "REPUESTO":
-                        objDatosEscuela = new SqlParameter[5];
-                        objDatosEscuela[0] = new SqlParameter("nombre_repuesto", strNombreRep);
-                        objDatosEscuela[1] = new SqlParameter("unidades_en_stock", intUnidStock);
-                        objDatosEscuela[2] = new SqlParameter("unidades_ordenadas", intUnidOrdenadas);
-                        objDatosEscuela[3] = new SqlParameter("precio_por_unidad", intPrecioUnid);
-                        objDatosEscuela[4] = new SqlParameter("prov_id", intProv_id);
-                        break;
-                    case "FACTURA":
-                        objDatosEscuela = new SqlParameter[2];
-                        objDatosEscuela[0] = new SqlParameter("Vehículo_id", strVehiculo_id);
-                        objDatosEscuela[1] = new SqlParameter("empleado_id", intEmpleado_id);
-                        break;
-                    case "VEHICULO":
-                        objDatosEscuela = new SqlParameter[5];
-                        objDatosEscuela[0] = new SqlParameter("Vehículo_id", strVehiculo_id);
-                        objDatosEscuela[1] = new SqlParameter("marca", strMarca);
-                        objDatosEscuela[2] = new SqlParameter("modelo", intModelo);
-                        objDatosEscuela[3] = new SqlParameter("color", strColor);
-                        objDatosEscuela[4] = new SqlParameter("refencia", strRefencia);
-                        break;
-                    case " DETALLES_FACTURA":
-                        objDatosEscuela = new SqlParameter[3];
-                        objDatosEscuela[0] = new SqlParameter("fecha", datFecha);
-                        objDatosEscuela[1] = new SqlParameter("cantidad_respuesto", intCant_Repuesto);
-                        objDatosEscuela[2] = new SqlParameter("precio_mantenimiento", intPrecio_Mant);
-                        //revisar valores auto incrementables 
-                        break;
-                    case "GETONEEMPLEADO":
-                        objDatosEscuela = new SqlParameter[1];
-                        objDatosEscuela[0] = new SqlParameter("empleado_id", intEmpleado_id);
-                        break;
-                    case "GETONECLIENTE":
-                        objDatosEscuela = new SqlParameter[1];
-                        objDatosEscuela[0] = new SqlParameter("cliente_id", intUsuario_id);
-
-                        //revisar valores auto incrementables 
-                        break;
-                    default:
-
-                        strError = "Caso no valido en las reglas del negocio";
-                        break;
+                    strError = objadminRn.StrError;
+                    objadminRn = null;
+                    return false;
                 }
+                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["@mensaje"].ToString();
+                objadminRn = null;
                 return true;
             }
             catch (Exception ex)
@@ -423,28 +321,33 @@ namespace LibReglasNegocio
                 throw ex;
             }
         }
-
-        public bool Usuario()
+        public bool Ingresar_Empleado()
         {
             try
             {
-                if (!AgregarParametros("User"))
+                if (!validar("Empleado"))
                 {
                     return false;
                 }
-                objcnx.SQL = "sp_insertcliente";
-                objcnx.ParametrosSQL = objDatosEscuela;
-                if (!objcnx.llenarDataSet(true, true))
-                {
-                    strError = objcnx.Error;
-                    objcnx.cerrarCnx();
-                    objcnx = null;
-                    return false;
-                }
-                dsDatos = objcnx.DataSetLleno;
-                objcnx.cerrarCnx();
-                objcnx = null;
+                clsadminRN objadminRn = new clsadminRN(strNombreApp);
+                objadminRn.IntEmpleado_id = intUsuario_id;
+                objadminRn.StrNombreE = StrNombreE;
+                objadminRn.StrTelefonoE = strTelefonoE;
+                objadminRn.StrDireccionE = strDireccionE;
+                objadminRn.IntCargo = intCargo;
+                objadminRn.IntSalario = IntSalarioE;
+                objadminRn.StrContrasena = strContrasena;
 
+
+
+                if (!objadminRn.Empleado())
+                {
+                    strError = objadminRn.StrError;
+                    objadminRn = null;
+                    return false;
+                }
+                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["@mensaje"].ToString();
+                objadminRn = null;
                 return true;
             }
             catch (Exception ex)
@@ -453,27 +356,29 @@ namespace LibReglasNegocio
                 throw ex;
             }
         }
-        public bool Empleado()
+        public bool Ingresar_proveedor()
         {
             try
             {
-                if (!AgregarParametros("Empleado"))
+                if (!validar("proveedores"))
                 {
                     return false;
                 }
-                objcnx.SQL = "sp_insertempleado";
-                objcnx.ParametrosSQL = objDatosEscuela;
-                if (!objcnx.llenarDataSet(true, true))
+                clsadminRN objadminRn = new clsadminRN(strNombreApp);
+                objadminRn.IntProv_id = intProv_id;
+                objadminRn.StrNombreProv = strNombreProv;
+                objadminRn.StrNombreContacProv = strNombreContacProv;
+                objadminRn.StrTituloContacProv = strTituloContacProv;
+                objadminRn.StrNumeroContacprov = strNumeroContacprov;
+                objadminRn.StrDireccionProv = strDireccionProv;
+                if (!objadminRn.Proveedores())
                 {
-                    strError = objcnx.Error;
-                    objcnx.cerrarCnx();
-                    objcnx = null;
+                    strError = objadminRn.StrError;
+                    objadminRn = null;
                     return false;
                 }
-                dsDatos = objcnx.DataSetLleno;
-                objcnx.cerrarCnx();
-                objcnx = null;
-
+                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["@mensaje"].ToString();
+                objadminRn = null;
                 return true;
             }
             catch (Exception ex)
@@ -482,27 +387,86 @@ namespace LibReglasNegocio
                 throw ex;
             }
         }
-        public bool Proveedores()
+        public bool Ingresar_Mantenimiento()
         {
             try
             {
-                if (!AgregarParametros("Proveedores"))
+                if (!validar("mantenimiento"))
                 {
                     return false;
                 }
-                objcnx.SQL = "sp_insertproveedores";
-                objcnx.ParametrosSQL = objDatosEscuela;
-                if (!objcnx.llenarDataSet(true, true))
+                clsadminRN objadminRn = new clsadminRN(strNombreApp);
+                objadminRn.StrVehiculo_id = strVehiculo_id;
+                objadminRn.IntEmpleado_id = intEmpleado_id;
+                objadminRn.StrDiagnostico = strDiagnostico;
+                objadminRn.StrProc_Realizado = strProc_Realizado;
+                if (!objadminRn.Mantenimiento())
                 {
-                    strError = objcnx.Error;
-                    objcnx.cerrarCnx();
-                    objcnx = null;
+                    strError = objadminRn.StrError;
+                    objadminRn = null;
                     return false;
                 }
-                dsDatos = objcnx.DataSetLleno;
-                objcnx.cerrarCnx();
-                objcnx = null;
+                resultado = "";
+                objadminRn = null;
+                return true;
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
+
+        }
+        public bool Ingresar_Repuesto()
+        {
+            try
+            {
+                if (!validar("repuesto"))
+                {
+                    return false;
+                }
+                clsadminRN objadminRn = new clsadminRN(strNombreApp);
+                objadminRn.StrNombreRep = strNombreRep;
+                objadminRn.IntUnidStock = intUnidStock;
+                objadminRn.IntUnidOrdenadas = intUnidOrdenadas;
+                objadminRn.IntPrecioUnid = intPrecioUnid;
+                objadminRn.IntProv_id = intProv_id;
+                if (!objadminRn.Repuesto())
+                {
+                    strError = objadminRn.StrError;
+                    objadminRn = null;
+                    return false;
+                }
+                resultado = "";
+                objadminRn = null;
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+        public bool Ingresar_factura()
+        {
+            try
+            {
+                if (!validar("factura"))
+                {
+                    return false;
+                }
+                clsadminRN objadminRn = new clsadminRN(strNombreApp);
+                objadminRn.StrVehiculo_id = strVehiculo_id;
+                objadminRn.IntEmpleado_id = intEmpleado_id;
+                if (!objadminRn.Factura())
+                {
+                    strError = objadminRn.StrError;
+                    objadminRn = null;
+                    return false;
+                }
+                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["factura_id"].ToString();
+                objadminRn = null;
                 return true;
             }
             catch (Exception ex)
@@ -511,27 +475,28 @@ namespace LibReglasNegocio
                 throw ex;
             }
         }
-        public bool Mantenimiento()
+        public bool Ingresar_Vehiculo()
         {
             try
             {
-                if (!AgregarParametros("mantenimiento"))
+                if (!validar("vehiculo"))
                 {
                     return false;
                 }
-                objcnx.SQL = "sp_insertmatenimiento";
-                objcnx.ParametrosSQL = objDatosEscuela;
-                if (!objcnx.llenarDataSet(true, true))
+                clsadminRN objadminRn = new clsadminRN(strNombreApp);
+                objadminRn.StrVehiculo_id = strVehiculo_id;
+                objadminRn.StrMarca = strMarca;
+                objadminRn.IntModelo = intModelo;
+                objadminRn.StrColor = strColor;
+                objadminRn.StrRefencia = strRefencia;
+                if (!objadminRn.Vehiculo())
                 {
-                    strError = objcnx.Error;
-                    objcnx.cerrarCnx();
-                    objcnx = null;
+                    strError = objadminRn.StrError;
+                    objadminRn = null;
                     return false;
                 }
-                dsDatos = objcnx.DataSetLleno;
-                objcnx.cerrarCnx();
-                objcnx = null;
-
+                resultado = "";
+                objadminRn = null;
                 return true;
             }
             catch (Exception ex)
@@ -539,28 +504,28 @@ namespace LibReglasNegocio
 
                 throw ex;
             }
+
         }
-        public bool Repuesto()
+        public bool Ingresar_Detalle_factura()
         {
             try
             {
-                if (!AgregarParametros("repuesto"))
+                if (!validar("detalle_factura"))
                 {
                     return false;
                 }
-                objcnx.SQL = "sp_insertrepuesto";
-                objcnx.ParametrosSQL = objDatosEscuela;
-                if (!objcnx.llenarDataSet(true, true))
+                clsadminRN objadminRn = new clsadminRN(strNombreApp);
+                objadminRn.DatFecha = datFecha;
+                objadminRn.IntCant_Repuesto = intCant_Repuesto;
+                objadminRn.IntPrecio_Mant = intPrecio_Mant;
+                if (!objadminRn.Detalle_factura())
                 {
-                    strError = objcnx.Error;
-                    objcnx.cerrarCnx();
-                    objcnx = null;
+                    strError = objadminRn.StrError;
+                    objadminRn = null;
                     return false;
                 }
-                dsDatos = objcnx.DataSetLleno;
-                objcnx.cerrarCnx();
-                objcnx = null;
-
+                resultado = "";
+                objadminRn = null;
                 return true;
             }
             catch (Exception ex)
@@ -568,28 +533,32 @@ namespace LibReglasNegocio
 
                 throw ex;
             }
+
         }
-        public bool Vehiculo()
+        public bool getone_empleado()
         {
             try
             {
-                if (!AgregarParametros("vehiculo"))
+                if (!validar("getoneempleado"))
                 {
                     return false;
                 }
-                objcnx.SQL = "sp_insertvehiculo";
-                objcnx.ParametrosSQL = objDatosEscuela;
-                if (!objcnx.llenarDataSet(true, true))
+                clsadminRN objadminRn = new clsadminRN(strNombreApp);
+                objadminRn.IntEmpleado_id = intEmpleado_id;
+                if (!objadminRn.Obtener_Empleado())
                 {
-                    strError = objcnx.Error;
-                    objcnx.cerrarCnx();
-                    objcnx = null;
+                    strError = objadminRn.StrError;
+                    objadminRn = null;
                     return false;
                 }
-                dsDatos = objcnx.DataSetLleno;
-                objcnx.cerrarCnx();
-                objcnx = null;
-
+                intEmpleado_id = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["empleado_id"].ToString());
+                strDireccionE = objadminRn.DsDatos.Tables[0].Rows[0]["direccion"].ToString();
+                strNombreE = objadminRn.DsDatos.Tables[0].Rows[0]["nombre"].ToString();
+                strTelefonoE = objadminRn.DsDatos.Tables[0].Rows[0]["telefono"].ToString();
+                intCargo = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["cargo_id"].ToString());
+                intTurno = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["turno_id"].ToString());
+                intSalarioE = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["salario"].ToString());
+                objadminRn = null;
                 return true;
             }
             catch (Exception ex)
@@ -597,28 +566,34 @@ namespace LibReglasNegocio
 
                 throw ex;
             }
+
         }
-        public bool Factura()
+
+
+        public bool getone_cliente()
         {
             try
             {
-                if (!AgregarParametros("factura"))
+                if (!validar("getoneempleado"))
                 {
                     return false;
                 }
-                objcnx.SQL = "sp_insertfactura";
-                objcnx.ParametrosSQL = objDatosEscuela;
-                if (!objcnx.llenarDataSet(true, true))
+                clsadminRN objadminRn = new clsadminRN(strNombreApp);
+                objadminRn.IntEmpleado_id = intEmpleado_id;
+                if (!objadminRn.Obtener_Empleado())
                 {
-                    strError = objcnx.Error;
-                    objcnx.cerrarCnx();
-                    objcnx = null;
+                    strError = objadminRn.StrError;
+                    objadminRn = null;
                     return false;
                 }
-                dsDatos = objcnx.DataSetLleno;
-                objcnx.cerrarCnx();
-                objcnx = null;
-
+                intEmpleado_id = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["empleado_id"].ToString());
+                strDireccionE = objadminRn.DsDatos.Tables[0].Rows[0]["direccion"].ToString();
+                strNombreE = objadminRn.DsDatos.Tables[0].Rows[0]["nombre"].ToString();
+                strTelefonoE = objadminRn.DsDatos.Tables[0].Rows[0]["telefono"].ToString();
+                intCargo = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["cargo_id"].ToString());
+                
+                intSalarioE = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["salario"].ToString());
+                objadminRn = null;
                 return true;
             }
             catch (Exception ex)
@@ -626,93 +601,8 @@ namespace LibReglasNegocio
 
                 throw ex;
             }
+
         }
-        public bool Detalle_factura()
-        {
-            try
-            {
-                if (!AgregarParametros("factura"))
-                {
-                    return false;
-                }
-                objcnx.SQL = "sp_insertdetallefactura";
-                objcnx.ParametrosSQL = objDatosEscuela;
-                if (!objcnx.llenarDataSet(true, true))
-                {
-                    strError = objcnx.Error;
-                    objcnx.cerrarCnx();
-                    objcnx = null;
-                    return false;
-                }
-                dsDatos = objcnx.DataSetLleno;
-                objcnx.cerrarCnx();
-                objcnx = null;
 
-                return true;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-        public bool Obtener_Empleado()
-        {
-            try
-            {
-                if (!AgregarParametros("getoneempleado"))
-                {
-                    return false;
-                }
-                objcnx.SQL = "sp_getoneempleado";
-                objcnx.ParametrosSQL = objDatosEscuela;
-                if (!objcnx.llenarDataSet(true, true))
-                {
-                    strError = objcnx.Error;
-                    objcnx.cerrarCnx();
-                    objcnx = null;
-                    return false;
-                }
-                dsDatos = objcnx.DataSetLleno;
-                objcnx.cerrarCnx();
-                objcnx = null;
-
-                return true;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-        public bool Obtener_Cliente()
-        {
-            try
-            {
-                if (!AgregarParametros("getonecliente"))
-                {
-                    return false;
-                }
-                objcnx.SQL = "sp_getonecliente";
-                objcnx.ParametrosSQL = objDatosEscuela;
-                if (!objcnx.llenarDataSet(true, true))
-                {
-                    strError = objcnx.Error;
-                    objcnx.cerrarCnx();
-                    objcnx = null;
-                    return false;
-                }
-                dsDatos = objcnx.DataSetLleno;
-                objcnx.cerrarCnx();
-                objcnx = null;
-
-                return true;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
     }
 }

@@ -1,6 +1,14 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Empleado.aspx.cs" Inherits="prjtallermotos.Admin.Empleado" %>
 
 <!DOCTYPE html>
+<script runat="server">
+
+    protected void btnInsertarEmp_Click(object sender, EventArgs e)
+    {
+
+    }
+</script>
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -108,7 +116,7 @@
         
 
        <div class="Centrar-Medio">            
-            <asp:Button  runat="server" ID="btnInsertarEmp" CssClass="btn btn-info" Text="Insertar"/>
+            <asp:Button  runat="server" ID="btnInsertarEmp" CssClass="btn btn-info" Text="Insertar" />
                   
             <asp:Button  runat="server" ID="btnActualizarEmp" CssClass="btn btn-info" Text="Actualizar"/>
         </div>
