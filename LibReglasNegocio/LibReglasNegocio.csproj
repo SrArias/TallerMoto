@@ -37,6 +37,9 @@
     <Reference Include="libLlenarCombos">
       <HintPath>C:\Users\User\OneDrive\Documentos\Universidad\POO 2\Conexión\5. Librerias Comunes\3. slnLlenarControles\libLlenarCombos\bin\Debug\libLlenarCombos.dll</HintPath>
     </Reference>
+    <Reference Include="libLlenarGrids">
+      <HintPath>C:\Users\User\OneDrive\Documentos\Universidad\POO 2\Conexión\5. Librerias Comunes\3. slnLlenarControles\libLlenarGrids\bin\Debug\libLlenarGrids.dll</HintPath>
+    </Reference>
     <Reference Include="libParametrosCnx">
       <HintPath>C:\Users\User\OneDrive\Documentos\Universidad\POO 2\Conexión\5. Librerias Comunes\3. slnLlenarControles\libLlenarGrids\bin\Debug\libParametrosCnx.dll</HintPath>
     </Reference>

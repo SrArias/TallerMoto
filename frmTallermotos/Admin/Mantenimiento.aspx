@@ -20,7 +20,7 @@
         
     <!-- The sidebar -->
 <div class="sidebar">
-     <a href="../frmsecretaria.aspx"><i class="fa fa-home fa-2x"></i>Home</a>
+   <a href="../frmadmin.aspx"><i class="fa fa-home fa-2x"></i>Home</a>
   <a href="Empleado.aspx"><i class="fa fa-fw fa-user"></i>Empleados</a>
   <a href="Facturas.aspx"><i class="fa fa-fw fa-envelope"></i>Facturas</a>
   <a href="Detalles.aspx"><i class="fa fa-fw fa-envelope"></i>Detalles de las facturas</a>

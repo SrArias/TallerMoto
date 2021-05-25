@@ -16,6 +16,8 @@
 <body>
     <form id="form1" runat="server">
 
+
+
         <div class="card bg-dark text-black ">
             <img src="img/shutterstock_185512175-1024x576.jpg" />
   <div class="card-img-overlay  ">
@@ -26,38 +28,6 @@
   </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -92,14 +62,9 @@
 
 
 
-
-
-
-
-
 <!-- The sidebar -->
 <div class="sidebar">
-     <a href="frmsecretaria.aspx"><i class="fa fa-home fa-2x"></i>Home</a>
+     <a href="frmadmin.aspx"><i class="fa fa-home fa-2x"></i>Home</a>
   <a href="Admin/Empleado.aspx"><i class="fa fa-fw fa-user"></i>Empleados</a>
   <a href="Admin/Facturas.aspx"><i class="fa fa-fw fa-envelope"></i>Facturas</a>
   <a href="Admin/Detalles.aspx"><i class="fa fa-fw fa-envelope"></i>Detalles de las facturas</a>
