@@ -345,11 +345,103 @@ namespace LibOperativa
                 throw ex;
             }
         }
+        public bool Ingresar_proveedor()
+        {
+            try
+            {
+                if (!validar("proveedores"))
+                {
+                    return false;
+                }
+                clsadminRN objadminRn = new clsadminRN(strNombreApp);
+                objadminRn.IntProv_id = intProv_id;
+                objadminRn.StrNombreProv = strNombreProv;
+                objadminRn.StrNombreContacProv = strNombreContacProv;
+                objadminRn.StrTituloContacProv = strTituloContacProv;
+                objadminRn.StrNumeroContacprov = strNumeroContacprov;
+                objadminRn.StrDireccionProv = strDireccionProv;
+                if (!objadminRn.Proveedores())
+                {
+                    strError = objadminRn.StrError;
+                    objadminRn = null;
+                    return false;
+                }
+                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["@mensaje"].ToString();
+                objadminRn = null;
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public bool Ingresar_Mantenimiento()
+        {
+            try
+            {
+                if (!validar("mantenimiento"))
+                {
+                    return false;
+                }
+                clsadminRN objadminRn = new clsadminRN(strNombreApp);
+                objadminRn.StrVehiculo_id = strVehiculo_id;
+                objadminRn.IntEmpleado_id = intEmpleado_id;
+                objadminRn.StrDiagnostico = strDiagnostico;
+                objadminRn.StrProc_Realizado = strProc_Realizado;
+                if (!objadminRn.Mantenimiento())
+                {
+                    strError = objadminRn.StrError;
+                    objadminRn = null;
+                    return false;
+                }
+                resultado = "";
+                objadminRn = null;
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        
+        }
+        public bool Ingresar_Repuesto()
+        {
+            try
+            {
+                if (!validar("repuesto"))
+                {
+                    return false;
+                }
+                clsadminRN objadminRn = new clsadminRN(strNombreApp);
+                objadminRn.StrNombreRep = strNombreRep;
+                objadminRn.IntUnidStock = intUnidStock;
+                objadminRn.IntUnidOrdenadas = intUnidOrdenadas;
+                objadminRn.IntPrecioUnid = intPrecioUnid;
+                objadminRn.IntProv_id = intProv_id;
+                if (!objadminRn.Repuesto())
+                {
+                    strError = objadminRn.StrError;
+                    objadminRn = null;
+                    return false;
+                }
+                resultado = "";
+                objadminRn = null;
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
         public bool Ingresar_factura()
         {
             try
             {
-                if (!validar("Empleado"))
+                if (!validar("factura"))
                 {
                     return false;
                 }
@@ -371,6 +463,66 @@ namespace LibOperativa
 
                 throw ex;
             }
+        }
+        public bool Ingresar_Vehiculo()
+        {
+            try
+            {
+                if (!validar("vehiculo"))
+                {
+                    return false;
+                }
+                clsadminRN objadminRn = new clsadminRN(strNombreApp);
+                objadminRn.StrVehiculo_id = strVehiculo_id;
+                objadminRn.StrMarca = strMarca;
+                objadminRn.IntModelo = intModelo;
+                objadminRn.StrColor = strColor;
+                objadminRn.StrRefencia = strRefencia;
+                if (!objadminRn.Vehiculo())
+                {
+                    strError = objadminRn.StrError;
+                    objadminRn = null;
+                    return false;
+                }
+                resultado = "";
+                objadminRn = null;
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+        public bool Ingresar_Detalle_factura()
+        {
+            try
+            {
+                if (!validar("detalle_factura"))
+                {
+                    return false;
+                }
+                clsadminRN objadminRn = new clsadminRN(strNombreApp);
+                objadminRn.DatFecha = datFecha;
+                objadminRn.IntCant_Repuesto = intCant_Repuesto;
+                objadminRn.IntPrecio_Mant = intPrecio_Mant;
+                if (!objadminRn.Detalle_factura())
+                {
+                    strError = objadminRn.StrError;
+                    objadminRn = null;
+                    return false;
+                }
+                resultado = "";
+                objadminRn = null;
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
         }
     }
 }

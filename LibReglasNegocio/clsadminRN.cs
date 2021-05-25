@@ -327,7 +327,7 @@ namespace LibReglasNegocio
                         break;
                     case "MANTENIMIENTO":
                         objDatosEscuela = new SqlParameter[4];
-                        objDatosEscuela[0] = new SqlParameter("Vehículo_id", StrVehiculo_id);
+                        objDatosEscuela[0] = new SqlParameter("Vehículo_id", strVehiculo_id);
                         objDatosEscuela[1] = new SqlParameter("empleado_id", intEmpleado_id);
                         objDatosEscuela[2] = new SqlParameter("diagnostico", strDiagnostico);
                         objDatosEscuela[3] = new SqlParameter("procedimiento_realizado", strProc_Realizado);
@@ -342,12 +342,12 @@ namespace LibReglasNegocio
                         break;
                     case "FACTURA":
                         objDatosEscuela = new SqlParameter[2];
-                        objDatosEscuela[0] = new SqlParameter("Vehículo_id", StrVehiculo_id);
+                        objDatosEscuela[0] = new SqlParameter("Vehículo_id", strVehiculo_id);
                         objDatosEscuela[1] = new SqlParameter("empleado_id", intEmpleado_id);
                         break;
                     case "VEHICULO":
                         objDatosEscuela = new SqlParameter[5];
-                        objDatosEscuela[0] = new SqlParameter("Vehículo_id", StrVehiculo_id);
+                        objDatosEscuela[0] = new SqlParameter("Vehículo_id", strVehiculo_id);
                         objDatosEscuela[1] = new SqlParameter("marca", strMarca);
                         objDatosEscuela[2] = new SqlParameter("modelo", intModelo);
                         objDatosEscuela[3] = new SqlParameter("color", strColor);
