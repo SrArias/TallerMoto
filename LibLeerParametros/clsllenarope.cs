@@ -13,21 +13,54 @@ namespace LibOperativa
         private string strNombreApp;
         private string strError;
         private int intidentificacion;
+        private int opcion;
+
+        public int Identificacion { get => intidentificacion; set => intidentificacion = value; }
+        public int Opcion { get => opcion; set => opcion = value; }
+
+        public bool llenarGrid(GridView gvGenerico)
+        {
+            try
+            {
+                clsLlenarControles objLnRn = new clsLlenarControles(strNombreApp);
+
+                objLnRn.Opcion = opcion;
+
+                if (!objLnRn.LlenarGrid(gvGenerico))
+                {
+
+                    strError = objLnRn.Error;
+                    objLnRn = null;
+                    return false;
+                }
+                objLnRn = null;
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+
         public clsllenarope(string nombreapp)
         {
             strNombreApp = nombreapp;
             strError = string.Empty;
         }
 
-        public int Identificacion { get => intidentificacion; set => intidentificacion = value; }
 
         public bool llenarDrop(DropDownList ddlGenerico)
         {
             try
             {
                 clsLlenarControles objLnRn = new clsLlenarControles(strNombreApp);
-                
 
+                objLnRn.Opcion = opcion;
                 if (!objLnRn.Llenarddl(ddlGenerico))
                 {
 

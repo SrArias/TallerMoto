@@ -7,11 +7,11 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace frmTallermotos
+namespace prjtallermotos.Admin
 {
 
 
-    public partial class frmLogin
+    public partial class Facturas
     {
 
         /// <summary>
@@ -24,30 +24,48 @@ namespace frmTallermotos
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// Control txtusername.
+        /// Control drpvehiculoID.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtusername;
+        protected global::System.Web.UI.WebControls.DropDownList drpvehiculoID;
 
         /// <summary>
-        /// Control txtpassword.
+        /// Control drpEmpleadoID.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtpassword;
+        protected global::System.Web.UI.WebControls.DropDownList drpEmpleadoID;
 
         /// <summary>
-        /// Control btn.
+        /// Control btnInsertarFac.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn;
+        protected global::System.Web.UI.WebControls.Button btnInsertarFac;
+
+        /// <summary>
+        /// Control pnlFactura.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlFactura;
+
+        /// <summary>
+        /// Control gvFactura.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvFactura;
     }
 }

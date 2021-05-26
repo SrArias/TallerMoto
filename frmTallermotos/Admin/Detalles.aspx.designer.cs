@@ -7,11 +7,11 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace prjtallermotos
+namespace prjtallermotos.Admin
 {
 
 
-    public partial class frmadmin
+    public partial class Detalles
     {
 
         /// <summary>
@@ -24,102 +24,102 @@ namespace prjtallermotos
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// Control rdlOpciones.
+        /// Control txtFecha.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList rdlOpciones;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtFecha;
 
         /// <summary>
-        /// Control pnlmecanico.
+        /// Control drpRepuesto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlmecanico;
+        protected global::System.Web.UI.WebControls.DropDownList drpRepuesto;
 
         /// <summary>
-        /// Control ddlCarro.
+        /// Control txtCantidadRep.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCarro;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtCantidadRep;
 
         /// <summary>
-        /// Control ddlmecanico.
+        /// Control drpMantenimientoId.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlmecanico;
+        protected global::System.Web.UI.WebControls.DropDownList drpMantenimientoId;
 
         /// <summary>
-        /// Control btnregistrar.
+        /// Control txtPrecioMant.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnregistrar;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtPrecioMant;
 
         /// <summary>
-        /// Control pnlCliente.
+        /// Control drpFacturaID.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlCliente;
+        protected global::System.Web.UI.WebControls.DropDownList drpFacturaID;
 
         /// <summary>
-        /// Control txtidentificación.
+        /// Control btnInsertarDet.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtidentificación;
+        protected global::System.Web.UI.WebControls.Button btnInsertarDet;
 
         /// <summary>
-        /// Control txtnombre.
+        /// Control btnActualizarDet.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtnombre;
+        protected global::System.Web.UI.WebControls.Button btnActualizarDet;
 
         /// <summary>
-        /// Control txttelefono.
+        /// Control drpIdDetalle.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txttelefono;
+        protected global::System.Web.UI.WebControls.DropDownList drpIdDetalle;
 
         /// <summary>
-        /// Control txtdireccion.
+        /// Control pnlDetalles.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtdireccion;
+        protected global::System.Web.UI.WebControls.Panel pnlDetalles;
 
         /// <summary>
-        /// Control ddlvehiculo.
+        /// Control gvDetalles.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlvehiculo;
+        protected global::System.Web.UI.WebControls.GridView gvDetalles;
     }
 }

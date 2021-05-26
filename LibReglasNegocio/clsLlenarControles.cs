@@ -80,7 +80,7 @@ namespace LibReglasNegocio
                 {
                     case "ddlvehiculo":
                     case "ddlcarro":
-                    case "drpplaca":
+                    case "drpPlaca":
                         strid = "vehiculo_id";
                         strcampostext = "placa";
                         objcnx.SQL = "sp_getautos";
@@ -96,11 +96,11 @@ namespace LibReglasNegocio
                         objcnx.ParametrosSQL = objDatosTaller;
                         objcnx.SQL = "sp_getempleados";
                         break; 
-                    case "drpclientes":
+                    case "drpClientes":
                         strid = "cliente_id";
                         strcampostext = "nombre";
                         objcnx.ParametrosSQL = objDatosTaller;
-                        objcnx.SQL = "sp_getclientes";
+                        objcnx.SQL = "sp_getcliente";
                         break;
 
                     default:
@@ -141,10 +141,6 @@ namespace LibReglasNegocio
                 {
                     case "gvempleados":                        
                         objGrid.SQL = "sp_getempleados";
-                        objGrid.ParametrosSQL = objDatosTaller;
-                        break;
-                    case "gvclientes":                        
-                        objGrid.SQL = "sp_getclientes";
                         objGrid.ParametrosSQL = objDatosTaller;
                         break;
                     case "ddlmecanico":
