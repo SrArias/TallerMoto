@@ -67,8 +67,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\Clientes.aspx" />
+    <Content Include="Admin\Detalles.aspx" />
+    <Content Include="Admin\Empleado.aspx" />
+    <Content Include="Admin\Facturas.aspx" />
+    <Content Include="Admin\Mantenimiento.aspx" />
+    <Content Include="Admin\Proveedores.aspx" />
+    <Content Include="Admin\Repuestos.aspx" />
+    <Content Include="Admin\Vehiculos.aspx" />
     <Content Include="CON_prjtallermotos.xml" />
     <Content Include="css\style.css" />
+    <Content Include="css\styleAdmin.css" />
+    <Content Include="css\styleCliente.css" />
     <Content Include="dbo_taller_motos.sql" />
     <Content Include="frmCliente.aspx" />
     <Content Include="frmLogin.aspx" />
@@ -77,10 +87,71 @@
     <Content Include="img\17745.jpg" />
     <Content Include="img\17751.jpg" />
     <Content Include="img\17755.jpg" />
+    <Content Include="img\580b585b2edbce24c47b2d08.png" />
+    <Content Include="img\imageedit_3_5509983854.png" />
+    <Content Include="img\puede_ser.jpg" />
+    <Content Include="img\shutterstock_185512175-1024x576.jpg" />
+    <Content Include="img\UAE-Desert-Motocross-1920x1200 %281%29.jpg" />
     <Content Include="js\sweetalert.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\Clientes.aspx.cs">
+      <DependentUpon>Clientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Clientes.aspx.designer.cs">
+      <DependentUpon>Clientes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Detalles.aspx.cs">
+      <DependentUpon>Detalles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Detalles.aspx.designer.cs">
+      <DependentUpon>Detalles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Empleado.aspx.cs">
+      <DependentUpon>Empleado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Empleado.aspx.designer.cs">
+      <DependentUpon>Empleado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Facturas.aspx.cs">
+      <DependentUpon>Facturas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Facturas.aspx.designer.cs">
+      <DependentUpon>Facturas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Mantenimiento.aspx.cs">
+      <DependentUpon>Mantenimiento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Mantenimiento.aspx.designer.cs">
+      <DependentUpon>Mantenimiento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Proveedores.aspx.cs">
+      <DependentUpon>Proveedores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Proveedores.aspx.designer.cs">
+      <DependentUpon>Proveedores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Repuestos.aspx.cs">
+      <DependentUpon>Repuestos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Repuestos.aspx.designer.cs">
+      <DependentUpon>Repuestos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Vehiculos.aspx.cs">
+      <DependentUpon>Vehiculos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Vehiculos.aspx.designer.cs">
+      <DependentUpon>Vehiculos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="frmCliente.aspx.cs">
       <DependentUpon>frmCliente.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -115,15 +186,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibLeerParametros\LibOperativa.csproj">
-      <Project>{94A64206-8A66-422B-902D-60348A597A85}</Project>
+      <Project>{94a64206-8a66-422b-902d-60348a597a85}</Project>
       <Name>LibOperativa</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LibReglasNegocio\LibReglasNegocio.csproj">
-      <Project>{8A6F5E87-0AA7-404B-92D5-C002E1985458}</Project>
-      <Name>LibReglasNegocio</Name>
-    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

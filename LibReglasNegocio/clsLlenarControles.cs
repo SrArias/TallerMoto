@@ -7,13 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
+using libLlenarGrids;
 
 namespace LibReglasNegocio
 {
     public class clsLlenarControles
     {
+
         private const string ID = "Id";
-        private SqlParameter[] objDatosEscuela;
+        private clsLlenarGrids objGrid;
+        private SqlParameter[] objDatosTaller;
         private clsLlenarCombos objcnx;
         private DataSet dsDatos;
         private string strError;
@@ -24,12 +27,15 @@ namespace LibReglasNegocio
         private int intidteacher;
         private string intidgrupo;
         private int identificacion;
+        private int opcion;
 
         public int Identificacion { get => identificacion; set => identificacion = value; }
         public string Error { get => strError; set => strError = value; }
+        public int Opcion { get => opcion; set => opcion = value; }
 
         public clsLlenarControles(string NombreApp)
         {
+            objGrid = new clsLlenarGrids(NombreApp);
             objcnx = new clsLlenarCombos(NombreApp);
             
         }
@@ -37,13 +43,14 @@ namespace LibReglasNegocio
         {
             try
             {
-                objDatosEscuela = null;
+                objDatosTaller = null;
 
                 switch (MetodoOrigen.ToUpper())
                 {
-                    case "ddlvehiculoM":
-                        objDatosEscuela = new SqlParameter[1];
-                        objDatosEscuela[0] = new SqlParameter("identificacion", identificacion);
+                    case "DRPIDEMPLEADO":
+                    case "GVEMPLEADOS":
+                        objDatosTaller = new SqlParameter[1];
+                        objDatosTaller[0] = new SqlParameter("opcion", opcion);
                         break;
                    
 
@@ -64,11 +71,16 @@ namespace LibReglasNegocio
         {
             try
             {
+                //if (!AgregarParametros(ddlGenerico.ID))
+                //{
+                //    return false;
+                //}
                 
                 switch (ddlGenerico.ID.ToLower())
                 {
                     case "ddlvehiculo":
                     case "ddlcarro":
+                    case "drpplaca":
                         strid = "vehiculo_id";
                         strcampostext = "placa";
                         objcnx.SQL = "sp_getautos";
@@ -78,11 +90,17 @@ namespace LibReglasNegocio
                         strcampostext = "nombre";
                         objcnx.SQL = "sp_getmecanico";
                         break;
-                    case "ddlvehiculoM":
-                        strid = "vehiculo_id";
-                        strcampostext = "placa";
-                        objcnx.SQL = "sp_getvehiculoMecanico";
-                        objcnx.ParametrosSQL = objDatosEscuela;
+                    case "drpidempleado":
+                        strid = "empleado_id";
+                        strcampostext = "nombre";
+                        objcnx.ParametrosSQL = objDatosTaller;
+                        objcnx.SQL = "sp_getempleados";
+                        break; 
+                    case "drpclientes":
+                        strid = "cliente_id";
+                        strcampostext = "nombre";
+                        objcnx.ParametrosSQL = objDatosTaller;
+                        objcnx.SQL = "sp_getclientes";
                         break;
 
                     default:
@@ -99,6 +117,56 @@ namespace LibReglasNegocio
                     return false;
                 }
                 objcnx = null;
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+
+
+        public bool LlenarGrid(GridView gvGenerico)
+        {
+            try
+            {
+                //if (!AgregarParametros(gvGenerico.ID))
+                //{
+                //    return false;
+                //}
+
+                switch (gvGenerico.ID.ToLower())
+                {
+                    case "gvempleados":                        
+                        objGrid.SQL = "sp_getempleados";
+                        objGrid.ParametrosSQL = objDatosTaller;
+                        break;
+                    case "gvclientes":                        
+                        objGrid.SQL = "sp_getclientes";
+                        objGrid.ParametrosSQL = objDatosTaller;
+                        break;
+                    case "ddlmecanico":
+                        strid = "empleado_id";
+                        strcampostext = "nombre";
+                        objcnx.SQL = "sp_getmecanico";
+                        break;
+                 
+
+                    default:
+                        strError = "ddl no programado";
+                        return false;
+                }
+         
+
+                if (!objGrid.llenarGridWeb(gvGenerico))
+                {
+                    strError = objGrid.Error;
+                    objGrid = null;
+                    return false;
+                }
+                objGrid = null;
                 return true;
             }
             catch (Exception ex)
