@@ -57,7 +57,7 @@
   <ItemGroup>
     <Compile Include="clsLlenarControles.cs" />
     <Compile Include="clsLoginRN.cs" />
-    <Compile Include="clsMantenimientoRN.cs" />
+    <Compile Include="clsClienteRN.cs" />
     <Compile Include="clsadminRN.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

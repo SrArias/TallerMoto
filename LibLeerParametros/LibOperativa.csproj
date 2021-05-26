@@ -7,8 +7,8 @@
     <ProjectGuid>{94A64206-8A66-422B-902D-60348A597A85}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LibLeerParametros</RootNamespace>
-    <AssemblyName>LibLeerParametros</AssemblyName>
+    <RootNamespace>LibOperativa</RootNamespace>
+    <AssemblyName>LibOperativa</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -48,7 +48,7 @@
     <Compile Include="clsadminop.cs" />
     <Compile Include="clsllenarope.cs" />
     <Compile Include="clsLogin.cs" />
-    <Compile Include="clsmantenimiento.cs" />
+    <Compile Include="clsClienteOpe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

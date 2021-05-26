@@ -43,6 +43,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LibOperativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\LibLeerParametros\bin\Debug\LibOperativa.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -183,16 +187,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LibLeerParametros\LibOperativa.csproj">
-      <Project>{94A64206-8A66-422B-902D-60348A597A85}</Project>
-      <Name>LibOperativa</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LibReglasNegocio\LibReglasNegocio.csproj">
-      <Project>{8A6F5E87-0AA7-404B-92D5-C002E1985458}</Project>
-      <Name>LibReglasNegocio</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

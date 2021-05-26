@@ -9,6 +9,7 @@ namespace LibOperativa
 {
     public class clsadminop
     {
+        #region "Atributos"
         private int intUsuario_id;
         private string strContrasena;
         private string strVehiculo_id;
@@ -45,8 +46,11 @@ namespace LibOperativa
         private string strNombreApp;
         private string strError;
         private string resultado;
+        private int intRepuesto_id;
+        private int intMantenimiento_id;
+        #endregion
 
-
+        #region "Propiedades"
         public int IntUsuario_id { get => intUsuario_id; set => intUsuario_id = value; }
         public string StrContrasena { get => strContrasena; set => strContrasena = value; }
         public string StrVehiculo_id { get => strVehiculo_id; set => strVehiculo_id = value; }
@@ -83,11 +87,53 @@ namespace LibOperativa
         public string StrError { get => strError; set => strError = value; }
         public int IntCargo { get => intCargo; set => intCargo = value; }
         public int IntTurno { get => intTurno; set => intTurno = value; }
+        public int IntRepuesto_id { get => intRepuesto_id; set => intRepuesto_id = value; }
+        public int IntMantenimiento_id { get => intMantenimiento_id; set => intMantenimiento_id = value; }
+        #endregion
 
+        #region "Constructor"
         public clsadminop(string nombreapp)
         {
             strNombreApp = nombreapp;
+            //this.intUsuario_id = 0;
+            //this.strContrasena = "";
+            //this.strVehiculo_id = "";
+            //this.strMarca = "";
+            //this.strCilindraje = "";
+            //this.intModelo = 0;
+            //this.strColor = "";
+            //this.strRefencia = "";
+            //this.strNombreC = "";
+            //this.strTelefonoC = "";
+            //this.strDireccionC = "";
+            //this.intEmpleado_id = 0;
+            //this.strNombreE = "";
+            //this.strTelefonoE = "";
+            //this.strDireccionE = "";
+            //this.intSalarioE = 0;
+            //this.intProv_id = 0;
+            //this.strNombreProv = "";
+            //this.strNombreContacProv = "";
+            //this.strTituloContacProv = "";
+            //this.strNumeroContacprov = "";
+            //this.strDireccionProv = "";
+            //this.intRepuesto_id = 0;
+            //this.strNombreRep = "";
+            //this.intUnidStock = 0;
+            //this.intUnidOrdenadas = 0;
+            //this.intPrecioUnid = 0;
+            //this.intCargo = 0;
+            //this.intMantenimiento_id = 0;
+            //this.strDiagnostico = "";
+            //this.strProc_Realizado = "";
+            //this.datFecha = DateTime.Now;
+            //this.intCant_Repuesto = 0;
+            //this.intPrecio_Mant = 0;
+            //this.strNombreApp = "";
         }
+        #endregion
+
+        #region "Métodos privados"
         private bool validar(string metodoOrigen)
         {
             if (string.IsNullOrEmpty(strNombreApp))
@@ -280,7 +326,37 @@ namespace LibOperativa
                 case "getoneempleado":
                     if (intEmpleado_id <= 0)
                     {
-                        strError = "Ingrese la id del empleado";
+                        strError = "Seleccione el nombre del empleado";
+                    }
+                    break;
+                case "getonecliente":
+                    if (intUsuario_id <= 0)
+                    {
+                        strError = "Seleccione el nombre del  cliente";
+                    }
+                    break;
+                case "getonevehiculo":
+                    if (strVehiculo_id == string.Empty)
+                    {
+                        strError = "La placa del vehiculo no ha sido ingresada correctamente";
+                    }
+                    break;
+                case "getonerespuesto":
+                    if (intRepuesto_id <= 0)
+                    {
+                        strError = "Seleccione el nombre del repuesto";
+                    }
+                    break;
+                case "getoneproveedor":
+                    if (intProv_id <= 0)
+                    {
+                        strError = "Seleccione el nombre de la compañía proveedora";
+                    }
+                    break;
+                case "getonemantenimiento":
+                    if (intMantenimiento_id <= 0)
+                    {
+                        strError = "Seleccione un mantenimiento";
                     }
                     break;
                 default:
@@ -289,6 +365,9 @@ namespace LibOperativa
             }
             return true;
         }
+        #endregion
+
+        #region "Métodos Públicos"
         public bool Ingresar_Usuario()
         {
             try
@@ -309,7 +388,7 @@ namespace LibOperativa
                 {
                     strError = objadminRn.StrError;
                     objadminRn = null;
-                    return false;
+                    return false; 
                 }
                 resultado = objadminRn.DsDatos.Tables[0].Rows[0]["@mensaje"].ToString();
                 objadminRn = null;
@@ -568,31 +647,151 @@ namespace LibOperativa
             }
 
         }
-
-
         public bool getone_cliente()
         {
             try
             {
-                if (!validar("getoneempleado"))
+                if (!validar("getonecliente"))
                 {
                     return false;
                 }
                 clsadminRN objadminRn = new clsadminRN(strNombreApp);
-                objadminRn.IntEmpleado_id = intEmpleado_id;
-                if (!objadminRn.Obtener_Empleado())
+                objadminRn.IntUsuario_id = intUsuario_id;
+                if (!objadminRn.Obtener_Cliente())
                 {
                     strError = objadminRn.StrError;
                     objadminRn = null;
                     return false;
                 }
+                intUsuario_id = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["cliente_id"].ToString());
+                strDireccionC = objadminRn.DsDatos.Tables[0].Rows[0]["direccion"].ToString();
+                strNombreC = objadminRn.DsDatos.Tables[0].Rows[0]["nombre"].ToString();
+                strTelefonoC = objadminRn.DsDatos.Tables[0].Rows[0]["telefono"].ToString();
+                objadminRn = null;
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+        public bool getone_vehiculo()
+        {
+            try
+            {
+                if (!validar("getonevehiculo"))
+                {
+                    return false;
+                }
+                clsadminRN objadminRn = new clsadminRN(strNombreApp);
+                objadminRn.StrVehiculo_id = strVehiculo_id;
+                if (!objadminRn.Obtener_Vehiculo())
+                {
+                    strError = objadminRn.StrError;
+                    objadminRn = null;
+                    return false;
+                }
+                strVehiculo_id = objadminRn.DsDatos.Tables[0].Rows[0]["vehiculo_id"].ToString();
+                strMarca = objadminRn.DsDatos.Tables[0].Rows[0]["marca"].ToString();
+                strCilindraje = objadminRn.DsDatos.Tables[0].Rows[0]["cilindraje"].ToString();
+                intModelo = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["modelo"].ToString());
+                strColor = objadminRn.DsDatos.Tables[0].Rows[0]["color"].ToString();
+                strRefencia = objadminRn.DsDatos.Tables[0].Rows[0]["referencia"].ToString();
+                objadminRn = null;
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+        public bool getone_repuesto()
+        {
+            try
+            {
+                if (!validar("getonerepuesto"))
+                {
+                    return false;
+                }
+                clsadminRN objadminRn = new clsadminRN(strNombreApp);
+                objadminRn.IntRepuesto_id = intRepuesto_id;
+                if (!objadminRn.Obtener_Repuesto())
+                {
+                    strError = objadminRn.StrError;
+                    objadminRn = null;
+                    return false;
+                }
+                intRepuesto_id = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["repuesto_id"].ToString());
+                strNombreRep = objadminRn.DsDatos.Tables[0].Rows[0]["nombre_repuesto"].ToString();
+                intUnidStock = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["unidades_en_stock"].ToString());
+                intUnidOrdenadas = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["unidades_ordenadas"].ToString());
+                objadminRn = null;
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+        public bool getone_proveedor()
+        {
+            try
+            {
+                if (!validar("getoneproveedor"))
+                {
+                    return false;
+                }
+                clsadminRN objadminRn = new clsadminRN(strNombreApp);
+                objadminRn.IntProv_id = intProv_id;
+                if (!objadminRn.Obtener_Proveedor())
+                {
+                    strError = objadminRn.StrError;
+                    objadminRn = null;
+                    return false;
+                }
+                intProv_id = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["prov_id"].ToString());
+                strNombreProv = objadminRn.DsDatos.Tables[0].Rows[0]["nombre_compania"].ToString();
+                strNombreContacProv = objadminRn.DsDatos.Tables[0].Rows[0]["nombre_contacto"].ToString();
+                strTituloContacProv = objadminRn.DsDatos.Tables[0].Rows[0]["titulo_contacto"].ToString();
+                strNumeroContacprov = objadminRn.DsDatos.Tables[0].Rows[0]["numero_contacto"].ToString();
+                strDireccionProv = objadminRn.DsDatos.Tables[0].Rows[0]["direccion"].ToString();
+                objadminRn = null;
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+        public bool getone_Mantenimiento()
+        {
+            try
+            {
+                if (!validar("getonemantenimiento"))
+                {
+                    return false;
+                }
+                clsadminRN objadminRn = new clsadminRN(strNombreApp);
+                objadminRn.IntProv_id = intProv_id;
+                if (!objadminRn.Obtener_Mantenimiento())
+                {
+                    strError = objadminRn.StrError;
+                    objadminRn = null;
+                    return false;
+                }
+                intMantenimiento_id = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["mantenimiento_id"].ToString());
+                strVehiculo_id = objadminRn.DsDatos.Tables[0].Rows[0]["vehiculo_id"].ToString();
                 intEmpleado_id = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["empleado_id"].ToString());
-                strDireccionE = objadminRn.DsDatos.Tables[0].Rows[0]["direccion"].ToString();
-                strNombreE = objadminRn.DsDatos.Tables[0].Rows[0]["nombre"].ToString();
-                strTelefonoE = objadminRn.DsDatos.Tables[0].Rows[0]["telefono"].ToString();
-                intCargo = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["cargo_id"].ToString());
-                
-                intSalarioE = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["salario"].ToString());
+                strDiagnostico = objadminRn.DsDatos.Tables[0].Rows[0]["diagnostico"].ToString();
+                strProc_Realizado = objadminRn.DsDatos.Tables[0].Rows[0]["procedimiento_realizado"].ToString();                
                 objadminRn = null;
                 return true;
             }
@@ -604,5 +803,6 @@ namespace LibOperativa
 
         }
 
+        #endregion
     }
 }

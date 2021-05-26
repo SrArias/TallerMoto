@@ -33,12 +33,14 @@ namespace LibReglasNegocio
         private string strTituloContacProv;
         private string strNumeroContacprov;
         private string strDireccionProv;
+        private int intRepuesto_id;
         private string strNombreRep;
         private int intUnidStock;
         private int intUnidOrdenadas;
         private int intPrecioUnid;
         private int intcargo;
         private int intsalario;
+        private int intMantenimiento_id;
         private string strDiagnostico;
         private string strProc_Realizado;
         private DateTime datFecha;
@@ -49,6 +51,7 @@ namespace LibReglasNegocio
         private clsConexionBd objcnx;
         private string strError;
         private DataSet dsDatos;
+
 
         public int IntUsuario_id { get => intUsuario_id; set => intUsuario_id = value; }
         public string StrContrasena { get => strContrasena; set => strContrasena = value; }
@@ -86,14 +89,52 @@ namespace LibReglasNegocio
         public string StrError { get => strError; set => strError = value; }
         public DataSet DsDatos { get => dsDatos; set => dsDatos = value; }
         public int IntEmpleado_id { get => intEmpleado_id; set => intEmpleado_id = value; }
+        public int IntRepuesto_id { get => intRepuesto_id; set => intRepuesto_id = value; }
+        public int IntMantenimiento_id { get => intMantenimiento_id; set => intMantenimiento_id = value; }
 
         public clsadminRN(string nombreapp)
         {
             strNombreApp = nombreapp;
             objcnx = new clsConexionBd(nombreapp);
-        }
+            this.intUsuario_id = 0;
+            this.strContrasena="";
+            this.strVehiculo_id = "";
+            this.strMarca = "";
+            this.strCilindraje = "";
+            this.intModelo = 0;
+            this.strColor = "";
+            this.strRefencia = "";
+            this.strNombreC = "";
+            this.strTelefonoC = "";
+            this.strDireccionC = "";
+            this.intEmpleado_id = 0;
+            this.strNombreE = "";
+            this.strTelefonoE = "";
+            this.strDireccionE = "";
+            this.intSalarioE = 0;
+            this.intProv_id = 0;
+            this.strNombreProv = "";
+            this.strNombreContacProv = "";
+            this.strTituloContacProv = "";
+            this.strNumeroContacprov = "";
+            this.strDireccionProv = "";
+            this.intRepuesto_id = 0;
+            this.strNombreRep = "";
+            this.intUnidStock = 0;
+            this.intUnidOrdenadas = 0;
+            this.intPrecioUnid = 0;
+            this.intcargo = 0;
+            this.intsalario = 0;
+            this.intMantenimiento_id = 0;
+            this.strDiagnostico = "";
+            this.strProc_Realizado = "";
+            this.datFecha = DateTime.Now;
+            this.intCant_Repuesto = 0;
+            this.intPrecio_Mant = 0;
+            this.strNombreApp = "";
+    }
 
-        private bool validar(string MetodoOrigen)
+    private bool validar(string MetodoOrigen)
         {
             if (string.IsNullOrEmpty(strNombreApp))
             {
@@ -284,43 +325,40 @@ namespace LibReglasNegocio
                 case "getoneempleado":
                     if (intEmpleado_id <= 0)
                     {
-                        strError = "Ingrese la id del empleado";
+                        strError = "Seleccione el nombre del empleado";
+                    }
+                    break;
+                case "getonecliente":
+                    if (intUsuario_id <= 0)
+                    {
+                        strError = "Seleccione el nombre del  cliente";
+                    }
+                    break;
+                case "getonevehiculo":
+                    if (strVehiculo_id == string.Empty)
+                    {
+                        strError = "La placa del vehiculo no ha sido ingresada correctamente";
+                    }
+                    break;
+                case "getonerespuesto":
+                    if (intRepuesto_id <= 0)
+                    {
+                        strError = "Seleccione el nombre del repuesto";
+                    }
+                    break;
+                case "getoneproveedor":
+                    if (intProv_id <= 0)
+                    {
+                        strError = "Seleccione el nombre de la compañía proveedora";
+                    }
+                    break;
+                case "getonemantenimiento":
+                    if (intMantenimiento_id <= 0)
+                    {
+                        strError = "Seleccione un mantenimiento";
                     }
                     break;
 
-                    //FALTA HACER MÉTODO EN BD
-                case "getonecliente":
-                    if (intEmpleado_id <= 0)
-                    {
-                        strError = "Ingrese la id del cliente";
-                    }
-                    break;
-                case "updateempleado":
-                    if (intEmpleado_id <= 0)
-                    {
-                        strError = "Ingrese la id del empleado";
-                    }
-                    if (strNombreE == string.Empty)
-                    {
-                        strError = "Ingrese el nombre del empleado";
-                    }
-                    if (strTelefonoE == string.Empty)
-                    {
-                        strError = "Ingrese el telefono del empleado";
-                    }
-                    if (strDireccionE == string.Empty)
-                    {
-                        strError = "Ingrese la direccion del empleado";
-                    }
-                    if (intcargo <= 0)
-                    {
-                        strError = "Seleccione un cargo";
-                    }
-                    if (intSalarioE <= 0)
-                    {
-                        strError = "Ingrese un salario";
-                    }                   
-                    break;
                 default:
                     strError = "Caso no válido OPE";
                     return false;
@@ -407,8 +445,22 @@ namespace LibReglasNegocio
                     case "GETONECLIENTE":
                         objDatosEscuela = new SqlParameter[1];
                         objDatosEscuela[0] = new SqlParameter("cliente_id", intUsuario_id);
-
-                        //revisar valores auto incrementables 
+                        break;
+                    case "GETONEVEHICULO":
+                        objDatosEscuela = new SqlParameter[1];
+                        objDatosEscuela[0] = new SqlParameter("Vehículo_id", strVehiculo_id);
+                        break;
+                    case "GETONEREPUESTO":
+                        objDatosEscuela = new SqlParameter[1];
+                        objDatosEscuela[0] = new SqlParameter("respuesto_id", intRepuesto_id);
+                        break;
+                    case "GETONEPROVEEDOR":
+                        objDatosEscuela = new SqlParameter[1];
+                        objDatosEscuela[0] = new SqlParameter("prov_id", intProv_id);
+                        break;
+                    case "GETONEMANTENIMIENTO":
+                        objDatosEscuela = new SqlParameter[1];
+                        objDatosEscuela[0] = new SqlParameter("mantenimiento_id", intMantenimiento_id);
                         break;
                     default:
 
@@ -714,5 +766,122 @@ namespace LibReglasNegocio
                 throw;
             }
         }
+        public bool Obtener_Vehiculo()
+        {
+            try
+            {
+                if (!AgregarParametros("getonevehiculo"))
+                {
+                    return false;
+                }
+                objcnx.SQL = "sp_getonevehiculo";
+                objcnx.ParametrosSQL = objDatosEscuela;
+                if (!objcnx.llenarDataSet(true, true))
+                {
+                    strError = objcnx.Error;
+                    objcnx.cerrarCnx();
+                    objcnx = null;
+                    return false;
+                }
+                dsDatos = objcnx.DataSetLleno;
+                objcnx.cerrarCnx();
+                objcnx = null;
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public bool Obtener_Repuesto()
+        {
+            try
+            {
+                if (!AgregarParametros("getonerepuesto"))
+                {
+                    return false;
+                }
+                objcnx.SQL = "sp_getonerepuesto";
+                objcnx.ParametrosSQL = objDatosEscuela;
+                if (!objcnx.llenarDataSet(true, true))
+                {
+                    strError = objcnx.Error;
+                    objcnx.cerrarCnx();
+                    objcnx = null;
+                    return false;
+                }
+                dsDatos = objcnx.DataSetLleno;
+                objcnx.cerrarCnx();
+                objcnx = null;
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public bool Obtener_Proveedor()
+        {
+            try
+            {
+                if (!AgregarParametros("getonerepuesto"))
+                {
+                    return false;
+                }
+                objcnx.SQL = "sp_getoneproveedor";
+                objcnx.ParametrosSQL = objDatosEscuela;
+                if (!objcnx.llenarDataSet(true, true))
+                {
+                    strError = objcnx.Error;
+                    objcnx.cerrarCnx();
+                    objcnx = null;
+                    return false;
+                }
+                dsDatos = objcnx.DataSetLleno;
+                objcnx.cerrarCnx();
+                objcnx = null;
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public bool Obtener_Mantenimiento()
+        {
+            try
+            {
+                if (!AgregarParametros("getonemantenimiento"))
+                {
+                    return false;
+                }
+                objcnx.SQL = "sp_getonemantenimiento";
+                objcnx.ParametrosSQL = objDatosEscuela;
+                if (!objcnx.llenarDataSet(true, true))
+                {
+                    strError = objcnx.Error;
+                    objcnx.cerrarCnx();
+                    objcnx = null;
+                    return false;
+                }
+                dsDatos = objcnx.DataSetLleno;
+                objcnx.cerrarCnx();
+                objcnx = null;
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }

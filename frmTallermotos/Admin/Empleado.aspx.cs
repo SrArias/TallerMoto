@@ -23,11 +23,11 @@ namespace prjtallermotos.Admin
                 objadmin = new clsadminop(strnombreapp);
                 if (!IsPostBack)
                 {
-                    objcontroles.Opcion = 2;
+                    
                     if (!objcontroles.llenarGrid(gvEmpleados))
                     {
                         return;
-                    } objcontroles.Opcion = 1;
+                    } 
                     if (!objcontroles.llenarDrop(drpIdEmpleado))
                     {
                         return;

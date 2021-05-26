@@ -1,4 +1,4 @@
-﻿using LibLeerParametros;
+﻿using LibOperativa;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +11,17 @@ namespace frmTallermotos
 {
     public partial class frmCliente : System.Web.UI.Page
     {
+        #region "Atributos"
         private string strnombreapp;
-        clsmantenimiento objmantenimiento;
+        #endregion
+
+        #region "Instancias"
+        clsClienteOpe objmantenimiento;
+        #endregion
+
+        #region "Eventos"
+
+        #endregion
         protected void Page_Load(object sender, EventArgs e)
         {
             strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
@@ -29,7 +38,7 @@ namespace frmTallermotos
                 default:
                 case 0:
                     pnlMantenimiento.Visible = true;
-                    objmantenimiento = new clsmantenimiento(strnombreapp);
+                    objmantenimiento = new clsClienteOpe(strnombreapp);
                     try
                     {
                         objmantenimiento.Identificacion = int.Parse(Session["identificacion"].ToString());
@@ -47,7 +56,7 @@ namespace frmTallermotos
                     break;
                 case 1:
                     pnlFactura.Visible = true;
-                    objmantenimiento = new clsmantenimiento(strnombreapp);
+                    objmantenimiento = new clsClienteOpe(strnombreapp);
                     try
                     {
                         objmantenimiento.Identificacion = int.Parse(Session["identificacion"].ToString());

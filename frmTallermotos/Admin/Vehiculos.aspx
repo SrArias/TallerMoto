@@ -109,7 +109,7 @@
 
 
            <div class="row justify-content-center">
-         <asp:DropDownList ID="drpIdVehiculo" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server" >
+         <asp:DropDownList ID="drpIdVehiculo" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server" OnSelectedIndexChanged="drpIdVehiculo_SelectedIndexChanged1">
                                                 <asp:ListItem Text="Seleccione una placa" />
                                                 
        </asp:DropDownList>

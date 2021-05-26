@@ -16,7 +16,7 @@ namespace LibReglasNegocio
 
         private const string ID = "Id";
         private clsLlenarGrids objGrid;
-        private SqlParameter[] objDatosEscuela;
+        private SqlParameter[] objDatosTaller;
         private clsLlenarCombos objcnx;
         private DataSet dsDatos;
         private string strError;
@@ -43,14 +43,14 @@ namespace LibReglasNegocio
         {
             try
             {
-                objDatosEscuela = null;
+                objDatosTaller = null;
 
                 switch (MetodoOrigen.ToUpper())
                 {
                     case "DRPIDEMPLEADO":
                     case "GVEMPLEADOS":
-                        objDatosEscuela = new SqlParameter[1];
-                        objDatosEscuela[0] = new SqlParameter("opcion", opcion);
+                        objDatosTaller = new SqlParameter[1];
+                        objDatosTaller[0] = new SqlParameter("opcion", opcion);
                         break;
                    
 
@@ -71,15 +71,16 @@ namespace LibReglasNegocio
         {
             try
             {
-                if (!AgregarParametros(ddlGenerico.ID))
-                {
-                    return false;
-                }
+                //if (!AgregarParametros(ddlGenerico.ID))
+                //{
+                //    return false;
+                //}
                 
                 switch (ddlGenerico.ID.ToLower())
                 {
                     case "ddlvehiculo":
                     case "ddlcarro":
+                    case "drpPlaca":
                         strid = "vehiculo_id";
                         strcampostext = "placa";
                         objcnx.SQL = "sp_getautos";
@@ -92,14 +93,14 @@ namespace LibReglasNegocio
                     case "drpidempleado":
                         strid = "empleado_id";
                         strcampostext = "nombre";
-                        objcnx.ParametrosSQL = objDatosEscuela;
+                        objcnx.ParametrosSQL = objDatosTaller;
                         objcnx.SQL = "sp_getempleados";
-                        break;
-                    case "ddlvehiculoM":
-                        strid = "vehiculo_id";
-                        strcampostext = "placa";
-                        objcnx.SQL = "sp_getvehiculoMecanico";
-                        objcnx.ParametrosSQL = objDatosEscuela;
+                        break; 
+                    case "drpClientes":
+                        strid = "cliente_id";
+                        strcampostext = "nombre";
+                        objcnx.ParametrosSQL = objDatosTaller;
+                        objcnx.SQL = "sp_getcliente";
                         break;
 
                     default:
@@ -131,16 +132,16 @@ namespace LibReglasNegocio
         {
             try
             {
-                if (!AgregarParametros(gvGenerico.ID))
-                {
-                    return false;
-                }
+                //if (!AgregarParametros(gvGenerico.ID))
+                //{
+                //    return false;
+                //}
 
                 switch (gvGenerico.ID.ToLower())
                 {
                     case "gvempleados":                        
                         objGrid.SQL = "sp_getempleados";
-                        objGrid.ParametrosSQL = objDatosEscuela;
+                        objGrid.ParametrosSQL = objDatosTaller;
                         break;
                     case "ddlmecanico":
                         strid = "empleado_id";

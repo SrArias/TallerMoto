@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LibReglasNegocio
 {
-    public class clsMantenimientoRN
+    public class clsClienteRN
     {
         private int identificacion;
         private string strError;
@@ -23,7 +23,7 @@ namespace LibReglasNegocio
         
         public DataSet DsDatos { get => dsDatos;  }
 
-        public clsMantenimientoRN(string strNombreApp)
+        public clsClienteRN(string strNombreApp)
         {
             this.Identificacion = -1;
             this.strNombreApp = strNombreApp;
