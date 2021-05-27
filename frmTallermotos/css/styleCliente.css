@@ -4,49 +4,16 @@
     align-items: center;
 }
 
-.imgMoto17743{
+.imgMoto17743 {
     width: 768px;
-    height:480px;
+    height: 480px;
 }
 
 .propjumbo {
-    /* background-image: linear-gradient(to right top,#1ca5ab, #0d2f29 );*/
-     background-image: linear-gradient(to right top,#1ca5ab, white);
+    background-image: linear-gradient(to right top,#1ca5ab, white);
     color: black;
-    
 }
 
-
-.imglogo {
-    width: 259px;
-    height: 165px;
-    margin-left:80%;
-    margin-top:-15%;
-}
-
-.tablaFactura{
-   margin-left: 39%;
-   margin-top:-25%;
-}
-
-.tablaMant{
-    margin-left: 50%;
-    margin-top: -25%;
-}
-
-.containerOptions {
-    position: absolute;
-    width: 60%;
-    height: 172px;
-    left: 0px;
-    top: 184px;
-    background: #FFFFFF;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 35%;
-    margin-top: 5%;
-}
 
 .rdbConsultar {
     margin-right: 60px;
@@ -69,6 +36,3 @@
     width: 592px;
     height: 444px;
 }
-
-    
-
