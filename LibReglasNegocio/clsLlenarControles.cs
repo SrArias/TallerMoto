@@ -37,7 +37,7 @@ namespace LibReglasNegocio
         {
             objGrid = new clsLlenarGrids(NombreApp);
             objcnx = new clsLlenarCombos(NombreApp);
-            
+
         }
         private bool AgregarParametros(string MetodoOrigen)
         {
@@ -52,9 +52,9 @@ namespace LibReglasNegocio
                         objDatosTaller = new SqlParameter[1];
                         objDatosTaller[0] = new SqlParameter("opcion", opcion);
                         break;
-                   
 
-                        
+
+
                     default:
                         strError = "Caso no valido en las reglas del negocio";
                         return false;
@@ -75,12 +75,12 @@ namespace LibReglasNegocio
                 //{
                 //    return false;
                 //}
-                
+
                 switch (ddlGenerico.ID.ToLower())
                 {
                     case "ddlvehiculo":
                     case "ddlcarro":
-                    case "drpPlaca":
+                    case "drpplaca":
                         strid = "vehiculo_id";
                         strcampostext = "placa";
                         objcnx.SQL = "sp_getautos";
@@ -95,12 +95,12 @@ namespace LibReglasNegocio
                         strcampostext = "nombre";
                         objcnx.ParametrosSQL = objDatosTaller;
                         objcnx.SQL = "sp_getempleados";
-                        break; 
-                    case "drpClientes":
+                        break;
+                    case "drpclientes":
                         strid = "cliente_id";
                         strcampostext = "nombre";
                         objcnx.ParametrosSQL = objDatosTaller;
-                        objcnx.SQL = "sp_getcliente";
+                        objcnx.SQL = "sp_getclientes";
                         break;
 
                     default:
@@ -109,7 +109,7 @@ namespace LibReglasNegocio
                 }
                 objcnx.CampoID = strid;
                 objcnx.CampoTexto = strcampostext;
-                
+
                 if (!objcnx.llenarComboWeb(ddlGenerico))
                 {
                     strError = objcnx.Error;
@@ -139,22 +139,26 @@ namespace LibReglasNegocio
 
                 switch (gvGenerico.ID.ToLower())
                 {
-                    case "gvempleados":                        
+                    case "gvempleados":
                         objGrid.SQL = "sp_getempleados";
                         objGrid.ParametrosSQL = objDatosTaller;
+                        break;
+                    case "drpClientes":
+                    case "gvclientes":
+                        objGrid.SQL = "sp_getclientes";
                         break;
                     case "ddlmecanico":
                         strid = "empleado_id";
                         strcampostext = "nombre";
                         objcnx.SQL = "sp_getmecanico";
                         break;
-                 
+
 
                     default:
                         strError = "ddl no programado";
                         return false;
                 }
-         
+
 
                 if (!objGrid.llenarGridWeb(gvGenerico))
                 {
