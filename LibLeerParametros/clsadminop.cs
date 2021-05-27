@@ -330,17 +330,13 @@ namespace LibOperativa
                     }
                     break;
                 case "getonecliente":
+                case "getonevehiculo":
                     if (intUsuario_id <= 0)
                     {
                         strError = "Seleccione el nombre del  cliente";
                     }
                     break;
-                case "getonevehiculo":
-                    if (strVehiculo_id == string.Empty)
-                    {
-                        strError = "La placa del vehiculo no ha sido ingresada correctamente";
-                    }
-                    break;
+               
                 case "getonerespuesto":
                     if (intRepuesto_id <= 0)
                     {
@@ -382,7 +378,7 @@ namespace LibOperativa
                 objadminRn.StrTelefonoC = strTelefonoC;
                 objadminRn.StrDireccionC = strDireccionC;
                 objadminRn.StrVehiculo_id = strVehiculo_id;
-                objadminRn.StrContrasena = strContrasena;
+                objadminRn.StrContrasena = "12345";
 
                 if (!objadminRn.Usuario())
                 {
@@ -390,7 +386,7 @@ namespace LibOperativa
                     objadminRn = null;
                     return false; 
                 }
-                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["@mensaje"].ToString();
+                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["mensaje"].ToString();
                 objadminRn = null;
                 return true;
             }
@@ -667,6 +663,7 @@ namespace LibOperativa
                 strDireccionC = objadminRn.DsDatos.Tables[0].Rows[0]["direccion"].ToString();
                 strNombreC = objadminRn.DsDatos.Tables[0].Rows[0]["nombre"].ToString();
                 strTelefonoC = objadminRn.DsDatos.Tables[0].Rows[0]["telefono"].ToString();
+                strVehiculo_id = objadminRn.DsDatos.Tables[0].Rows[0]["vehiculo_id"].ToString();
                 objadminRn = null;
                 return true;
             }
@@ -686,7 +683,7 @@ namespace LibOperativa
                     return false;
                 }
                 clsadminRN objadminRn = new clsadminRN(strNombreApp);
-                objadminRn.StrVehiculo_id = strVehiculo_id;
+                objadminRn.IntUsuario_id = intUsuario_id;
                 if (!objadminRn.Obtener_Vehiculo())
                 {
                     strError = objadminRn.StrError;

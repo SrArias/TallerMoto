@@ -131,7 +131,7 @@ namespace LibReglasNegocio
             this.datFecha = DateTime.Now;
             this.intCant_Repuesto = 0;
             this.intPrecio_Mant = 0;
-            this.strNombreApp = "";
+            
     }
 
     private bool validar(string MetodoOrigen)
@@ -443,12 +443,9 @@ namespace LibReglasNegocio
                         objDatosEscuela[0] = new SqlParameter("empleado_id", intEmpleado_id);
                         break;
                     case "GETONECLIENTE":
-                        objDatosEscuela = new SqlParameter[1];
-                        objDatosEscuela[0] = new SqlParameter("cliente_id", intUsuario_id);
-                        break;
                     case "GETONEVEHICULO":
                         objDatosEscuela = new SqlParameter[1];
-                        objDatosEscuela[0] = new SqlParameter("Vehículo_id", strVehiculo_id);
+                        objDatosEscuela[0] = new SqlParameter("cliente_id", intUsuario_id);
                         break;
                     case "GETONEREPUESTO":
                         objDatosEscuela = new SqlParameter[1];
