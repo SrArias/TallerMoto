@@ -86,7 +86,7 @@
         <br />
         <div class="Centrar-Medio">
             <asp:Button runat="server" ID="btnInsertarEmp" CssClass="btn btn-info" Text="Insertar" OnClick="btnInsertarEmp_Click"/>
-            <asp:Button runat="server" ID="btnActualizarEmp" CssClass="btn btn-info" Text="Actualizar" />
+            <asp:Button runat="server" ID="btnActualizarEmp" CssClass="btn btn-info" Text="Actualizar" OnClick="btnActualizarEmp_Click"/>
         </div>
         <br />
         <h5 class="Centrar-Medio">Si desea actualizar un empleado debe escoger su ID</h5>
@@ -100,6 +100,8 @@
                 </asp:GridView>
             </asp:Panel>
             <img src="../img/imageedit_3_5509983854.png" class="logPosicionEmp" />
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.11/dist/sweetalert2.all.min.js"></script>
+        <script src="../js/sweetalert.js" type="text/javascript"></script>
     </form>
 </body>
 </html>

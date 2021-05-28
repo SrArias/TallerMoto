@@ -61,20 +61,20 @@
         </div>
         <div class="row justify-content-center">
             <asp:DropDownList ID="drpProvID" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server">
-                <asp:ListItem Text="Seleccione un ID de proveedor" />
+                
             </asp:DropDownList>
         </div>
         <br />
         <div class="Centrar-Medio">
             <asp:Button runat="server" ID="btnInsertarRep" CssClass="btn btn-info" Text="Insertar" OnClick="btnInsertarRep_Click"/>
-            <asp:Button runat="server" ID="btnActualizarRep" CssClass="btn btn-info" Text="Actualizar" />
+            <asp:Button runat="server" ID="btnActualizarRep" CssClass="btn btn-info" Text="Actualizar" OnClick="btnActualizarRep_Click" />
         </div>
         <br />
         <h5 class="Centrar-Medio">Si desea actualizar un repuesto debe escoger su ID</h5>
         <br />
         <div class="row justify-content-center">
             <asp:DropDownList ID="drpIdRep" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server" OnSelectedIndexChanged="drpIdRep_SelectedIndexChanged">
-                <asp:ListItem Text="Seleccione un ID" />
+                
             </asp:DropDownList>
         </div>
         <br />
@@ -83,6 +83,8 @@
             </asp:GridView>
         </asp:Panel>
         <img src="../img/imageedit_3_5509983854.png" class="logPosicionGen" />
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.11/dist/sweetalert2.all.min.js"></script>
+        <script src="../js/sweetalert.js" type="text/javascript"></script>
     </form>
 </body>
 </html>

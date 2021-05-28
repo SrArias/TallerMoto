@@ -28,14 +28,17 @@ namespace prjtallermotos.Admin
 
                     if (!objcontroles.llenarGrid(gvRep))
                     {
+                        mensajes("error", objcontroles.StrError);
                         return;
                     }
                     if (!objcontroles.llenarDrop(drpIdRep))
                     {
+                        mensajes("error", objcontroles.StrError);
                         return;
                     }
                     if (!objcontroles.llenarDrop(drpProvID))
                     {
+                        mensajes("error", objcontroles.StrError);
                         return;
                     }
                 }
@@ -43,10 +46,14 @@ namespace prjtallermotos.Admin
             catch (Exception ex)
             {
 
-                throw ex;
+                mensajes("error", ex.Message);
             }
         }
-
+        private void mensajes(string tipo, string mensajes)
+        {
+            string javaScript = $"mensajes('{tipo}','{mensajes}');";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "script", javaScript, true);
+        }
         protected void drpIdRep_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -55,7 +62,7 @@ namespace prjtallermotos.Admin
                 if (!objadmin.getone_repuesto())
                 {
                     objadmin = null;
-                    Response.Write($"<script>alert('{objadmin.StrError}')</script>");
+                    mensajes("error",objadmin.StrError);
                     return;
                 }
 
@@ -64,10 +71,10 @@ namespace prjtallermotos.Admin
                 txtUnidOrden.Value = objadmin.IntUnidOrdenadas.ToString();
                 txtPrecioxUnid.Value = objadmin.IntPrecioUnid.ToString();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                mensajes("error", ex.Message);
             }
         }
         private void Recargar_grid()
@@ -101,6 +108,11 @@ namespace prjtallermotos.Admin
             {
                 throw ex;
             }
+        }
+
+        protected void btnActualizarRep_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

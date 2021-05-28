@@ -83,8 +83,8 @@
         </div>
         <br />
         <div class="Centrar-Medio">
-            <asp:Button runat="server" ID="btnInsertarDet" CssClass="btn btn-info" Text="Insertar"/>
-            <asp:Button runat="server" ID="btnActualizarDet" CssClass="btn btn-info" Text="Actualizar" />
+            <asp:Button runat="server" ID="btnInsertarDet" CssClass="btn btn-info" Text="Insertar" OnClick="btnInsertarDet_Click"/>
+            <asp:Button runat="server" ID="btnActualizarDet" CssClass="btn btn-info" Text="Actualizar" OnClick="btnActualizarDet_Click"/>
         </div>
         <br />
         <h5 class="Centrar-Medio">Si desea actualizar el detalle de la factura debe copiar su ID</h5>
@@ -100,6 +100,8 @@
             </asp:Panel>
         </div>
         <img src="../img/imageedit_3_5509983854.png" class="logPosicionGen" />
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.11/dist/sweetalert2.all.min.js"></script>
+        <script src="../js/sweetalert.js" type="text/javascript"></script>
     </form>
 </body>
 </html>

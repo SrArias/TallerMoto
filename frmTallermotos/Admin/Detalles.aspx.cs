@@ -13,5 +13,15 @@ namespace prjtallermotos.Admin
         {
 
         }
+
+        protected void btnInsertarDet_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnActualizarDet_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

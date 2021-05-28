@@ -70,14 +70,14 @@
         <br />
         <div class="Centrar-Medio">
             <asp:Button runat="server" ID="btnInsertarProv" CssClass="btn btn-info" Text="Insertar" OnClick="btnInsertarProv_Click"/>
-            <asp:Button runat="server" ID="btnActualizarProv" CssClass="btn btn-info" Text="Actualizar" />
+            <asp:Button runat="server" ID="btnActualizarProv" CssClass="btn btn-info" Text="Actualizar" OnClick="btnActualizarProv_Click" />
         </div>
         <br />
         <h5 class="Centrar-Medio">Si desea actualizar un proveedor debe escoger su ID</h5>
         <br />
         <div class="row justify-content-center">
             <asp:DropDownList ID="drpIdProv" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server" OnSelectedIndexChanged="drpIdProv_SelectedIndexChanged">
-                <asp:ListItem Text="Seleccione un ID" />
+                
             </asp:DropDownList>
         </div>
         <br />
@@ -86,6 +86,8 @@
             </asp:GridView>
         </asp:Panel>
         <img src="../img/imageedit_3_5509983854.png" class="logPosicionGen" />
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.11/dist/sweetalert2.all.min.js"></script>
+        <script src="../js/sweetalert.js" type="text/javascript"></script>
     </form>
 </body>
 </html>

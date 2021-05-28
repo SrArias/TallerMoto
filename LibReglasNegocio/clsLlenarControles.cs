@@ -18,11 +18,8 @@ namespace LibReglasNegocio
         private DataSet dsDatos;
         private string strError;
         private string strid;
-        private int intidtypesports;
         private string strcampostext;
-        private int idSport;
-        private int intidteacher;
-        private string intidgrupo;
+        private string strvehiculo;
         private int identificacion;
         private int opcion;
 
@@ -31,6 +28,7 @@ namespace LibReglasNegocio
         #region "Propiedades"
         public int Identificacion { get => identificacion; set => identificacion = value; }
         public string Error { get => strError; set => strError = value; }
+        public string Vehiculo { get => strvehiculo; set => strvehiculo = value; }
         public int Opcion { get => opcion; set => opcion = value; }
 
         #endregion
@@ -60,7 +58,20 @@ namespace LibReglasNegocio
                         objDatosTaller[0] = new SqlParameter("opcion", opcion);
                         break;
 
+                    case "GVMANTENIMIENTO":
+                        objDatosTaller = new SqlParameter[1];
+                        objDatosTaller[0] = new SqlParameter("vehiculo_id", strvehiculo);
+                        break;
 
+                    case "DRPIDMANTENIM":
+                    case "GVPROV":
+                    case "DRPPLACA":
+                    case "DRPCLIENTES":
+                    case "GVCLIENTES":
+                    case "GVREP":
+                    case "DRPIDPROV":
+
+                        break;
 
                     default:
                         strError = "Caso no valido en las reglas del negocio";
@@ -83,10 +94,10 @@ namespace LibReglasNegocio
         {
             try
             {
-                //if (!AgregarParametros(ddlGenerico.ID))
-                //{
-                //    return false;
-                //}
+                if (!AgregarParametros(ddlGenerico.ID))
+                {
+                    return false;
+                }
 
                 switch (ddlGenerico.ID.ToLower())
                 {
@@ -122,7 +133,7 @@ namespace LibReglasNegocio
                     case "drpidprov":
                     case "drpprovid":
                         strid = "prov_id";
-                        strcampostext = "nombre";
+                        strcampostext = "nombre_compania";
                         objcnx.ParametrosSQL = objDatosTaller;
                         objcnx.SQL = "sp_getproveedor";
                         break;
@@ -161,10 +172,10 @@ namespace LibReglasNegocio
         {
             try
             {
-                //if (!AgregarParametros(gvGenerico.ID))
-                //{
-                //    return false;
-                //}
+                if (!AgregarParametros(gvGenerico.ID))
+                {
+                    return false;
+                }
 
                 switch (gvGenerico.ID.ToLower())
                 {
@@ -182,7 +193,8 @@ namespace LibReglasNegocio
                         objcnx.SQL = "sp_getmecanico";
                         break;
                     case "gvmantenimiento":
-                        objGrid.SQL = "sp_getmantenimiento";
+                        objGrid.ParametrosSQL = objDatosTaller;
+                        objGrid.SQL = "sp_getonemantenimiento";
                         break;
                     case "gvprov":
                         objGrid.SQL = "sp_getproveedor";

@@ -128,6 +128,30 @@ namespace LibReglasNegocio
                         strError = "Ingrese una contraseña";
                     }
                     break;
+                case "userupdate":
+
+                    if (intUsuario_id <= 0)
+                    {
+                        strError = "Ingrese la id del cliente";
+                    }
+
+                    if (StrNombreC == string.Empty)
+                    {
+                        strError = "Ingrese el nombre del cliente";
+                    }
+
+                    if (StrTelefonoC == string.Empty)
+                    {
+                        strError = "Ingrese el telefono del cliente";
+                    }
+
+                    if (StrVehiculo_id == string.Empty)
+                    {
+                        strError = "Ingrese la placa del vehiculo del cliente";
+                    }
+
+                    
+                    break;
 
                 case "vehiculo":
                     if (StrVehiculo_id == string.Empty)
@@ -343,6 +367,14 @@ namespace LibReglasNegocio
                         objDatosEscuela[4] = new SqlParameter("vehiculo_id", strVehiculo_id);
                         objDatosEscuela[5] = new SqlParameter("password", strContrasena);
                         break;
+                    case "USERUPDATE":
+                        objDatosEscuela = new SqlParameter[5];
+                        objDatosEscuela[0] = new SqlParameter("cliente_id", intUsuario_id);
+                        objDatosEscuela[1] = new SqlParameter("nombre", strNombreC);
+                        objDatosEscuela[2] = new SqlParameter("telefono", strTelefonoC);
+                        objDatosEscuela[3] = new SqlParameter("direccion", strDireccionC);
+                        objDatosEscuela[4] = new SqlParameter("vehiculo_id", strVehiculo_id);
+                        break;
                     case "EMPLEADO":
                         objDatosEscuela = new SqlParameter[7];
                         objDatosEscuela[0] = new SqlParameter("empleado", intEmpleado_id);
@@ -353,7 +385,17 @@ namespace LibReglasNegocio
                         objDatosEscuela[5] = new SqlParameter("salario", intsalario);
                         objDatosEscuela[6] = new SqlParameter("password", strContrasena);
                         break;
+                    case "EMPLEADOUPDATE":
+                        objDatosEscuela = new SqlParameter[7];
+                        objDatosEscuela[0] = new SqlParameter("empleado", intEmpleado_id);
+                        objDatosEscuela[1] = new SqlParameter("nombre", strNombreE);
+                        objDatosEscuela[2] = new SqlParameter("telefono", strTelefonoE);
+                        objDatosEscuela[3] = new SqlParameter("direccion", strDireccionE);
+                        objDatosEscuela[4] = new SqlParameter("cargo", intcargo);
+                        objDatosEscuela[5] = new SqlParameter("salario", intsalario);
+                        break;
                     case "PROVEEDORES":
+                    case "UPDATEPROVEEDORES":
                         objDatosEscuela = new SqlParameter[6];
                         objDatosEscuela[0] = new SqlParameter("proveedor_id", intProv_id);
                         objDatosEscuela[1] = new SqlParameter("nombre_compañia", strNombreProv);
@@ -363,6 +405,7 @@ namespace LibReglasNegocio
                         objDatosEscuela[5] = new SqlParameter("direccion", strDireccionProv);
                         break;
                     case "MANTENIMIENTO":
+                    case "MANTENIMIENTOUPDATE":
                         objDatosEscuela = new SqlParameter[4];
                         objDatosEscuela[0] = new SqlParameter("Vehículo_id", strVehiculo_id);
                         objDatosEscuela[1] = new SqlParameter("empleado_id", intEmpleado_id);
@@ -370,6 +413,7 @@ namespace LibReglasNegocio
                         objDatosEscuela[3] = new SqlParameter("procedimiento_realizado", strProc_Realizado);
                         break;
                     case "REPUESTO":
+                    case "REPUESTOUPDATE":
                         objDatosEscuela = new SqlParameter[5];
                         objDatosEscuela[0] = new SqlParameter("nombre_repuesto", strNombreRep);
                         objDatosEscuela[1] = new SqlParameter("unidades_en_stock", intUnidStock);
@@ -378,11 +422,13 @@ namespace LibReglasNegocio
                         objDatosEscuela[4] = new SqlParameter("prov_id", intProv_id);
                         break;
                     case "FACTURA":
+                    case "FACTURAUPDATE":
                         objDatosEscuela = new SqlParameter[2];
                         objDatosEscuela[0] = new SqlParameter("Vehículo_id", strVehiculo_id);
                         objDatosEscuela[1] = new SqlParameter("empleado_id", intEmpleado_id);
                         break;
                     case "VEHICULO":
+                    case "VEHICULOUPDATE":
                         objDatosEscuela = new SqlParameter[5];
                         objDatosEscuela[0] = new SqlParameter("Vehículo_id", strVehiculo_id);
                         objDatosEscuela[1] = new SqlParameter("marca", strMarca);
@@ -390,7 +436,8 @@ namespace LibReglasNegocio
                         objDatosEscuela[3] = new SqlParameter("color", strColor);
                         objDatosEscuela[4] = new SqlParameter("refencia", strRefencia);
                         break;
-                    case " DETALLES_FACTURA":
+                    case "DETALLES_FACTURA":
+                    case "DETALLES_FACTURAUPDATE":
                         objDatosEscuela = new SqlParameter[3];
                         objDatosEscuela[0] = new SqlParameter("fecha", datFecha);
                         objDatosEscuela[1] = new SqlParameter("cantidad_respuesto", intCant_Repuesto);
@@ -416,7 +463,7 @@ namespace LibReglasNegocio
                         break;
                     case "GETONEMANTENIMIENTO":
                         objDatosEscuela = new SqlParameter[1];
-                        objDatosEscuela[0] = new SqlParameter("mantenimiento_id", intMantenimiento_id);
+                        objDatosEscuela[0] = new SqlParameter("vehiculo_id", strVehiculo_id);
                         break;
                     default:
 
@@ -505,6 +552,35 @@ namespace LibReglasNegocio
                 throw ex;
             }
         }
+        public bool Usuario_Update()
+        {
+            try
+            {
+                if (!AgregarParametros("UserUpdate"))
+                {
+                    return false;
+                }
+                objcnx.SQL = "sp_updatecliente";
+                objcnx.ParametrosSQL = objDatosEscuela;
+                if (!objcnx.llenarDataSet(true, true))
+                {
+                    strError = objcnx.Error;
+                    objcnx.cerrarCnx();
+                    objcnx = null;
+                    return false;
+                }
+                dsDatos = objcnx.DataSetLleno;
+                objcnx.cerrarCnx();
+                objcnx = null;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
         public bool Empleado()
         {
             try
@@ -514,6 +590,35 @@ namespace LibReglasNegocio
                     return false;
                 }
                 objcnx.SQL = "sp_insertempleado";
+                objcnx.ParametrosSQL = objDatosEscuela;
+                if (!objcnx.llenarDataSet(true, true))
+                {
+                    strError = objcnx.Error;
+                    objcnx.cerrarCnx();
+                    objcnx = null;
+                    return false;
+                }
+                dsDatos = objcnx.DataSetLleno;
+                objcnx.cerrarCnx();
+                objcnx = null;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public bool Empleado_Update()
+        {
+            try
+            {
+                if (!AgregarParametros("EmpleadoUpdate"))
+                {
+                    return false;
+                }
+                objcnx.SQL = "sp_updateempleado";
                 objcnx.ParametrosSQL = objDatosEscuela;
                 if (!objcnx.llenarDataSet(true, true))
                 {
@@ -563,6 +668,35 @@ namespace LibReglasNegocio
                 throw ex;
             }
         }
+        public bool Proveedores_Update()
+        {
+            try
+            {
+                if (!AgregarParametros("ProveedoresUpdate"))
+                {
+                    return false;
+                }
+                objcnx.SQL = "sp_updateproveedores";
+                objcnx.ParametrosSQL = objDatosEscuela;
+                if (!objcnx.llenarDataSet(true, true))
+                {
+                    strError = objcnx.Error;
+                    objcnx.cerrarCnx();
+                    objcnx = null;
+                    return false;
+                }
+                dsDatos = objcnx.DataSetLleno;
+                objcnx.cerrarCnx();
+                objcnx = null;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
         public bool Mantenimiento()
         {
             try
@@ -572,6 +706,35 @@ namespace LibReglasNegocio
                     return false;
                 }
                 objcnx.SQL = "sp_insertmatenimiento";
+                objcnx.ParametrosSQL = objDatosEscuela;
+                if (!objcnx.llenarDataSet(true, true))
+                {
+                    strError = objcnx.Error;
+                    objcnx.cerrarCnx();
+                    objcnx = null;
+                    return false;
+                }
+                dsDatos = objcnx.DataSetLleno;
+                objcnx.cerrarCnx();
+                objcnx = null;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public bool Mantenimiento_Update()
+        {
+            try
+            {
+                if (!AgregarParametros("mantenimientoupdate"))
+                {
+                    return false;
+                }
+                objcnx.SQL = "sp_updatematenimiento";
                 objcnx.ParametrosSQL = objDatosEscuela;
                 if (!objcnx.llenarDataSet(true, true))
                 {
@@ -621,6 +784,35 @@ namespace LibReglasNegocio
                 throw ex;
             }
         }
+        public bool Repuesto_Update()
+        {
+            try
+            {
+                if (!AgregarParametros("repuestoupdate"))
+                {
+                    return false;
+                }
+                objcnx.SQL = "sp_updaterepuesto";
+                objcnx.ParametrosSQL = objDatosEscuela;
+                if (!objcnx.llenarDataSet(true, true))
+                {
+                    strError = objcnx.Error;
+                    objcnx.cerrarCnx();
+                    objcnx = null;
+                    return false;
+                }
+                dsDatos = objcnx.DataSetLleno;
+                objcnx.cerrarCnx();
+                objcnx = null;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
         public bool Vehiculo()
         {
             try
@@ -630,6 +822,35 @@ namespace LibReglasNegocio
                     return false;
                 }
                 objcnx.SQL = "sp_insertvehiculo";
+                objcnx.ParametrosSQL = objDatosEscuela;
+                if (!objcnx.llenarDataSet(true, true))
+                {
+                    strError = objcnx.Error;
+                    objcnx.cerrarCnx();
+                    objcnx = null;
+                    return false;
+                }
+                dsDatos = objcnx.DataSetLleno;
+                objcnx.cerrarCnx();
+                objcnx = null;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public bool Vehiculo_Update()
+        {
+            try
+            {
+                if (!AgregarParametros("vehiculoupdate"))
+                {
+                    return false;
+                }
+                objcnx.SQL = "sp_updatevehiculo";
                 objcnx.ParametrosSQL = objDatosEscuela;
                 if (!objcnx.llenarDataSet(true, true))
                 {
@@ -679,6 +900,35 @@ namespace LibReglasNegocio
                 throw ex;
             }
         }
+        public bool Factura_Update()
+        {
+            try
+            {
+                if (!AgregarParametros("facturaupdate"))
+                {
+                    return false;
+                }
+                objcnx.SQL = "sp_updatefactura";
+                objcnx.ParametrosSQL = objDatosEscuela;
+                if (!objcnx.llenarDataSet(true, true))
+                {
+                    strError = objcnx.Error;
+                    objcnx.cerrarCnx();
+                    objcnx = null;
+                    return false;
+                }
+                dsDatos = objcnx.DataSetLleno;
+                objcnx.cerrarCnx();
+                objcnx = null;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
         public bool Detalle_factura()
         {
             try
@@ -688,6 +938,35 @@ namespace LibReglasNegocio
                     return false;
                 }
                 objcnx.SQL = "sp_insertdetallefactura";
+                objcnx.ParametrosSQL = objDatosEscuela;
+                if (!objcnx.llenarDataSet(true, true))
+                {
+                    strError = objcnx.Error;
+                    objcnx.cerrarCnx();
+                    objcnx = null;
+                    return false;
+                }
+                dsDatos = objcnx.DataSetLleno;
+                objcnx.cerrarCnx();
+                objcnx = null;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public bool Detalle_factura_Update()
+        {
+            try
+            {
+                if (!AgregarParametros("detalles_facturaupdate"))
+                {
+                    return false;
+                }
+                objcnx.SQL = "sp_updatedetallefactura";
                 objcnx.ParametrosSQL = objDatosEscuela;
                 if (!objcnx.llenarDataSet(true, true))
                 {
@@ -828,7 +1107,7 @@ namespace LibReglasNegocio
         {
             try
             {
-                if (!AgregarParametros("getonerepuesto"))
+                if (!AgregarParametros("getoneproveedor"))
                 {
                     return false;
                 }
@@ -847,10 +1126,10 @@ namespace LibReglasNegocio
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
         public bool Obtener_Mantenimiento()

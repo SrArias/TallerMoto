@@ -26,10 +26,12 @@ namespace prjtallermotos.Admin
                     
                     if (!objcontroles.llenarGrid(gvEmpleados))
                     {
+                        mensajes("error", objcontroles.StrError);
                         return;
                     } 
                     if (!objcontroles.llenarDrop(drpIdEmpleado))
                     {
+                        mensajes("error", objcontroles.StrError);
                         return;
                     }
 
@@ -38,20 +40,89 @@ namespace prjtallermotos.Admin
             catch (Exception ex)
             {
 
-                throw ex;
+                mensajes("error", ex.Message);
             }
          
         }
+        private void mensajes(string tipo, string mensajes)
+        {
+            string javaScript = $"mensajes('{tipo}','{mensajes}');";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "script", javaScript, true);
+        }
+        private bool validar(string MetodoOrigen)
+        {
+            switch (MetodoOrigen.ToLower())
+            {
+                case "getoneempleado":
+                    if (drpIdEmpleado.SelectedIndex == 0)
+                    {
+                        mensajes("error", "Debe seleccionar un cliente");
+                        return false;
+                    }
+                    break;
+                case "insertempleado":
+                case "updateempleado":
 
+                    if (drpIdEmpleado.SelectedIndex == 0)
+                    {
+                        mensajes("error", "Debe seleccionar un cliente");
+                        return false;
+                    }
+                    if (txtIdEmpleado.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar una id de empleado");
+                        return false;
+                    }
+                    if (txtNombre.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar un nombre de empleado");
+                        return false;
+                    }
+                    if (txtDireccion.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar una dirección");
+                        return false;
+                    }
+                    if (txtTelefono.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar un número de teléfono");
+                        return false;
+                    }
+                    if (txtSalario.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar el salario");
+                        return false;
+                    }
+                    if (drpCargo.SelectedIndex == 0)
+                    {
+                        mensajes("error", "Debe seleccionar un cargo");
+                        return false;
+                    }
+                    if (drpTurno.SelectedIndex == 0)
+                    {
+                        mensajes("error", "Debe seleccionar un turno");
+                        return false;
+                    }
+                    break;
+                default:
+                    break;
+
+            }
+            return true;
+        }
         protected void drpIdEmpleado_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
+                if (!validar("getoneempleado"))
+                {
+                    return;
+                }
                 objadmin.IntEmpleado_id = int.Parse(drpIdEmpleado.SelectedItem.Value);
                 if (!objadmin.getone_empleado())
                 {
                     objadmin = null;
-                    Response.Write($"<script>alert('{objadmin.StrError}')</script>");
+                    mensajes("error", objadmin.StrError);
                     return;
                 }
                 txtIdEmpleado.Disabled = true;
@@ -64,10 +135,10 @@ namespace prjtallermotos.Admin
                 drpCargo.SelectedIndex = int.Parse(objadmin.IntCargo.ToString());
                 drpTurno.SelectedIndex = int.Parse(objadmin.IntTurno.ToString());
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                mensajes("error", ex.Message);
             }
 
         }
@@ -75,6 +146,7 @@ namespace prjtallermotos.Admin
         {
             if (!objcontroles.llenarGrid(gvEmpleados))
             {
+                mensajes("error", objcontroles.StrError);
                 return;
             }
         }
@@ -82,6 +154,11 @@ namespace prjtallermotos.Admin
         {
             try
             {
+                if (!validar("insertempleado"))
+                {
+                    return;
+                }
+
                 objadmin.IntEmpleado_id = int.Parse(txtIdEmpleado.Value.Trim());
                 objadmin.StrNombreE = txtNombre.Value.Trim();
                 objadmin.StrTelefonoE = txtTelefono.Value.Trim();
@@ -94,17 +171,22 @@ namespace prjtallermotos.Admin
                 if (!objadmin.Ingresar_Empleado())
                 {
                     
-                       objadmin = null;
-                    Response.Write($"<script>alert('{objadmin.StrError}')</script>");
+                    objadmin = null;
+                    mensajes("error", objadmin.StrError);
                     return;
                 }
-                Response.Write($"<script>alert('{objadmin.Resultado}')</script>");
+                mensajes("success", objadmin.Resultado);
                 Recargar_grid();
             }
             catch (Exception ex)
             {
-                throw ex;
+                mensajes("error", ex.Message);
             }
+
+        }
+
+        protected void btnActualizarEmp_Click(object sender, EventArgs e)
+        {
 
         }
     }

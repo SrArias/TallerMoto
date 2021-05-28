@@ -26,6 +26,7 @@ namespace prjtallermotos.Admin
 
                     if (!objcontroles.llenarDrop(drpIdMantenim))
                     {
+                        mensajes("error", objcontroles.StrError);
                         return;
                     }
                     
@@ -35,24 +36,79 @@ namespace prjtallermotos.Admin
             catch (Exception ex)
             {
 
-                throw ex;
+                mensajes("error", ex.Message);
             }
 
         }
+        private void mensajes(string tipo, string mensajes)
+        {
+            string javaScript = $"mensajes('{tipo}','{mensajes}');";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "script", javaScript, true);
+        }
+        private bool validar(string MetodoOrigen)
+        {
+            switch (MetodoOrigen.ToLower())
+            {
+                case "getonemantenimiento":
+                    if (drpIdMantenim.SelectedIndex == 0)
+                    {
+                        mensajes("error", "Debe seleccionar una placa");
+                        return false;
+                    }
+                    break;
+                case "insertmantenimiento":
+                case "updatemantenimiento":
 
+                    if (drpIdMantenim.SelectedIndex == 0)
+                    {
+                        mensajes("error", "Debe seleccionar una placa");
+                        return false;
+                    }
+                    if (drpIdEmpleado.SelectedIndex == 0)
+                    {
+                        mensajes("error", "Debe seleccionar un empleado");
+                        return false;
+                    }
+                    if (txtDiagnostico.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar el diagnóstico");
+                        return false;
+                    }
+                    if (txtProcRealiz.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar el proceso reliazado");
+                        return false;
+                    }
+                   
+                    break;
+                default:
+                    break;
+
+            }
+            return true;
+        }
         protected void drpIdMantenim_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                objadmin.IntMantenimiento_id = int.Parse(drpIdMantenim.SelectedItem.Value);
-                if (!objadmin.getone_empleado())
+                if (!validar("getonemantenimiento"))
+                {
+                    return;
+                }
+                objcontroles.Vehiculo = drpIdMantenim.SelectedItem.Value;
+                
+                if (!objcontroles.llenarGrid(gvMantenimiento))
                 {
                     objadmin = null;
-                    Response.Write($"<script>alert('{objadmin.StrError}')</script>");
+                    mensajes("error", objcontroles.StrError);
                     return;
                 }
 
-
+                drpIdEmpleado.SelectedItem.Text = "1";
+                btnInsertarMant.Enabled = false;
+                drpIdVehiculo.Enabled = false;
+                idman.Visible = true;
+                drpIdVehiculo.SelectedItem.Text = objcontroles.Vehiculo;
                 txtDiagnostico.Value = objadmin.StrDiagnostico;
                 txtProcRealiz.Value = objadmin.StrProc_Realizado;
              
@@ -69,6 +125,7 @@ namespace prjtallermotos.Admin
         {
             if (!objcontroles.llenarGrid(gvMantenimiento))
             {
+                mensajes("error", objcontroles.StrError);
                 return;
             }
         }
@@ -78,6 +135,10 @@ namespace prjtallermotos.Admin
 
             try
             {
+                if (!validar("insertmantenimiento"))
+                {
+                    return;
+                }
 
                 objadmin.StrDiagnostico = txtDiagnostico.Value.Trim();
                 objadmin.StrProc_Realizado = txtProcRealiz.Value.Trim();
@@ -90,16 +151,21 @@ namespace prjtallermotos.Admin
                 {
 
                     objadmin = null;
-                    Response.Write($"<script>alert('{objadmin.StrError}')</script>");
+                    mensajes("error", objadmin.StrError);
                     return;
                 }
-                Response.Write($"<script>alert('{objadmin.Resultado}')</script>");
+                mensajes("success", objadmin.Resultado);
                 Recargar_grid();
             }
             catch (Exception ex)
             {
-                throw ex;
+                mensajes("error", ex.Message);
             }
+        }
+
+        protected void btnActualizarMant_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

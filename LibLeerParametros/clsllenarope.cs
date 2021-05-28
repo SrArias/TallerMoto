@@ -10,11 +10,15 @@ namespace LibOperativa
         private string strNombreApp;
         private string strError;
         private int intidentificacion;
+        private string strvehiculo;
         private int opcion;
+        private string error;
         #endregion
 
         #region "Propiedades"
         public int Identificacion { get => intidentificacion; set => intidentificacion = value; }
+        public string Vehiculo { get => strvehiculo; set => strvehiculo = value; }
+        public string StrError { get => error; set => error = value; }
         public int Opcion { get => opcion; set => opcion = value; }
         #endregion
 
@@ -36,7 +40,7 @@ namespace LibOperativa
             {
                 clsLlenarControles objLnRn = new clsLlenarControles(strNombreApp);
 
-                objLnRn.Opcion = opcion;
+                objLnRn.Vehiculo = strvehiculo;
 
                 if (!objLnRn.LlenarGrid(gvGenerico))
                 {

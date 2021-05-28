@@ -19,7 +19,20 @@ namespace frmTallermotos
             strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
         }
 
-        
+        public bool validar()
+        {
+            if (txtusername.Value=="")
+            {
+                mensajes("error","Debe ingresar el usuario");
+                return false;
+            }
+            if (txtpassword.Value=="")
+            {
+                mensajes("error","Debe ingresar la contraseña");
+                return false;
+            }
+            return true;
+        }
         private void mensajes(string tipo,string mensajes)
         {
             string javaScript = $"mensajes('{tipo}','{mensajes}');";
@@ -29,7 +42,10 @@ namespace frmTallermotos
         {
             try
             {
-
+                if (!validar())
+                {
+                    return;
+                }
 
                 clsLogin objlogin = new clsLogin(strnombreapp);
                 objlogin.Username = int.Parse(txtusername.Value.Trim());
