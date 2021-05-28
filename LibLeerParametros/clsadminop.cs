@@ -603,7 +603,7 @@ namespace LibOperativa
                     objadminRn = null;
                     return false;
                 }
-                resultado = "";
+                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["mensaje"].ToString();
                 objadminRn = null;
                 return true;
             }

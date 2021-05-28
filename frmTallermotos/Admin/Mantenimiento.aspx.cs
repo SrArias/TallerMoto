@@ -203,7 +203,7 @@ namespace prjtallermotos.Admin
                 objadmin.IntMantenimiento_id = int.Parse(txtidmantenimiento.Value.ToString());
 
 
-
+                objcontroles.Vehiculo= drpIdVehiculo.SelectedItem.Value.ToString(); 
                 if (!objadmin.Actualizar_Mantenimiento())
                 {
 

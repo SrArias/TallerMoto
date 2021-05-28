@@ -429,17 +429,17 @@ namespace LibReglasNegocio
                         break;
                     case "MANTENIMIENTO":
                         objDatosEscuela = new SqlParameter[4];
-                        objDatosEscuela[0] = new SqlParameter("Vehículo_id", strVehiculo_id);
+                        objDatosEscuela[0] = new SqlParameter("vehiculo_id", strVehiculo_id);
                         objDatosEscuela[1] = new SqlParameter("empleado_id", intEmpleado_id);
                         objDatosEscuela[2] = new SqlParameter("diagnostico", strDiagnostico);
                         objDatosEscuela[3] = new SqlParameter("procedimiento_realizado", strProc_Realizado);
                         break;
                     case "MANTENIMIENTOUPDATE":
                         objDatosEscuela = new SqlParameter[5];
-                        objDatosEscuela[0] = new SqlParameter("Vehículo_id", strVehiculo_id);
+                        objDatosEscuela[0] = new SqlParameter("vehiculo_id", strVehiculo_id);
                         objDatosEscuela[1] = new SqlParameter("empleado_id", intEmpleado_id);
                         objDatosEscuela[2] = new SqlParameter("diagnostico", strDiagnostico);
-                        objDatosEscuela[3] = new SqlParameter("procedimiento_realizado", strProc_Realizado);
+                        objDatosEscuela[3] = new SqlParameter("procedimiento", strProc_Realizado);
                         objDatosEscuela[4] = new SqlParameter("mantenimiento_id", intMantenimiento_id);
                         break;
                     case "REPUESTO":
@@ -454,13 +454,13 @@ namespace LibReglasNegocio
                     case "FACTURA":
                     case "FACTURAUPDATE":
                         objDatosEscuela = new SqlParameter[2];
-                        objDatosEscuela[0] = new SqlParameter("Vehículo_id", strVehiculo_id);
+                        objDatosEscuela[0] = new SqlParameter("vehiculo_id", strVehiculo_id);
                         objDatosEscuela[1] = new SqlParameter("empleado_id", intEmpleado_id);
                         break;
                     case "VEHICULO":
                     case "VEHICULOUPDATE":
                         objDatosEscuela = new SqlParameter[5];
-                        objDatosEscuela[0] = new SqlParameter("Vehículo_id", strVehiculo_id);
+                        objDatosEscuela[0] = new SqlParameter("vehiculo_id", strVehiculo_id);
                         objDatosEscuela[1] = new SqlParameter("marca", strMarca);
                         objDatosEscuela[2] = new SqlParameter("modelo", intModelo);
                         objDatosEscuela[3] = new SqlParameter("color", strColor);
