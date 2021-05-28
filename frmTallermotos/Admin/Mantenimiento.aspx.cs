@@ -28,8 +28,7 @@ namespace prjtallermotos.Admin
                     {
                         mensajes("error", objcontroles.StrError);
                         return;
-                    }
-                    
+                    }                    
 
                 }
             }
@@ -57,7 +56,28 @@ namespace prjtallermotos.Admin
                     }
                     break;
                 case "insertmantenimiento":
+                    if (drpIdEmpleado.SelectedIndex == 0)
+                    {
+                        mensajes("error", "Debe seleccionar un empleado");
+                        return false;
+                    }
+                    if (txtDiagnostico.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar el diagnóstico");
+                        return false;
+                    }
+                    if (txtProcRealiz.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar el proceso reliazado");
+                        return false;
+                    }
+                    break;
                 case "updatemantenimiento":
+                    if (txtidmantenimiento.Value.Trim()== string.Empty)
+                    {
+                        mensajes("error", "Debe seleccionar un ID mantenimiento");
+                        return false;
+                    }
 
                     if (drpIdMantenim.SelectedIndex == 0)
                     {
@@ -104,7 +124,12 @@ namespace prjtallermotos.Admin
                     return;
                 }
 
-                drpIdEmpleado.SelectedItem.Text = "1";
+                if (!objcontroles.llenarDrop(drpIdEmpleado))
+                {
+                    mensajes("error", objcontroles.StrError);
+                    return;
+                }
+
                 btnInsertarMant.Enabled = false;
                 drpIdVehiculo.Enabled = false;
                 idman.Visible = true;
@@ -113,10 +138,9 @@ namespace prjtallermotos.Admin
                 txtProcRealiz.Value = objadmin.StrProc_Realizado;
              
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                mensajes("error",ex.Message);
             }
 
         }
@@ -165,7 +189,35 @@ namespace prjtallermotos.Admin
 
         protected void btnActualizarMant_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (!validar("updatemantenimiento"))
+                {
+                    return;
+                }
 
+                objadmin.StrDiagnostico = txtDiagnostico.Value.Trim();
+                objadmin.StrProc_Realizado = txtProcRealiz.Value.Trim();
+                objadmin.StrVehiculo_id = drpIdVehiculo.SelectedItem.Value.ToString();//correguir
+                objadmin.IntEmpleado_id = int.Parse(drpIdEmpleado.SelectedItem.Value);
+                objadmin.IntMantenimiento_id = int.Parse(txtidmantenimiento.Value.ToString());
+
+
+
+                if (!objadmin.Actualizar_Mantenimiento())
+                {
+
+                    objadmin = null;
+                    mensajes("error", objadmin.StrError);
+                    return;
+                }
+                mensajes("success", objadmin.Resultado);
+                Recargar_grid();
+            }
+            catch (Exception ex)
+            {
+                mensajes("error", ex.Message);
+            }
         }
     }
 }

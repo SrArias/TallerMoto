@@ -54,8 +54,7 @@ namespace LibReglasNegocio
                 {
                     case "DRPIDEMPLEADO":
                     case "GVEMPLEADOS":
-                        objDatosTaller = new SqlParameter[1];
-                        objDatosTaller[0] = new SqlParameter("opcion", opcion);
+
                         break;
 
                     case "GVMANTENIMIENTO":

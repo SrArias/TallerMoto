@@ -150,7 +150,7 @@ namespace LibReglasNegocio
                         strError = "Ingrese la placa del vehiculo del cliente";
                     }
 
-                    
+
                     break;
 
                 case "vehiculo":
@@ -292,6 +292,28 @@ namespace LibReglasNegocio
                     {
                         strError = "Escriba el procedimiento realizado";
                     }
+                    break;
+                case "mantenimientoupdate":
+                    if (intMantenimiento_id <= 0)
+                    {
+                        strError = "El ID debe ser mayor que cero";
+                    }
+                    if (StrVehiculo_id == string.Empty)
+                    {
+                        strError = "La placa del vehiculo no  a sido ingresada correctamente";
+                    }
+                    if (intEmpleado_id <= 0)
+                    {
+                        strError = "Ingrese la id del empleado";
+                    }
+                    if (strDiagnostico == string.Empty)
+                    {
+                        strError = "Escriba el diagnostico del vehiculo";
+                    }
+                    if (strProc_Realizado == string.Empty)
+                    {
+                        strError = "Escriba el procedimiento realizado";
+                    }
 
                     break;
                 case "facturas":
@@ -340,6 +362,7 @@ namespace LibReglasNegocio
                         strError = "Seleccione un mantenimiento";
                     }
                     break;
+
 
                 default:
                     strError = "Caso no válido OPE";
@@ -405,12 +428,19 @@ namespace LibReglasNegocio
                         objDatosEscuela[5] = new SqlParameter("direccion", strDireccionProv);
                         break;
                     case "MANTENIMIENTO":
-                    case "MANTENIMIENTOUPDATE":
                         objDatosEscuela = new SqlParameter[4];
                         objDatosEscuela[0] = new SqlParameter("Vehículo_id", strVehiculo_id);
                         objDatosEscuela[1] = new SqlParameter("empleado_id", intEmpleado_id);
                         objDatosEscuela[2] = new SqlParameter("diagnostico", strDiagnostico);
                         objDatosEscuela[3] = new SqlParameter("procedimiento_realizado", strProc_Realizado);
+                        break;
+                    case "MANTENIMIENTOUPDATE":
+                        objDatosEscuela = new SqlParameter[5];
+                        objDatosEscuela[0] = new SqlParameter("Vehículo_id", strVehiculo_id);
+                        objDatosEscuela[1] = new SqlParameter("empleado_id", intEmpleado_id);
+                        objDatosEscuela[2] = new SqlParameter("diagnostico", strDiagnostico);
+                        objDatosEscuela[3] = new SqlParameter("procedimiento_realizado", strProc_Realizado);
+                        objDatosEscuela[4] = new SqlParameter("mantenimiento_id", intMantenimiento_id);
                         break;
                     case "REPUESTO":
                     case "REPUESTOUPDATE":
@@ -726,6 +756,7 @@ namespace LibReglasNegocio
                 throw ex;
             }
         }
+
         public bool Mantenimiento_Update()
         {
             try
@@ -734,7 +765,7 @@ namespace LibReglasNegocio
                 {
                     return false;
                 }
-                objcnx.SQL = "sp_updatematenimiento";
+                objcnx.SQL = "sp_updatemantenimiento";
                 objcnx.ParametrosSQL = objDatosEscuela;
                 if (!objcnx.llenarDataSet(true, true))
                 {

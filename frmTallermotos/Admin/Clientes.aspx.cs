@@ -17,13 +17,28 @@ namespace prjtallermotos.Admin
         #endregion
 
         #region "Métodos Privados"
-        private void Recargar_grid()
+        private void RecargarControles()
         {
-            if (!objcontroles.llenarGrid(gvClientes))
+            if (!IsPostBack)
             {
-                mensajes("error", objcontroles.StrError);
-                return;
+                if (!objcontroles.llenarGrid(gvClientes))
+                {
+                    mensajes("error", objcontroles.StrError);
+                    return;
+                }
+                if (!objcontroles.llenarDrop(drpPlaca))
+                {
+                    mensajes("error", objcontroles.StrError);
+                    return;
+                }
+
+                if (!objcontroles.llenarDrop(drpClientes))
+                {
+                    mensajes("error", objcontroles.StrError);
+                    return;
+                }
             }
+
         }
         #endregion
 
@@ -35,24 +50,7 @@ namespace prjtallermotos.Admin
                 strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
                 objcontroles = new clsllenarope(strnombreapp);
                 objadmin = new clsadminop(strnombreapp);
-                Recargar_grid();
-                if (!IsPostBack)
-                {
-
-
-                    if (!objcontroles.llenarDrop(drpPlaca))
-                    {
-                        mensajes("error", objcontroles.StrError);
-                        return;
-                    }
-
-                    if (!objcontroles.llenarDrop(drpClientes))
-                    {
-                        mensajes("error", objcontroles.StrError);
-                        return;
-                    }
-
-                }
+                RecargarControles();
             }
             catch (Exception ex)
             {
@@ -78,6 +76,27 @@ namespace prjtallermotos.Admin
                     }
                     break;
                 case "insertcliente":
+                    if (txtIdCliente.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar una id de cliente");
+                        return false;
+                    }
+                    if (txtNombreCl.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar un nombre de cliente");
+                        return false;
+                    }
+                    if (txtDireccionCl.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar una dirección");
+                        return false;
+                    }
+                    if (txtTelefonoCl.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar un número de teléfono");
+                        return false;
+                    }
+                    break;
                 case "updatecliente":
 
                     if (drpClientes.SelectedIndex == 0)
@@ -168,7 +187,7 @@ namespace prjtallermotos.Admin
                     return;
                 }
                 mensajes("success", objadmin.Resultado);
-                Recargar_grid();
+                RecargarControles();
             }
             catch (Exception ex)
             {
@@ -198,7 +217,7 @@ namespace prjtallermotos.Admin
                     return;
                 }
                 mensajes("success", objadmin.Resultado);
-                Recargar_grid();
+                RecargarControles();
             }
             catch (Exception ex)
             {

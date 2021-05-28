@@ -596,6 +596,7 @@ namespace LibOperativa
                 objadminRn.IntEmpleado_id = intEmpleado_id;
                 objadminRn.StrDiagnostico = strDiagnostico;
                 objadminRn.StrProc_Realizado = strProc_Realizado;
+                objadminRn.IntMantenimiento_id = IntMantenimiento_id;
                 if (!objadminRn.Mantenimiento_Update())
                 {
                     strError = objadminRn.StrError;
