@@ -77,7 +77,7 @@
         </div>
         <br />
         <div class="Centrar-Medio">
-            <asp:Button runat="server" ID="btnInsertarVeh" CssClass="btn btn-info" Text="Insertar" />
+            <asp:Button runat="server" ID="btnInsertarVeh" CssClass="btn btn-info" Text="Insertar" OnClick="btnInsertarVeh_Click"/>
             <asp:Button runat="server" ID="btnActualizarVeh" CssClass="btn btn-info" Text="Actualizar" />
         </div>
         <br />

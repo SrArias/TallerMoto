@@ -56,7 +56,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">Precio por unidad</span>
                 </div>
-                <input type="number" onclick="" runat="server" id="txtPropUnid" class="form-control" placeholder="$" aria-label="PropUnid" aria-describedby="basic-addon1" />
+                <input type="number" onclick="" runat="server" id="txtPrecioxUnid" class="form-control" placeholder="$" aria-label="PropUnid" aria-describedby="basic-addon1" />
             </div>
         </div>
         <div class="row justify-content-center">
@@ -66,7 +66,7 @@
         </div>
         <br />
         <div class="Centrar-Medio">
-            <asp:Button runat="server" ID="btnInsertarRep" CssClass="btn btn-info" Text="Insertar" />
+            <asp:Button runat="server" ID="btnInsertarRep" CssClass="btn btn-info" Text="Insertar" OnClick="btnInsertarRep_Click"/>
             <asp:Button runat="server" ID="btnActualizarRep" CssClass="btn btn-info" Text="Actualizar" />
         </div>
         <br />

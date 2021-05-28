@@ -69,7 +69,7 @@
         </div>
         <br />
         <div class="Centrar-Medio">
-            <asp:Button runat="server" ID="btnInsertarProv" CssClass="btn btn-info" Text="Insertar" />
+            <asp:Button runat="server" ID="btnInsertarProv" CssClass="btn btn-info" Text="Insertar" OnClick="btnInsertarProv_Click"/>
             <asp:Button runat="server" ID="btnActualizarProv" CssClass="btn btn-info" Text="Actualizar" />
         </div>
         <br />

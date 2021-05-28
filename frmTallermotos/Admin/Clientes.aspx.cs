@@ -1,19 +1,31 @@
 ﻿using LibOperativa;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace prjtallermotos.Admin
 {
     public partial class Clientes : System.Web.UI.Page
     {
+        #region "Atributos"
+        private string strnombreapp;
+        #endregion
+
+        #region "Instancias"
         clsllenarope objcontroles;
         clsadminop objadmin;
-        private string strnombreapp;
+        #endregion
+
+        #region "Métodos Privados"
+        private void Recargar_grid()
+        {
+            if (!objcontroles.llenarGrid(gvClientes))
+            {
+                return;
+            }
+        }
+        #endregion
+
+        #region "Eventos"
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -24,9 +36,8 @@ namespace prjtallermotos.Admin
                 btnActualizarCli.Enabled = false;
                 Recargar_grid();
                 if (!IsPostBack)
-                {
-                   
-                    
+                {              
+                 
 
                     if (!objcontroles.llenarDrop(drpPlaca))
                     {
@@ -81,13 +92,8 @@ namespace prjtallermotos.Admin
 
         }
 
-        private void Recargar_grid()
-        {
-            if (!objcontroles.llenarGrid(gvClientes))
-            {
-                return;
-            }
-        }
+        #endregion
+
         protected void btnActualizarCli_Click(object sender, EventArgs e)
         {
             //objadmin.IntUsuario_id = int.Parse(txtIdCliente.Value.Trim());
@@ -106,19 +112,26 @@ namespace prjtallermotos.Admin
 
         protected void btnInsertarCli_Click(object sender, EventArgs e)
         {
-            objadmin.IntUsuario_id = int.Parse(txtIdCliente.Value.Trim());
-            objadmin.StrDireccionC = txtDireccionCl.Value.Trim();
-            objadmin.StrNombreC = txtNombreCl.Value.Trim();
-            objadmin.StrTelefonoC = txtTelefonoCl.Value.Trim();
-            objadmin.StrVehiculo_id = drpPlaca.SelectedItem.Value;
-            if (!objadmin.Ingresar_Usuario())
+            try
             {
-                objadmin = null;
-                Response.Write($"<script>alert('{objadmin.StrError}')</script>");
-                return;
+                objadmin.IntUsuario_id = int.Parse(txtIdCliente.Value.Trim());
+                objadmin.StrDireccionC = txtDireccionCl.Value.Trim();
+                objadmin.StrNombreC = txtNombreCl.Value.Trim();
+                objadmin.StrTelefonoC = txtTelefonoCl.Value.Trim();
+                objadmin.StrVehiculo_id = drpPlaca.SelectedItem.Value;
+                if (!objadmin.Ingresar_Usuario())
+                {
+                    objadmin = null;
+                    Response.Write($"<script>alert('{objadmin.StrError}')</script>");
+                    return;
+                }
+                Response.Write($"<script>alert('{objadmin.Resultado}')</script>");
+                Recargar_grid();
             }
-            Response.Write($"<script>alert('{objadmin.Resultado}')</script>");
-            Recargar_grid();
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             
         }
     }

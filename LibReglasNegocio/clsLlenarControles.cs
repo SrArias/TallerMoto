@@ -1,11 +1,7 @@
 ﻿using libLlenarCombos;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using libLlenarGrids;
 
@@ -13,6 +9,7 @@ namespace LibReglasNegocio
 {
     public class clsLlenarControles
     {
+        #region "Atributos"
 
         private const string ID = "Id";
         private clsLlenarGrids objGrid;
@@ -29,16 +26,26 @@ namespace LibReglasNegocio
         private int identificacion;
         private int opcion;
 
+        #endregion
+
+        #region "Propiedades"
         public int Identificacion { get => identificacion; set => identificacion = value; }
         public string Error { get => strError; set => strError = value; }
         public int Opcion { get => opcion; set => opcion = value; }
 
+        #endregion
+
+        #region "Constructor"
         public clsLlenarControles(string NombreApp)
         {
             objGrid = new clsLlenarGrids(NombreApp);
             objcnx = new clsLlenarCombos(NombreApp);
 
         }
+
+        #endregion
+
+        #region "Métodos Privados"
         private bool AgregarParametros(string MetodoOrigen)
         {
             try
@@ -67,6 +74,11 @@ namespace LibReglasNegocio
                 throw ex;
             }
         }
+
+        #endregion
+
+        #region "Métodos Públicos"
+
         public bool Llenarddl(DropDownList ddlGenerico)
         {
             try
@@ -81,6 +93,8 @@ namespace LibReglasNegocio
                     case "ddlvehiculo":
                     case "ddlcarro":
                     case "drpplaca":
+                    case "drpidvehiculo":
+                    case "drpidmantenim":
                         strid = "vehiculo_id";
                         strcampostext = "placa";
                         objcnx.SQL = "sp_getautos";
@@ -97,12 +111,27 @@ namespace LibReglasNegocio
                         objcnx.SQL = "sp_getempleados";
                         break;
                     case "drpclientes":
+                    
                         strid = "cliente_id";
                         strcampostext = "nombre";
                         objcnx.ParametrosSQL = objDatosTaller;
                         objcnx.SQL = "sp_getclientes";
                         break;
-
+                    
+                        
+                    case "drpidprov":
+                    case "drpprovid":
+                        strid = "prov_id";
+                        strcampostext = "nombre";
+                        objcnx.ParametrosSQL = objDatosTaller;
+                        objcnx.SQL = "sp_getproveedor";
+                        break;
+                    case "drpidrep":
+                        strid = "repuesto_id";
+                        strcampostext = "nombre";
+                        objcnx.ParametrosSQL = objDatosTaller;
+                        objcnx.SQL = "sp_getrespuesto";
+                        break;
                     default:
                         strError = "ddl no programado";
                         return false;
@@ -152,8 +181,18 @@ namespace LibReglasNegocio
                         strcampostext = "nombre";
                         objcnx.SQL = "sp_getmecanico";
                         break;
-
-
+                    case "gvmantenimiento":
+                        objGrid.SQL = "sp_getmantenimiento";
+                        break;
+                    case "gvprov":
+                        objGrid.SQL = "sp_getproveedor";
+                        break;
+                    case "gvrep":
+                        objGrid.SQL = "sp_getrespuesto";
+                        break;
+                    case "gvvehic":
+                        objGrid.SQL = "sp_getvehiculo";
+                        break;
                     default:
                         strError = "ddl no programado";
                         return false;
@@ -175,5 +214,6 @@ namespace LibReglasNegocio
                 throw ex;
             }
         }
+        #endregion
     }
 }

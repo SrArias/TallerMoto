@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Mantenimiento.aspx.cs" Inherits="prjtallermotos.Admin.Mantenimiento" %>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -22,7 +23,7 @@
             <a href="Vehiculos.aspx"><i class="fa fa-fw fa-wrench"></i>Vehículos</a>
             <a href="Proveedores.aspx"><i class="fa fa-fw fa-user"></i>Proveedores</a>
             <a href="Repuestos.aspx"><i class="fa fa-fw fa-wrench"></i>Repuestos</a>
-            <img src="../img/image_icon_logout_pic_512x512.png" style="margin-top:95%"/>
+            <img src="../img/image_icon_logout_pic_512x512.png" style="margin-top: 95%" />
         </div>
         <div class="Centrar-Medio">
             <h1>Mantenimiento</h1>
@@ -57,7 +58,7 @@
             </div>
         </div>
         <div class="Centrar-Medio">
-            <asp:Button runat="server" ID="btnInsertarMant" CssClass="btn btn-info" Text="Insertar" />
+            <asp:Button runat="server" ID="btnInsertarMant" CssClass="btn btn-info" Text="Insertar" OnClick="btnInsertarMant_Click" />
             <asp:Button runat="server" ID="btnActualizarMant" CssClass="btn btn-info" Text="Actualizar" />
         </div>
         <br />
@@ -65,7 +66,6 @@
         <br />
         <div class="row justify-content-center">
             <asp:DropDownList ID="drpIdMantenim" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server" OnSelectedIndexChanged="drpIdMantenim_SelectedIndexChanged">
-                <asp:ListItem Text="Seleccione un ID" />
             </asp:DropDownList>
             <br />
             <asp:Panel runat="server" Visible="true" ID="pnlMantenimiento" CssClass="tablaMantenimiento">

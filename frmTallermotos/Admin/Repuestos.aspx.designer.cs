@@ -51,13 +51,13 @@ namespace prjtallermotos.Admin
         protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtUnidOrden;
 
         /// <summary>
-        /// Control txtPropUnid.
+        /// Control txtPrecioxUnid.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtPropUnid;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtPrecioxUnid;
 
         /// <summary>
         /// Control drpProvID.

@@ -1,16 +1,13 @@
 ﻿using libConexionBd;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibReglasNegocio
 {
     public class clsadminRN
     {
+        #region "Atributos"
         private int intUsuario_id;
         private string strContrasena;
         private string strVehiculo_id;
@@ -51,8 +48,9 @@ namespace LibReglasNegocio
         private clsConexionBd objcnx;
         private string strError;
         private DataSet dsDatos;
+        #endregion
 
-
+        #region "Propiedades"
         public int IntUsuario_id { get => intUsuario_id; set => intUsuario_id = value; }
         public string StrContrasena { get => strContrasena; set => strContrasena = value; }
         public string StrVehiculo_id { get => strVehiculo_id; set => strVehiculo_id = value; }
@@ -91,50 +89,10 @@ namespace LibReglasNegocio
         public int IntEmpleado_id { get => intEmpleado_id; set => intEmpleado_id = value; }
         public int IntRepuesto_id { get => intRepuesto_id; set => intRepuesto_id = value; }
         public int IntMantenimiento_id { get => intMantenimiento_id; set => intMantenimiento_id = value; }
+        #endregion
 
-        public clsadminRN(string nombreapp)
-        {
-            strNombreApp = nombreapp;
-            objcnx = new clsConexionBd(nombreapp);
-            this.intUsuario_id = 0;
-            this.strContrasena="";
-            this.strVehiculo_id = "";
-            this.strMarca = "";
-            this.strCilindraje = "";
-            this.intModelo = 0;
-            this.strColor = "";
-            this.strRefencia = "";
-            this.strNombreC = "";
-            this.strTelefonoC = "";
-            this.strDireccionC = "";
-            this.intEmpleado_id = 0;
-            this.strNombreE = "";
-            this.strTelefonoE = "";
-            this.strDireccionE = "";
-            this.intSalarioE = 0;
-            this.intProv_id = 0;
-            this.strNombreProv = "";
-            this.strNombreContacProv = "";
-            this.strTituloContacProv = "";
-            this.strNumeroContacprov = "";
-            this.strDireccionProv = "";
-            this.intRepuesto_id = 0;
-            this.strNombreRep = "";
-            this.intUnidStock = 0;
-            this.intUnidOrdenadas = 0;
-            this.intPrecioUnid = 0;
-            this.intcargo = 0;
-            this.intsalario = 0;
-            this.intMantenimiento_id = 0;
-            this.strDiagnostico = "";
-            this.strProc_Realizado = "";
-            this.datFecha = DateTime.Now;
-            this.intCant_Repuesto = 0;
-            this.intPrecio_Mant = 0;
-            
-    }
-
-    private bool validar(string MetodoOrigen)
+        #region "Métodos Privados"
+        private bool validar(string MetodoOrigen)
         {
             if (string.IsNullOrEmpty(strNombreApp))
             {
@@ -365,6 +323,7 @@ namespace LibReglasNegocio
             }
             return true;
         }
+
         private bool AgregarParametros(string MetodoOrigen)
         {
             try
@@ -471,6 +430,50 @@ namespace LibReglasNegocio
 
                 throw ex;
             }
+        }
+        #endregion
+
+        #region "Métodos Públicos"
+        public clsadminRN(string nombreapp)
+        {
+            strNombreApp = nombreapp;
+            objcnx = new clsConexionBd(nombreapp);
+            this.intUsuario_id = 0;
+            this.strContrasena = "";
+            this.strVehiculo_id = "";
+            this.strMarca = "";
+            this.strCilindraje = "";
+            this.intModelo = 0;
+            this.strColor = "";
+            this.strRefencia = "";
+            this.strNombreC = "";
+            this.strTelefonoC = "";
+            this.strDireccionC = "";
+            this.intEmpleado_id = 0;
+            this.strNombreE = "";
+            this.strTelefonoE = "";
+            this.strDireccionE = "";
+            this.intSalarioE = 0;
+            this.intProv_id = 0;
+            this.strNombreProv = "";
+            this.strNombreContacProv = "";
+            this.strTituloContacProv = "";
+            this.strNumeroContacprov = "";
+            this.strDireccionProv = "";
+            this.intRepuesto_id = 0;
+            this.strNombreRep = "";
+            this.intUnidStock = 0;
+            this.intUnidOrdenadas = 0;
+            this.intPrecioUnid = 0;
+            this.intcargo = 0;
+            this.intsalario = 0;
+            this.intMantenimiento_id = 0;
+            this.strDiagnostico = "";
+            this.strProc_Realizado = "";
+            this.datFecha = DateTime.Now;
+            this.intCant_Repuesto = 0;
+            this.intPrecio_Mant = 0;
+
         }
 
         public bool Usuario()
@@ -879,6 +882,7 @@ namespace LibReglasNegocio
                 throw;
             }
         }
+        #endregion
 
     }
 }

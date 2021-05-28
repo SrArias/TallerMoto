@@ -1,25 +1,26 @@
 ﻿using LibReglasNegocio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibOperativa
 {
     public class clsLogin
     {
+        #region "Atributos"
         private int intUsername;
         private string strNombreApp;
         private string strPassword;
         private string strError;
         private string tipo_usuario;
+        #endregion
 
+        #region "Propiedades"
         public int Username { get => intUsername; set => intUsername = value; }
         public string Password { get => strPassword; set => strPassword = value; }
         public string Error { get => strError; set => strError = value; }
         public string Tipo_usuario { get => tipo_usuario; set => tipo_usuario = value; }
+        #endregion
 
+        #region "Constructor"
         public clsLogin(string nombreapp)
         {
             strNombreApp = nombreapp;
@@ -27,7 +28,9 @@ namespace LibOperativa
             strPassword = string.Empty;
 
         }
+        #endregion
 
+        #region "Métodos privados"
         private bool validar(string metodoOrigen)
         {
             if (string.IsNullOrEmpty(strNombreApp))
@@ -58,6 +61,9 @@ namespace LibOperativa
             return true;
         }
 
+        #endregion
+
+        #region "Métodos Públicas"
         public bool login()
         {
             try
@@ -93,5 +99,7 @@ namespace LibOperativa
             }
 
         }
+
+        #endregion
     }
 }

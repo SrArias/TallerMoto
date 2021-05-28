@@ -1,25 +1,22 @@
 ﻿using libConexionBd;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibReglasNegocio
 {
     public class clsLoginRN
     {
+        #region "Atributos"
         private const string LOGIN = "LOGIN";
         private int intUsername;
-        private string strPassword, strNombreApp, strError;
-        
+        private string strPassword, strNombreApp, strError;        
         private SqlParameter[] objDatosEscuela;
         private clsConexionBd objcnx;
         private DataSet dsDatos;
+        #endregion
 
-       
+        #region "Constructor"
         public clsLoginRN(string NombreApp)
         {
             strNombreApp = NombreApp;
@@ -28,12 +25,16 @@ namespace LibReglasNegocio
             strError = string.Empty;
             objcnx = new clsConexionBd(NombreApp);
         }
+        #endregion
 
+        #region "Propiedades"
         public int Username { set => intUsername = value; }
         public string Password { set => strPassword = value; }
         public string Error { get => strError; }
         public DataSet Datos { get => dsDatos; }
-        
+        #endregion
+
+        #region "Métodos Privados"
 
         private bool validar(string MetodoOrigen)
         {
@@ -94,6 +95,9 @@ namespace LibReglasNegocio
             }
         }
 
+        #endregion
+
+        #region "Métodos Públicos"
 
         public bool Login()
         {
@@ -124,4 +128,6 @@ namespace LibReglasNegocio
             }
         }
     }
+
+    #endregion
 }

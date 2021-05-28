@@ -71,5 +71,41 @@ namespace prjtallermotos.Admin
             }
 
         }
+        private void Recargar_grid()
+        {
+            if (!objcontroles.llenarGrid(gvEmpleados))
+            {
+                return;
+            }
+        }
+        protected void btnInsertarEmp_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                objadmin.IntEmpleado_id = int.Parse(txtIdEmpleado.Value.Trim());
+                objadmin.StrNombreE = txtNombre.Value.Trim();
+                objadmin.StrTelefonoE = txtTelefono.Value.Trim();
+                objadmin.StrDireccionE = txtDireccion.Value.Trim();
+                objadmin.IntSalarioE = int.Parse(txtSalario.Value.Trim());
+                objadmin.IntCargo= int.Parse(drpCargo.SelectedItem.Value);
+                objadmin.IntTurno = int.Parse(drpTurno.SelectedItem.Value);
+
+
+                if (!objadmin.Ingresar_Empleado())
+                {
+                    
+                       objadmin = null;
+                    Response.Write($"<script>alert('{objadmin.StrError}')</script>");
+                    return;
+                }
+                Response.Write($"<script>alert('{objadmin.Resultado}')</script>");
+                Recargar_grid();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
     }
 }

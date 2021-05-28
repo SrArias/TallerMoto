@@ -1,22 +1,34 @@
 ﻿using LibReglasNegocio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 
 namespace LibOperativa
 {
     public class clsllenarope
     {
+        #region "Atributos"
         private string strNombreApp;
         private string strError;
         private int intidentificacion;
         private int opcion;
+        #endregion
 
+        #region "Propiedades"
         public int Identificacion { get => intidentificacion; set => intidentificacion = value; }
         public int Opcion { get => opcion; set => opcion = value; }
+        #endregion
+
+        #region "Constructor"
+        public clsllenarope(string nombreapp)
+        {
+            strNombreApp = nombreapp;
+            strError = string.Empty;
+            intidentificacion=0;
+            opcion=0;
+        }
+        #endregion
+
+        #region "Métodos Públicos
 
         public bool llenarGrid(GridView gvGenerico)
         {
@@ -47,13 +59,6 @@ namespace LibOperativa
         }
 
 
-        public clsllenarope(string nombreapp)
-        {
-            strNombreApp = nombreapp;
-            strError = string.Empty;
-        }
-
-
         public bool llenarDrop(DropDownList ddlGenerico)
         {
             try
@@ -80,5 +85,7 @@ namespace LibOperativa
             }
 
         }
+
+        #endregion
     }
 }

@@ -85,7 +85,7 @@
         </div>
         <br />
         <div class="Centrar-Medio">
-            <asp:Button runat="server" ID="btnInsertarEmp" CssClass="btn btn-info" Text="Insertar" />
+            <asp:Button runat="server" ID="btnInsertarEmp" CssClass="btn btn-info" Text="Insertar" OnClick="btnInsertarEmp_Click"/>
             <asp:Button runat="server" ID="btnActualizarEmp" CssClass="btn btn-info" Text="Actualizar" />
         </div>
         <br />
