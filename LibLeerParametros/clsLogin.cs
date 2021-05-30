@@ -13,21 +13,23 @@ namespace LibOperativa
         private string tipo_usuario;
         #endregion
 
+        #region "Constructor"
+        public clsLogin(string nombreapp)
+        {
+            this.strNombreApp = nombreapp;
+            this.intUsername = -1;
+            this.strPassword = string.Empty;
+            this.strError = string.Empty;
+            this.tipo_usuario = string.Empty;
+
+        }
+        #endregion
+
         #region "Propiedades"
         public int Username { get => intUsername; set => intUsername = value; }
         public string Password { get => strPassword; set => strPassword = value; }
         public string Error { get => strError; set => strError = value; }
         public string Tipo_usuario { get => tipo_usuario; set => tipo_usuario = value; }
-        #endregion
-
-        #region "Constructor"
-        public clsLogin(string nombreapp)
-        {
-            strNombreApp = nombreapp;
-            intUsername = -1;
-            strPassword = string.Empty;
-
-        }
         #endregion
 
         #region "Métodos privados"

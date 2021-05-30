@@ -61,20 +61,31 @@
         </div>
         <br />
         <div class="row justify-content-center">
+            <div class="input-group mb-3 Centrar-Medio size">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Placa</span>
+                </div>
             <asp:DropDownList ID="drpPlaca" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server">                
             </asp:DropDownList>
+                </div>
         </div>
         <br />
         <div class="Centrar-Medio">
             <asp:Button runat="server" ID="btnInsertarCli" CssClass="btn btn-info" Text="Insertar" OnClick="btnInsertarCli_Click" />
             <asp:Button runat="server" ID="btnActualizarCli" CssClass="btn btn-info" Text="Actualizar" Enabled="false" OnClick="btnActualizarCli_Click"/>
+            <asp:Button runat="server" ID="btnLimpiar" CssClass="btn btn-info" Text="Limpiar" onClick="btnLimpiar_Click"/>
         </div>
         <br />
-        <h5 class="Centrar-Medio">Si desea actualizar un cliente debe seleccionar su ID</h5>
+        <h5 class="Centrar-Medio">Si desea actualizar un cliente debe seleccionar su nombre</h5>
         <br />
         <div class="row justify-content-center">
+            <div class="input-group mb-3 Centrar-Medio size">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Cliente</span>
+                </div>
             <asp:DropDownList ID="drpClientes" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server" OnSelectedIndexChanged="drpClientes_SelectedIndexChanged1">                
             </asp:DropDownList>
+                </div>
         </div>
         <br />
         <asp:Panel runat="server" Visible="true" ID="pnlCliente" CssClass="tablaCliente Centrar-Medio">

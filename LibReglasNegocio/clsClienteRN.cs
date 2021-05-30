@@ -16,23 +16,22 @@ namespace LibReglasNegocio
         private DataSet dsDatos;
         #endregion
 
-        #region "Propiedades"
-
-        public int Identificacion { set => identificacion = value; }
-        public string Error { get => strError;  }
-        
-        public DataSet DsDatos { get => dsDatos;  }
-
-        #endregion
-
         #region "Constructor"
         public clsClienteRN(string strNombreApp)
         {
-            this.Identificacion = -1;
+            this.identificacion = -1;
             this.strNombreApp = strNombreApp;
             this.strError = "";
-            
+
         }
+        #endregion
+
+        #region "Propiedades"
+
+        public int Identificacion { set => identificacion = value; }
+        public string Error { get => strError;  }        
+        public DataSet DsDatos { get => dsDatos;  }
+
         #endregion
 
         #region "Métodos Privados"

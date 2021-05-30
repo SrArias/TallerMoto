@@ -26,11 +26,19 @@
         <div class="Centrar-Medio">
             <h1>Proveedores</h1>
         </div>
-        <br />
+        <br />  
+              <div class="row justify-content-center">
+            <div class="input-group mb-3 Centrar-Medio size">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">ID compañía</span>
+                </div>
+                <input type="text" onclick="" runat="server" id="txtIdProv" class="form-control" aria-label="txtIdProv" aria-describedby="basic-addon1" />
+            </div>
+        </div>
         <div class="row justify-content-center">
             <div class="input-group mb-3 Centrar-Medio size">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon2">Nombre de compañía</span>
+                    <span class="input-group-text">Nombre de compañía</span>
                 </div>
                 <input type="text" onclick="" runat="server" id="txtNomCompania" class="form-control" aria-label="NomCompania" aria-describedby="basic-addon1" />
             </div>
@@ -70,18 +78,23 @@
         <br />
         <div class="Centrar-Medio">
             <asp:Button runat="server" ID="btnInsertarProv" CssClass="btn btn-info" Text="Insertar" OnClick="btnInsertarProv_Click"/>
-            <asp:Button runat="server" ID="btnActualizarProv" CssClass="btn btn-info" Text="Actualizar" OnClick="btnActualizarProv_Click" />
+            <asp:Button runat="server" ID="btnActualizarProv" CssClass="btn btn-info" Enabled = "false" Text="Actualizar" OnClick="btnActualizarProv_Click" />
+            <asp:Button runat="server" ID="btnLimpiar" CssClass="btn btn-info" Text="Limpiar" OnClick="btnLimpiar_Click" />
         </div>
         <br />
-        <h5 class="Centrar-Medio">Si desea actualizar un proveedor debe escoger su ID</h5>
+        <h5 class="Centrar-Medio">Si desea actualizar un proveedor debe seleccionar la compañía</h5>
         <br />
         <div class="row justify-content-center">
-            <asp:DropDownList ID="drpIdProv" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server" OnSelectedIndexChanged="drpIdProv_SelectedIndexChanged">
-                
+            <div class="input-group mb-3 Centrar-Medio size">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Compañía</span>
+                </div>
+            <asp:DropDownList ID="drpIdProv" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server" OnSelectedIndexChanged="drpIdProv_SelectedIndexChanged">                
             </asp:DropDownList>
+                </div>
         </div>
         <br />
-        <asp:Panel runat="server" Visible="true" ID="pnlProv" CssClass="tablaProv">
+        <asp:Panel runat="server" Visible="true" ID="pnlProv" CssClass="Centrar-Medio">
             <asp:GridView runat="server" ID="gvProv">
             </asp:GridView>
         </asp:Panel>

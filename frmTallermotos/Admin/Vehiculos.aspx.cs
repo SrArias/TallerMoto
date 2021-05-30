@@ -1,48 +1,48 @@
 ﻿using LibOperativa;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace prjtallermotos.Admin
 {
     public partial class Vehiculos : System.Web.UI.Page
     {
+        #region "Instancias"
         clsllenarope objcontroles;
         clsadminop objadmin;
         private string strnombreapp;
-        protected void Page_Load(object sender, EventArgs e)
+        #endregion
+
+        #region "Métodos Privados"
+
+        private void Limpiar()
         {
-            try 
-            { 
-            strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
-            objcontroles = new clsllenarope(strnombreapp);
-            objadmin = new clsadminop(strnombreapp);
+            txtIdVehiculo.Disabled = false;
+            btnInsertarVeh.Enabled = true;
             btnActualizarVeh.Enabled = false;
-            Recargar_grid();
-            if (!IsPostBack)
-            {
+            txtIdVehiculo.Value = string.Empty;
+            txtMarca.Value = string.Empty;
+            txtCilindraje.Value = string.Empty;
+            txtModelo.Value = string.Empty;
+            txtColor.Value = string.Empty;
+            txtReferencia.Value = string.Empty;
+            drpIdVehiculo.DataSource = null;
+            drpIdVehiculo.Items.Clear();
+            RecargarControles();
+        }
 
-                if (!objcontroles.llenarGrid(gvVehic))
-                {
-                    mensajes("error", objcontroles.StrError);
-                    return;
-                }
-                if (!objcontroles.llenarDrop(drpIdVehiculo))
-                {
-                    mensajes("error", objcontroles.StrError);
-                    return;
-                }
-  
-            }
-            }
-            catch (Exception ex)
-            {
+        private void RecargarControles()
+        {
 
-                mensajes("error", ex.Message);
+            if (!objcontroles.llenarGrid(gvVehic))
+            {
+                mensajes("error", objcontroles.StrError);
+                return;
+            }
+            if (!objcontroles.llenarDrop(drpIdVehiculo))
+            {
+                mensajes("error", objcontroles.StrError);
+                return;
             }
 
         }
@@ -66,6 +66,33 @@ namespace prjtallermotos.Admin
                     break;
 
                 case "insertvehiculo":
+
+                    if (txtMarca.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar una marca de la moto");
+                        return false;
+                    }
+                    if (txtCilindraje.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar el cilindraje de la moto");
+                        return false;
+                    }
+                    if (txtModelo.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar el modelo de la moto");
+                        return false;
+                    }
+                    if (txtColor.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar el color de la moto");
+                        return false;
+                    }
+                    if (txtReferencia.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar la referencia de la moto");
+                        return false;
+                    }
+                    break;
                 case "updatevehiculo":
 
                     if (drpIdVehiculo.SelectedIndex == 0)
@@ -104,63 +131,8 @@ namespace prjtallermotos.Admin
 
             }
             return true;
-
-
         }
-
-        protected void drpIdVehiculo_SelectedIndexChanged1(object sender, EventArgs e)
-        {
-            try
-            {
-                if (!validar("getonevehiculo"))
-                {
-                    return;
-                }
-
-                objadmin.StrVehiculo_id = drpIdVehiculo.SelectedItem.Value;
-
-                if (!objadmin.getone_vehiculo())
-                {
-                    objadmin = null;
-                    mensajes("error", objadmin.StrError);
-                    return;
-                }
-
-                txtIdVehiculo.Disabled = true;
-                //btnInsertarEmp.Enabled = true;
-                txtIdVehiculo.Value = objadmin.StrVehiculo_id;
-                txtMarca.Value = objadmin.StrMarca;
-                txtCilindraje.Value = objadmin.StrCilindraje;
-                txtModelo.Value = objadmin.IntModelo.ToString();
-                txtColor.Value = objadmin.StrColor;
-                txtReferencia.Value = objadmin.StrRefencia;
-
-                if (!objadmin.getone_vehiculo())
-                {
-                    objadmin = null;
-                    mensajes("error", objadmin.StrError);
-                    return;
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
-        }
-        private void Recargar_grid()
-        {
-            if (!objcontroles.llenarGrid(gvVehic))
-            {
-                mensajes("error", objcontroles.StrError);
-                return;
-            }
-        }
-
-
-
-        protected void btnInsertarVeh_Click(object sender, EventArgs e)
+        private void Insertar()
         {
             try
             {
@@ -184,12 +156,122 @@ namespace prjtallermotos.Admin
                     return;
                 }
                 mensajes("success", objadmin.Resultado);
-                Recargar_grid();
+                Limpiar();
             }
             catch (Exception ex)
             {
                 mensajes("error", ex.Message);
             }
         }
+        private void Actualizar()
+        {
+            try
+            {
+                if (!validar("updatevehiculo"))
+                {
+                    return;
+                }
+
+                objadmin.StrVehiculo_id = txtIdVehiculo.Value.Trim();
+                objadmin.StrMarca = txtMarca.Value.Trim();
+                objadmin.StrCilindraje = txtCilindraje.Value.Trim();
+                objadmin.IntModelo = int.Parse(txtModelo.Value.Trim());
+                objadmin.StrColor = txtColor.Value.Trim();
+                objadmin.StrRefencia = txtReferencia.Value.Trim();
+
+                if (!objadmin.Actualizar_Vehiculo())
+                {
+
+                    objadmin = null;
+                    mensajes("error", objadmin.StrError);
+                    return;
+                }
+                mensajes("success", objadmin.Resultado);
+                Limpiar();
+            }
+            catch (Exception ex)
+            {
+                mensajes("error", ex.Message);
+            }
+        }
+        #endregion
+
+        #region "Eventos"
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            try 
+            { 
+            strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
+            objcontroles = new clsllenarope(strnombreapp);
+            objadmin = new clsadminop(strnombreapp);
+            btnActualizarVeh.Enabled = false;
+                if (!IsPostBack)
+                {
+                    RecargarControles();
+                }
+            
+            }
+            catch (Exception ex)
+            {
+
+                mensajes("error", ex.Message);
+            }
+
+        }
+
+        protected void drpIdVehiculo_SelectedIndexChanged1(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!validar("getonevehiculo"))
+                {
+                    return;
+                }
+
+                objadmin.StrVehiculo_id = drpIdVehiculo.SelectedItem.Value;
+
+                if (!objadmin.getone_vehiculo())
+                {
+                    objadmin = null;
+                    mensajes("error", objadmin.StrError);
+                    return;
+                }
+
+                txtIdVehiculo.Disabled = true;
+                btnActualizarVeh.Enabled = true;
+                btnInsertarVeh.Enabled = false;
+                txtIdVehiculo.Value = objadmin.StrVehiculo_id;
+                txtMarca.Value = objadmin.StrMarca;
+                txtCilindraje.Value = objadmin.StrCilindraje;
+                txtModelo.Value = objadmin.IntModelo.ToString();
+                txtColor.Value = objadmin.StrColor;
+                txtReferencia.Value = objadmin.StrRefencia;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+        protected void btnInsertarVeh_Click(object sender, EventArgs e)
+        {
+            Insertar();
+        }
+
+        protected void btnActualizarVeh_Click(object sender, EventArgs e)
+        {
+
+            Actualizar();
+        }
+
+        protected void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            Limpiar();
+        }
+        #endregion
     }
 }

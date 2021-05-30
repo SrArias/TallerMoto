@@ -10,7 +10,7 @@ namespace LibReglasNegocio
         #region "Atributos"
         private const string LOGIN = "LOGIN";
         private int intUsername;
-        private string strPassword, strNombreApp, strError;        
+        private string strPassword, strNombreApp, strError;
         private SqlParameter[] objDatosEscuela;
         private clsConexionBd objcnx;
         private DataSet dsDatos;
@@ -46,7 +46,7 @@ namespace LibReglasNegocio
             switch (MetodoOrigen.ToUpper())
             {
                 case LOGIN:
-                    if (intUsername<=0)
+                    if (intUsername <= 0)
                     {
                         strError = "Debe ingresar la cedula con la cual se encuentra registrado";
                         return false;
@@ -56,7 +56,7 @@ namespace LibReglasNegocio
                         strError = "Debes ingresar las contraseña";
                         return false;
                     }
-                    
+
                     break;
                 default:
                     strError = "Método aún no establecido";
@@ -80,7 +80,7 @@ namespace LibReglasNegocio
                         objDatosEscuela = new SqlParameter[2];
                         objDatosEscuela[0] = new SqlParameter("@username", intUsername);
                         objDatosEscuela[1] = new SqlParameter("@password", strPassword);
-                       break;
+                        break;
 
                     default:
                         strError = "Caso no valido en las reglas del negocio";
@@ -127,7 +127,8 @@ namespace LibReglasNegocio
                 throw ex;
             }
         }
+
+        #endregion
     }
 
-    #endregion
 }

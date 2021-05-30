@@ -92,41 +92,41 @@ namespace LibOperativa
         public clsadminop(string nombreapp)
         {
             strNombreApp = nombreapp;
-            //this.intUsuario_id = 0;
-            //this.strContrasena = "";
-            //this.strVehiculo_id = "";
-            //this.strMarca = "";
-            //this.strCilindraje = "";
-            //this.intModelo = 0;
-            //this.strColor = "";
-            //this.strRefencia = "";
-            //this.strNombreC = "";
-            //this.strTelefonoC = "";
-            //this.strDireccionC = "";
-            //this.intEmpleado_id = 0;
-            //this.strNombreE = "";
-            //this.strTelefonoE = "";
-            //this.strDireccionE = "";
-            //this.intSalarioE = 0;
-            //this.intProv_id = 0;
-            //this.strNombreProv = "";
-            //this.strNombreContacProv = "";
-            //this.strTituloContacProv = "";
-            //this.strNumeroContacprov = "";
-            //this.strDireccionProv = "";
-            //this.intRepuesto_id = 0;
-            //this.strNombreRep = "";
-            //this.intUnidStock = 0;
-            //this.intUnidOrdenadas = 0;
-            //this.intPrecioUnid = 0;
-            //this.intCargo = 0;
-            //this.intMantenimiento_id = 0;
-            //this.strDiagnostico = "";
-            //this.strProc_Realizado = "";
-            //this.datFecha = DateTime.Now;
-            //this.intCant_Repuesto = 0;
-            //this.intPrecio_Mant = 0;
-            //this.strNombreApp = "";
+            this.intUsuario_id = 0;
+            this.strContrasena = "";
+            this.strVehiculo_id = "";
+            this.strMarca = "";
+            this.strCilindraje = "";
+            this.intModelo = 0;
+            this.strColor = "";
+            this.strRefencia = "";
+            this.strNombreC = "";
+            this.strTelefonoC = "";
+            this.strDireccionC = "";
+            this.intEmpleado_id = 0;
+            this.strNombreE = "";
+            this.strTelefonoE = "";
+            this.strDireccionE = "";
+            this.intSalarioE = 0;
+            this.intProv_id = 0;
+            this.strNombreProv = "";
+            this.strNombreContacProv = "";
+            this.strTituloContacProv = "";
+            this.strNumeroContacprov = "";
+            this.strDireccionProv = "";
+            this.intRepuesto_id = 0;
+            this.strNombreRep = "";
+            this.intUnidStock = 0;
+            this.intUnidOrdenadas = 0;
+            this.intPrecioUnid = 0;
+            this.intCargo = 0;
+            this.intMantenimiento_id = 0;
+            this.strDiagnostico = "";
+            this.strProc_Realizado = "";
+            this.datFecha = DateTime.Now;
+            this.intCant_Repuesto = 0;
+            this.intPrecio_Mant = 0;
+            
         }
         #endregion
 
@@ -328,13 +328,13 @@ namespace LibOperativa
                     break;
                 case "getonecliente":
                 case "getonevehiculo":
-                    if (intUsuario_id <= 0)
+                    if (strVehiculo_id == string.Empty)
                     {
-                        strError = "Seleccione el nombre del  cliente";
+                        strError = "Ingrese la placa del vehiculo";
                     }
                     break;
 
-                case "getonerespuesto":
+                case "getonerepuesto":
                     if (intRepuesto_id <= 0)
                     {
                         strError = "Seleccione el nombre del repuesto";
@@ -433,13 +433,14 @@ namespace LibOperativa
                     return false;
                 }
                 clsadminRN objadminRn = new clsadminRN(strNombreApp);
-                objadminRn.IntEmpleado_id = intUsuario_id;
+                objadminRn.IntEmpleado_id = intEmpleado_id;
                 objadminRn.StrNombreE = StrNombreE;
                 objadminRn.StrTelefonoE = strTelefonoE;
                 objadminRn.StrDireccionE = strDireccionE;
                 objadminRn.IntCargo = intCargo;
+                objadminRn.IntTurno = intTurno;
                 objadminRn.IntSalario = IntSalarioE;
-                objadminRn.StrContrasena = strContrasena;
+                objadminRn.StrContrasena = "12345";
 
 
 
@@ -449,7 +450,7 @@ namespace LibOperativa
                     objadminRn = null;
                     return false;
                 }
-                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["@mensaje"].ToString();
+                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["mensaje"].ToString();
                 objadminRn = null;
                 return true;
             }
@@ -468,11 +469,12 @@ namespace LibOperativa
                     return false;
                 }
                 clsadminRN objadminRn = new clsadminRN(strNombreApp);
-                objadminRn.IntEmpleado_id = intUsuario_id;
+                objadminRn.IntEmpleado_id = intEmpleado_id;
                 objadminRn.StrNombreE = StrNombreE;
                 objadminRn.StrTelefonoE = strTelefonoE;
                 objadminRn.StrDireccionE = strDireccionE;
                 objadminRn.IntCargo = intCargo;
+                objadminRn.IntTurno = intTurno;
                 objadminRn.IntSalario = IntSalarioE;
 
                 if (!objadminRn.Empleado_Update())
@@ -481,7 +483,7 @@ namespace LibOperativa
                     objadminRn = null;
                     return false;
                 }
-                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["@mensaje"].ToString();
+                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["mensaje"].ToString();
                 objadminRn = null;
                 return true;
             }
@@ -512,7 +514,7 @@ namespace LibOperativa
                     objadminRn = null;
                     return false;
                 }
-                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["@mensaje"].ToString();
+                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["mensaje"].ToString();
                 objadminRn = null;
                 return true;
             }
@@ -543,7 +545,7 @@ namespace LibOperativa
                     objadminRn = null;
                     return false;
                 }
-                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["@mensaje"].ToString();
+                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["mensaje"].ToString();
                 objadminRn = null;
                 return true;
             }
@@ -562,6 +564,7 @@ namespace LibOperativa
                     return false;
                 }
                 clsadminRN objadminRn = new clsadminRN(strNombreApp);
+
                 objadminRn.StrVehiculo_id = strVehiculo_id;
                 objadminRn.IntEmpleado_id = intEmpleado_id;
                 objadminRn.StrDiagnostico = strDiagnostico;
@@ -572,7 +575,7 @@ namespace LibOperativa
                     objadminRn = null;
                     return false;
                 }
-                resultado = "";
+                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["mensaje"].ToString();
                 objadminRn = null;
                 return true;
             }
@@ -634,7 +637,7 @@ namespace LibOperativa
                     objadminRn = null;
                     return false;
                 }
-                resultado = "";
+                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["mensaje"].ToString();
                 objadminRn = null;
                 return true;
             }
@@ -665,7 +668,7 @@ namespace LibOperativa
                     objadminRn = null;
                     return false;
                 }
-                resultado = "";
+                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["mensaje"].ToString();
                 objadminRn = null;
                 return true;
             }
@@ -741,6 +744,7 @@ namespace LibOperativa
                 clsadminRN objadminRn = new clsadminRN(strNombreApp);
                 objadminRn.StrVehiculo_id = strVehiculo_id;
                 objadminRn.StrMarca = strMarca;
+                objadminRn.StrCilindraje = strCilindraje;
                 objadminRn.IntModelo = intModelo;
                 objadminRn.StrColor = strColor;
                 objadminRn.StrRefencia = strRefencia;
@@ -750,7 +754,7 @@ namespace LibOperativa
                     objadminRn = null;
                     return false;
                 }
-                resultado = "";
+                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["mensaje"].ToString();
                 objadminRn = null;
                 return true;
             }
@@ -772,6 +776,7 @@ namespace LibOperativa
                 clsadminRN objadminRn = new clsadminRN(strNombreApp);
                 objadminRn.StrVehiculo_id = strVehiculo_id;
                 objadminRn.StrMarca = strMarca;
+                objadminRn.StrCilindraje = strCilindraje;
                 objadminRn.IntModelo = intModelo;
                 objadminRn.StrColor = strColor;
                 objadminRn.StrRefencia = strRefencia;
@@ -781,7 +786,7 @@ namespace LibOperativa
                     objadminRn = null;
                     return false;
                 }
-                resultado = "";
+                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["mensaje"].ToString();
                 objadminRn = null;
                 return true;
             }
@@ -923,7 +928,7 @@ namespace LibOperativa
                     return false;
                 }
                 clsadminRN objadminRn = new clsadminRN(strNombreApp);
-                objadminRn.IntUsuario_id = intUsuario_id;
+                objadminRn.StrVehiculo_id = strVehiculo_id;
                 if (!objadminRn.Obtener_Vehiculo())
                 {
                     strError = objadminRn.StrError;
@@ -966,6 +971,8 @@ namespace LibOperativa
                 strNombreRep = objadminRn.DsDatos.Tables[0].Rows[0]["nombre_repuesto"].ToString();
                 intUnidStock = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["unidades_en_stock"].ToString());
                 intUnidOrdenadas = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["unidades_ordenadas"].ToString());
+                intPrecioUnid=int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["precio_por_unidad"].ToString());
+                strNombreProv = objadminRn.DsDatos.Tables[0].Rows[0]["nombre_compania"].ToString();
                 objadminRn = null;
                 return true;
             }

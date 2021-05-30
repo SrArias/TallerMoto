@@ -8,6 +8,7 @@ namespace LibReglasNegocio
     public class clsadminRN
     {
         #region "Atributos"
+        
         private int intUsuario_id;
         private string strContrasena;
         private string strVehiculo_id;
@@ -37,6 +38,7 @@ namespace LibReglasNegocio
         private int intPrecioUnid;
         private int intcargo;
         private int intsalario;
+        private int intTurno;
         private int intMantenimiento_id;
         private string strDiagnostico;
         private string strProc_Realizado;
@@ -50,6 +52,51 @@ namespace LibReglasNegocio
         private DataSet dsDatos;
         #endregion
 
+        #region "Constructor"
+         public clsadminRN(string nombreapp)
+         {
+                strNombreApp = nombreapp;
+                objcnx = new clsConexionBd(nombreapp);
+                this.intUsuario_id = 0;
+                this.strContrasena = "";
+                this.strVehiculo_id = "";
+                this.strMarca = "";
+                this.strCilindraje = "";
+                this.intModelo = 0;
+                this.strColor = "";
+                this.strRefencia = "";
+                this.strNombreC = "";
+                this.strTelefonoC = "";
+                this.strDireccionC = "";
+                this.intEmpleado_id = 0;
+                this.strNombreE = "";
+                this.strTelefonoE = "";
+                this.strDireccionE = "";
+                this.intSalarioE = 0;
+                this.intProv_id = 0;
+                this.strNombreProv = "";
+                this.strNombreContacProv = "";
+                this.strTituloContacProv = "";
+                this.strNumeroContacprov = "";
+                this.strDireccionProv = "";
+                this.intRepuesto_id = 0;
+                this.strNombreRep = "";
+                this.intUnidStock = 0;
+                this.intUnidOrdenadas = 0;
+                this.intPrecioUnid = 0;
+                this.intcargo = 0;
+                this.intsalario = 0;
+                this.intMantenimiento_id = 0;
+                this.strDiagnostico = "";
+                this.strProc_Realizado = "";
+                this.datFecha = DateTime.Now;
+                this.intCant_Repuesto = 0;
+                this.intPrecio_Mant = 0;
+
+         }
+        
+        #endregion
+
         #region "Propiedades"
         public int IntUsuario_id { get => intUsuario_id; set => intUsuario_id = value; }
         public string StrContrasena { get => strContrasena; set => strContrasena = value; }
@@ -57,6 +104,7 @@ namespace LibReglasNegocio
         public string StrMarca { get => strMarca; set => strMarca = value; }
         public string StrCilindraje { get => strCilindraje; set => strCilindraje = value; }
         public int IntModelo { get => intModelo; set => intModelo = value; }
+        public int IntTurno { get => intTurno; set => intTurno = value; }
         public string StrColor { get => strColor; set => strColor = value; }
         public string StrRefencia { get => strRefencia; set => strRefencia = value; }
         public string StrNombreC { get => strNombreC; set => strNombreC = value; }
@@ -180,7 +228,35 @@ namespace LibReglasNegocio
                     }
 
                     break;
+                case "vehiculoupdate":
+                    if (StrVehiculo_id == string.Empty)
+                    {
+                        strError = "La placa del vehiculo no  a sido ingresada correctamente";
+                    }
+                    if (strMarca == string.Empty)
+                    {
+                        strError = "la marca del vehiculo no a sido ingresada";
+                    }
+                    if (StrCilindraje == string.Empty)
+                    {
+                        strError = "el cilindraje del vehiculo no a sido ingresada";
+                    }
+                    if (intModelo <= 0)
+                    {
+                        strError = "El modelo del vehiculo no a sido ingresada";
+                    }
+                    if (strColor == string.Empty)
+                    {
+                        strError = "El color del vehiculo no a sido ingresada";
+                    }
+                    if (strRefencia == string.Empty)
+                    {
+                        strError = "La Refencia del vehiculo no a sido ingresada";
+                    }
+
+                    break;
                 case "proveedores":
+                case "updateproveedores":
                     if (intProv_id <= 0)
                     {
                         strError = "El id del proveedor no a sido ingresado";
@@ -205,7 +281,6 @@ namespace LibReglasNegocio
                     {
                         strError = "La direccion del proveedor no a sido ingresado";
                     }
-
                     break;
                 case "detalle_factura":
                     if (datFecha < new DateTime().Date)
@@ -220,7 +295,6 @@ namespace LibReglasNegocio
                     {
                         strError = "El el precio del mantenimiento no a sido ingresado";
                     }
-                    //revisar valores auto incrementables tambien en el inset into de la BD ATT: Harol
                     break;
                 case "empleado":
                     if (intEmpleado_id <= 0)
@@ -252,7 +326,34 @@ namespace LibReglasNegocio
                         strError = "Ingrese una contraseña";
                     }
                     break;
+                case "empleadoupdate":
+                    if (intEmpleado_id <= 0)
+                    {
+                        strError = "Ingrese la id del empleado";
+                    }
+                    if (strNombreE == string.Empty)
+                    {
+                        strError = "Ingrese el nombre del empleado";
+                    }
+                    if (strTelefonoE == string.Empty)
+                    {
+                        strError = "Ingrese el telefono del empleado";
+                    }
+                    if (strDireccionE == string.Empty)
+                    {
+                        strError = "Ingrese la direccion del empleado";
+                    }
+                    if (intcargo <= 0)
+                    {
+                        strError = "Seleccione un cargo";
+                    }
+                    if (intSalarioE <= 0)
+                    {
+                        strError = "Ingrese un salario";
+                    }                
+                    break;
                 case "repuesto":
+                case "repuestoupdate":
                     if (strNombreRep == string.Empty)
                     {
                         strError = "Ingrese el nombre del repuesto";
@@ -344,7 +445,7 @@ namespace LibReglasNegocio
                         strError = "La placa del vehiculo no ha sido ingresada correctamente";
                     }
                     break;
-                case "getonerespuesto":
+                case "getonerepuesto":
                     if (intRepuesto_id <= 0)
                     {
                         strError = "Seleccione el nombre del repuesto";
@@ -399,23 +500,25 @@ namespace LibReglasNegocio
                         objDatosEscuela[4] = new SqlParameter("vehiculo_id", strVehiculo_id);
                         break;
                     case "EMPLEADO":
-                        objDatosEscuela = new SqlParameter[7];
-                        objDatosEscuela[0] = new SqlParameter("empleado", intEmpleado_id);
+                        objDatosEscuela = new SqlParameter[8];
+                        objDatosEscuela[0] = new SqlParameter("empleado_id", intEmpleado_id);
                         objDatosEscuela[1] = new SqlParameter("nombre", strNombreE);
                         objDatosEscuela[2] = new SqlParameter("telefono", strTelefonoE);
                         objDatosEscuela[3] = new SqlParameter("direccion", strDireccionE);
                         objDatosEscuela[4] = new SqlParameter("cargo", intcargo);
-                        objDatosEscuela[5] = new SqlParameter("salario", intsalario);
-                        objDatosEscuela[6] = new SqlParameter("password", strContrasena);
+                        objDatosEscuela[5] = new SqlParameter("turno", intTurno);
+                        objDatosEscuela[6] = new SqlParameter("salario", intsalario);
+                        objDatosEscuela[7] = new SqlParameter("password", strContrasena);
                         break;
                     case "EMPLEADOUPDATE":
                         objDatosEscuela = new SqlParameter[7];
-                        objDatosEscuela[0] = new SqlParameter("empleado", intEmpleado_id);
+                        objDatosEscuela[0] = new SqlParameter("empleado_id", intEmpleado_id);
                         objDatosEscuela[1] = new SqlParameter("nombre", strNombreE);
                         objDatosEscuela[2] = new SqlParameter("telefono", strTelefonoE);
                         objDatosEscuela[3] = new SqlParameter("direccion", strDireccionE);
                         objDatosEscuela[4] = new SqlParameter("cargo", intcargo);
-                        objDatosEscuela[5] = new SqlParameter("salario", intsalario);
+                        objDatosEscuela[5] = new SqlParameter("turno", intTurno);
+                        objDatosEscuela[6] = new SqlParameter("salario", intsalario);
                         break;
                     case "PROVEEDORES":
                     case "UPDATEPROVEEDORES":
@@ -432,7 +535,7 @@ namespace LibReglasNegocio
                         objDatosEscuela[0] = new SqlParameter("vehiculo_id", strVehiculo_id);
                         objDatosEscuela[1] = new SqlParameter("empleado_id", intEmpleado_id);
                         objDatosEscuela[2] = new SqlParameter("diagnostico", strDiagnostico);
-                        objDatosEscuela[3] = new SqlParameter("procedimiento_realizado", strProc_Realizado);
+                        objDatosEscuela[3] = new SqlParameter("procedimiento", strProc_Realizado);
                         break;
                     case "MANTENIMIENTOUPDATE":
                         objDatosEscuela = new SqlParameter[5];
@@ -458,13 +561,22 @@ namespace LibReglasNegocio
                         objDatosEscuela[1] = new SqlParameter("empleado_id", intEmpleado_id);
                         break;
                     case "VEHICULO":
-                    case "VEHICULOUPDATE":
-                        objDatosEscuela = new SqlParameter[5];
+                        objDatosEscuela = new SqlParameter[6];
                         objDatosEscuela[0] = new SqlParameter("vehiculo_id", strVehiculo_id);
                         objDatosEscuela[1] = new SqlParameter("marca", strMarca);
-                        objDatosEscuela[2] = new SqlParameter("modelo", intModelo);
-                        objDatosEscuela[3] = new SqlParameter("color", strColor);
-                        objDatosEscuela[4] = new SqlParameter("refencia", strRefencia);
+                        objDatosEscuela[2] = new SqlParameter("cilindraje", strCilindraje);
+                        objDatosEscuela[3] = new SqlParameter("modelo", intModelo);
+                        objDatosEscuela[4] = new SqlParameter("color", strColor);
+                        objDatosEscuela[5] = new SqlParameter("referencia", strRefencia);
+                        break;
+                    case "VEHICULOUPDATE":
+                        objDatosEscuela = new SqlParameter[6];
+                        objDatosEscuela[0] = new SqlParameter("vehiculo_id", strVehiculo_id);
+                        objDatosEscuela[1] = new SqlParameter("marca", strMarca);
+                        objDatosEscuela[2] = new SqlParameter("cilindraje", strCilindraje);
+                        objDatosEscuela[3] = new SqlParameter("modelo", intModelo);
+                        objDatosEscuela[4] = new SqlParameter("color", strColor);
+                        objDatosEscuela[5] = new SqlParameter("referencia", strRefencia);
                         break;
                     case "DETALLES_FACTURA":
                     case "DETALLES_FACTURAUPDATE":
@@ -479,13 +591,16 @@ namespace LibReglasNegocio
                         objDatosEscuela[0] = new SqlParameter("empleado_id", intEmpleado_id);
                         break;
                     case "GETONECLIENTE":
-                    case "GETONEVEHICULO":
                         objDatosEscuela = new SqlParameter[1];
                         objDatosEscuela[0] = new SqlParameter("cliente_id", intUsuario_id);
                         break;
+                    case "GETONEVEHICULO":
+                        objDatosEscuela = new SqlParameter[1];
+                        objDatosEscuela[0] = new SqlParameter("vehiculo_id", strVehiculo_id);
+                        break;
                     case "GETONEREPUESTO":
                         objDatosEscuela = new SqlParameter[1];
-                        objDatosEscuela[0] = new SqlParameter("respuesto_id", intRepuesto_id);
+                        objDatosEscuela[0] = new SqlParameter("repuesto_id", intRepuesto_id);
                         break;
                     case "GETONEPROVEEDOR":
                         objDatosEscuela = new SqlParameter[1];
@@ -511,47 +626,6 @@ namespace LibReglasNegocio
         #endregion
 
         #region "Métodos Públicos"
-        public clsadminRN(string nombreapp)
-        {
-            strNombreApp = nombreapp;
-            objcnx = new clsConexionBd(nombreapp);
-            this.intUsuario_id = 0;
-            this.strContrasena = "";
-            this.strVehiculo_id = "";
-            this.strMarca = "";
-            this.strCilindraje = "";
-            this.intModelo = 0;
-            this.strColor = "";
-            this.strRefencia = "";
-            this.strNombreC = "";
-            this.strTelefonoC = "";
-            this.strDireccionC = "";
-            this.intEmpleado_id = 0;
-            this.strNombreE = "";
-            this.strTelefonoE = "";
-            this.strDireccionE = "";
-            this.intSalarioE = 0;
-            this.intProv_id = 0;
-            this.strNombreProv = "";
-            this.strNombreContacProv = "";
-            this.strTituloContacProv = "";
-            this.strNumeroContacprov = "";
-            this.strDireccionProv = "";
-            this.intRepuesto_id = 0;
-            this.strNombreRep = "";
-            this.intUnidStock = 0;
-            this.intUnidOrdenadas = 0;
-            this.intPrecioUnid = 0;
-            this.intcargo = 0;
-            this.intsalario = 0;
-            this.intMantenimiento_id = 0;
-            this.strDiagnostico = "";
-            this.strProc_Realizado = "";
-            this.datFecha = DateTime.Now;
-            this.intCant_Repuesto = 0;
-            this.intPrecio_Mant = 0;
-
-        }
 
         public bool Usuario()
         {
@@ -644,7 +718,7 @@ namespace LibReglasNegocio
         {
             try
             {
-                if (!AgregarParametros("EmpleadoUpdate"))
+                if (!AgregarParametros("EMPLEADOUPDATE"))
                 {
                     return false;
                 }
@@ -702,7 +776,7 @@ namespace LibReglasNegocio
         {
             try
             {
-                if (!AgregarParametros("ProveedoresUpdate"))
+                if (!AgregarParametros("UPDATEPROVEEDORES"))
                 {
                     return false;
                 }
@@ -735,7 +809,7 @@ namespace LibReglasNegocio
                 {
                     return false;
                 }
-                objcnx.SQL = "sp_insertmatenimiento";
+                objcnx.SQL = "sp_insertmantenimiento";
                 objcnx.ParametrosSQL = objDatosEscuela;
                 if (!objcnx.llenarDataSet(true, true))
                 {
@@ -1099,10 +1173,10 @@ namespace LibReglasNegocio
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
         public bool Obtener_Repuesto()
@@ -1128,10 +1202,10 @@ namespace LibReglasNegocio
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
         public bool Obtener_Proveedor()

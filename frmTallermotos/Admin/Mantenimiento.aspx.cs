@@ -1,44 +1,69 @@
 ﻿using LibOperativa;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace prjtallermotos.Admin
 {
     public partial class Mantenimiento : System.Web.UI.Page
     {
+        #region "Instancias"
         clsllenarope objcontroles;
         clsadminop objadmin;
         private string strnombreapp;
-        protected void Page_Load(object sender, EventArgs e)
+        #endregion
+
+        #region "Métodos Privados"
+
+        private void Limpiar()
         {
-            try
+            btnActualizarMant.Enabled = false;
+            btnInsertarMant.Enabled = true;
+            drpIdVehiculo.Enabled = true;
+            txtDiagnostico.Value = string.Empty;
+            txtProcRealiz.Value = string.Empty;
+            idman.Visible = false;
+            txtidmantenimiento.Value = string.Empty;
+            drpIdVehiculo.DataSource = null;
+            drpIdEmpleado.DataSource = null;
+            drpIdMantenim.DataSource = null;
+            drpIdVehiculo.Items.Clear();
+            drpIdEmpleado.Items.Clear();
+            drpIdMantenim.Items.Clear();
+            RecargarControles();
+
+        }
+
+        private void Recargar_grid()
+        {
+            if (!objcontroles.llenarGrid(gvMantenimiento))
             {
-                strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
-                objcontroles = new clsllenarope(strnombreapp);
-                objadmin = new clsadminop(strnombreapp);
-                if (!IsPostBack)
-                {
-
-                    if (!objcontroles.llenarDrop(drpIdMantenim))
-                    {
-                        mensajes("error", objcontroles.StrError);
-                        return;
-                    }                    
-
-                }
+                mensajes("error", objcontroles.StrError);
+                return;
             }
-            catch (Exception ex)
-            {
+        }
+        private void RecargarControles()
+        {
 
-                mensajes("error", ex.Message);
+            if (!objcontroles.llenarDrop(drpIdMantenim))
+            {
+                mensajes("error", objcontroles.StrError);
+                return;
+            }
+            if (!objcontroles.llenarDrop(drpIdVehiculo))
+            {
+                mensajes("error", objcontroles.StrError);
+                return;
+            }
+            if (!objcontroles.llenarDrop(drpIdEmpleado))
+            {
+                mensajes("error", objcontroles.StrError);
+                return;
             }
 
         }
+
+
         private void mensajes(string tipo, string mensajes)
         {
             string javaScript = $"mensajes('{tipo}','{mensajes}');";
@@ -56,6 +81,11 @@ namespace prjtallermotos.Admin
                     }
                     break;
                 case "insertmantenimiento":
+                    if (drpIdVehiculo.SelectedIndex == 0)
+                    {
+                        mensajes("error", "Debe seleccionar una placa");
+                        return false;
+                    }
                     if (drpIdEmpleado.SelectedIndex == 0)
                     {
                         mensajes("error", "Debe seleccionar un empleado");
@@ -68,17 +98,21 @@ namespace prjtallermotos.Admin
                     }
                     if (txtProcRealiz.Value.Trim() == string.Empty)
                     {
-                        mensajes("error", "Debe ingresar el proceso reliazado");
+                        mensajes("error", "Debe ingresar el proceso realizado");
                         return false;
                     }
                     break;
                 case "updatemantenimiento":
-                    if (txtidmantenimiento.Value.Trim()== string.Empty)
+                    if (txtidmantenimiento.Value.Trim() == string.Empty)
                     {
                         mensajes("error", "Debe seleccionar un ID mantenimiento");
                         return false;
                     }
-
+                    if (drpIdVehiculo.SelectedIndex == 0)
+                    {
+                        mensajes("error", "Debe seleccionar una placa");
+                        return false;
+                    }
                     if (drpIdMantenim.SelectedIndex == 0)
                     {
                         mensajes("error", "Debe seleccionar una placa");
@@ -99,7 +133,7 @@ namespace prjtallermotos.Admin
                         mensajes("error", "Debe ingresar el proceso reliazado");
                         return false;
                     }
-                   
+
                     break;
                 default:
                     break;
@@ -107,6 +141,94 @@ namespace prjtallermotos.Admin
             }
             return true;
         }
+        private void Insertar()
+        {
+
+            try
+            {
+                if (!validar("insertmantenimiento"))
+                {
+                    return;
+                }
+                objadmin.StrVehiculo_id = drpIdVehiculo.SelectedItem.Value.ToString();
+                objadmin.IntEmpleado_id = int.Parse(drpIdEmpleado.SelectedItem.Value);
+                objadmin.StrDiagnostico = txtDiagnostico.Value.Trim();
+                objadmin.StrProc_Realizado = txtProcRealiz.Value.Trim();
+
+                if (!objadmin.Ingresar_Mantenimiento())
+                {
+
+                    objadmin = null;
+                    mensajes("error", objadmin.StrError);
+                    return;
+                }
+                mensajes("success", objadmin.Resultado);
+                Recargar_grid();
+                Limpiar();
+            }
+            catch (Exception ex)
+            {
+                mensajes("error", ex.Message);
+            }
+        }
+        private void Actualizar()
+        {
+            try
+            {
+                if (!validar("updatemantenimiento"))
+                {
+                    return;
+                }
+
+                objadmin.StrDiagnostico = txtDiagnostico.Value.Trim();
+                objadmin.StrProc_Realizado = txtProcRealiz.Value.Trim();
+                objadmin.StrVehiculo_id = drpIdVehiculo.SelectedItem.ToString();
+                objadmin.IntEmpleado_id = int.Parse(drpIdEmpleado.SelectedItem.Value);
+                objadmin.IntMantenimiento_id = int.Parse(txtidmantenimiento.Value.ToString());
+
+
+                objcontroles.Vehiculo = drpIdVehiculo.SelectedItem.Value.ToString();
+                if (!objadmin.Actualizar_Mantenimiento())
+                {
+
+                    objadmin = null;
+                    mensajes("error", objadmin.StrError);
+                    return;
+                }
+                mensajes("success", objadmin.Resultado);
+                Limpiar();
+
+            }
+            catch (Exception ex)
+            {
+                mensajes("error", ex.Message);
+            }
+        }
+        #endregion
+
+        #region "Eventos"
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
+                objcontroles = new clsllenarope(strnombreapp);
+                objadmin = new clsadminop(strnombreapp);
+                if (!IsPostBack)
+                {
+                    RecargarControles();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                mensajes("error", ex.Message);
+            }
+
+        }
+
+       
         protected void drpIdMantenim_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -124,12 +246,12 @@ namespace prjtallermotos.Admin
                     return;
                 }
 
-                if (!objcontroles.llenarDrop(drpIdEmpleado))
-                {
-                    mensajes("error", objcontroles.StrError);
-                    return;
-                }
-
+                //if (!objcontroles.llenarDrop(drpIdEmpleado))
+                //{
+                //    mensajes("error", objcontroles.StrError);
+                //    return;
+                //}
+                btnActualizarMant.Enabled = true;
                 btnInsertarMant.Enabled = false;
                 drpIdVehiculo.Enabled = false;
                 idman.Visible = true;
@@ -145,79 +267,21 @@ namespace prjtallermotos.Admin
 
         }
 
-        private void Recargar_grid()
-        {
-            if (!objcontroles.llenarGrid(gvMantenimiento))
-            {
-                mensajes("error", objcontroles.StrError);
-                return;
-            }
-        }
-
         protected void btnInsertarMant_Click(object sender, EventArgs e)
         {
-
-            try
-            {
-                if (!validar("insertmantenimiento"))
-                {
-                    return;
-                }
-
-                objadmin.StrDiagnostico = txtDiagnostico.Value.Trim();
-                objadmin.StrProc_Realizado = txtProcRealiz.Value.Trim();
-                objadmin.StrVehiculo_id = drpIdVehiculo.SelectedItem.Value.ToString();//correguir
-                objadmin.IntEmpleado_id = int.Parse(drpIdEmpleado.SelectedItem.Value);
-
-
-
-                if (!objadmin.Ingresar_Empleado())
-                {
-
-                    objadmin = null;
-                    mensajes("error", objadmin.StrError);
-                    return;
-                }
-                mensajes("success", objadmin.Resultado);
-                Recargar_grid();
-            }
-            catch (Exception ex)
-            {
-                mensajes("error", ex.Message);
-            }
+            Insertar();
         }
 
         protected void btnActualizarMant_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (!validar("updatemantenimiento"))
-                {
-                    return;
-                }
-
-                objadmin.StrDiagnostico = txtDiagnostico.Value.Trim();
-                objadmin.StrProc_Realizado = txtProcRealiz.Value.Trim();
-                objadmin.StrVehiculo_id = drpIdVehiculo.SelectedItem.Value.ToString();//correguir
-                objadmin.IntEmpleado_id = int.Parse(drpIdEmpleado.SelectedItem.Value);
-                objadmin.IntMantenimiento_id = int.Parse(txtidmantenimiento.Value.ToString());
-
-
-                objcontroles.Vehiculo= drpIdVehiculo.SelectedItem.Value.ToString(); 
-                if (!objadmin.Actualizar_Mantenimiento())
-                {
-
-                    objadmin = null;
-                    mensajes("error", objadmin.StrError);
-                    return;
-                }
-                mensajes("success", objadmin.Resultado);
-                Recargar_grid();
-            }
-            catch (Exception ex)
-            {
-                mensajes("error", ex.Message);
-            }
+            Actualizar();
         }
+
+
+        protected void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            Limpiar();
+        }
+        #endregion
     }
 }

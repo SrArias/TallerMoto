@@ -60,25 +60,34 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <asp:DropDownList ID="drpProvID" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server">
-                
+            <div class="input-group mb-3 Centrar-Medio size">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Compañía</span>
+                </div>
+            <asp:DropDownList ID="drpProvID" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server">                
             </asp:DropDownList>
+                </div>
         </div>
         <br />
         <div class="Centrar-Medio">
             <asp:Button runat="server" ID="btnInsertarRep" CssClass="btn btn-info" Text="Insertar" OnClick="btnInsertarRep_Click"/>
-            <asp:Button runat="server" ID="btnActualizarRep" CssClass="btn btn-info" Text="Actualizar" OnClick="btnActualizarRep_Click" />
+            <asp:Button runat="server" ID="btnActualizarRep" CssClass="btn btn-info" Enabled = "false" Text="Actualizar" OnClick="btnActualizarRep_Click" />
+            <asp:Button runat="server" ID="btnLimpiar" CssClass="btn btn-info" Text="Limpiar" OnClick="btnLimpiar_Click"  />
         </div>
         <br />
-        <h5 class="Centrar-Medio">Si desea actualizar un repuesto debe escoger su ID</h5>
+        <h5 class="Centrar-Medio">Si desea actualizar debe seleccionar el nombre del repuesto</h5>
         <br />
         <div class="row justify-content-center">
-            <asp:DropDownList ID="drpIdRep" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server" OnSelectedIndexChanged="drpIdRep_SelectedIndexChanged">
-                
+            <div class="input-group mb-3 Centrar-Medio size">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Repuesto</span>
+                </div>
+            <asp:DropDownList ID="drpIdRep" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server" OnSelectedIndexChanged="drpIdRep_SelectedIndexChanged">               
             </asp:DropDownList>
+                </div>
         </div>
         <br />
-        <asp:Panel runat="server" Visible="true" ID="pnlRep" CssClass="tablaRep">
+        <asp:Panel runat="server" Visible="true" ID="pnlRep" CssClass="Centrar-Medio">
             <asp:GridView runat="server" ID="gvRep">
             </asp:GridView>
         </asp:Panel>

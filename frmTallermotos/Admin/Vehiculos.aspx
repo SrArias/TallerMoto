@@ -78,23 +78,30 @@
         <br />
         <div class="Centrar-Medio">
             <asp:Button runat="server" ID="btnInsertarVeh" CssClass="btn btn-info" Text="Insertar" OnClick="btnInsertarVeh_Click"/>
-            <asp:Button runat="server" ID="btnActualizarVeh" CssClass="btn btn-info" Text="Actualizar" />
+            <asp:Button runat="server" ID="btnActualizarVeh" CssClass="btn btn-info" Enabled = "false" Text="Actualizar" OnClick="btnActualizarVeh_Click"/>
+            <asp:Button runat="server" ID="btnLimpiar" CssClass="btn btn-info" Text="Limpiar" OnClick="btnLimpiar_Click" />
         </div>
         <br />
         <h5 class="Centrar-Medio">Si desea actualizar un vehículo debe seleccionar su placa</h5>
         <br />
         <div class="row justify-content-center">
-            <asp:DropDownList ID="drpIdVehiculo" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server" OnSelectedIndexChanged="drpIdVehiculo_SelectedIndexChanged1">
-                <asp:ListItem Text="Seleccione una placa" />
+            <div class="input-group mb-3 Centrar-Medio size">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Placa</span>
+                </div>
+            <asp:DropDownList ID="drpIdVehiculo" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server" OnSelectedIndexChanged="drpIdVehiculo_SelectedIndexChanged1">                
             </asp:DropDownList>
+                </div>
         </div>
         <br />
         <br />
-        <asp:Panel runat="server" Visible="true" ID="pnlVehic" CssClass="tablaVehic">
+        <asp:Panel runat="server" Visible="true" ID="pnlVehic" CssClass="Centrar-Medio">
             <asp:GridView runat="server" ID="gvVehic">
             </asp:GridView>
         </asp:Panel>
         <img src="../img/imageedit_3_5509983854.png" class="logPosicionVeh" />
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.11/dist/sweetalert2.all.min.js"></script>
+        <script src="../js/sweetalert.js" type="text/javascript"></script>
     </form>
 </body>
 </html>

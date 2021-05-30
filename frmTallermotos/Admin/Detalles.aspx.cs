@@ -23,5 +23,10 @@ namespace prjtallermotos.Admin
         {
 
         }
+
+        protected void btnLimpiar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

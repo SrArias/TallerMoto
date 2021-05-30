@@ -14,6 +14,16 @@ namespace LibOperativa
         private string strNombreApp;
         #endregion
 
+        #region "Constructor"
+        public clsClienteOpe()
+        {
+            identificacion = -1 ;
+            strError=string.Empty;
+            strNombreApp=string.Empty;
+        }
+        
+        #endregion
+
         #region "Propiedades"
         public int Identificacion { get => identificacion; set => identificacion = value; }
         #endregion

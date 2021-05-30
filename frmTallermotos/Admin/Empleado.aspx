@@ -86,16 +86,22 @@
         <br />
         <div class="Centrar-Medio">
             <asp:Button runat="server" ID="btnInsertarEmp" CssClass="btn btn-info" Text="Insertar" OnClick="btnInsertarEmp_Click"/>
-            <asp:Button runat="server" ID="btnActualizarEmp" CssClass="btn btn-info" Text="Actualizar" OnClick="btnActualizarEmp_Click"/>
+            <asp:Button runat="server" ID="btnActualizarEmp" CssClass="btn btn-info" Text="Actualizar" Enabled="false" OnClick="btnActualizarEmp_Click"/>
+            <asp:Button runat="server" ID="btnLimpiar" CssClass="btn btn-info" Text="Limpiar" OnClick="btnLimpiar_Click"/>
         </div>
         <br />
-        <h5 class="Centrar-Medio">Si desea actualizar un empleado debe escoger su ID</h5>
+        <h5 class="Centrar-Medio">Seleccione el nombre del empleado para actualizar sus datos</h5>
         <div class="row justify-content-center">
+            <div class="input-group mb-3 Centrar-Medio size">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Empleado</span>
+                </div>
             <asp:DropDownList ID="drpIdEmpleado" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server" OnSelectedIndexChanged="drpIdEmpleado_SelectedIndexChanged">
             </asp:DropDownList>
+                </div>
         </div>
             <br />
-            <asp:Panel runat="server" Visible="true" ID="pnlEmpleado" CssClass="tablaEmpl">
+            <asp:Panel runat="server" Visible="true" ID="pnlEmpleado" CssClass="Centrar-Medio">
                 <asp:GridView runat="server" ID="gvEmpleados">
                 </asp:GridView>
             </asp:Panel>

@@ -17,53 +17,48 @@ namespace prjtallermotos.Admin
         #endregion
 
         #region "Métodos Privados"
+        private void Limpiar()
+        {
+            txtIdCliente.Value = string.Empty;
+            txtIdCliente.Disabled = false;
+            txtDireccionCl.Value = string.Empty;
+            txtNombreCl.Value = string.Empty;
+            txtTelefonoCl.Value = string.Empty;
+            drpPlaca.DataSource = null;
+            drpPlaca.Items.Clear();
+            drpClientes.DataSource = null;
+            drpClientes.Items.Clear();
+            RecargarControles();
+            btnInsertarCli.Enabled = true;
+            btnActualizarCli.Enabled = false;
+
+
+        }
         private void RecargarControles()
         {
-            if (!IsPostBack)
-            {
-                if (!objcontroles.llenarGrid(gvClientes))
-                {
-                    mensajes("error", objcontroles.StrError);
-                    return;
-                }
+ 
                 if (!objcontroles.llenarDrop(drpPlaca))
                 {
                     mensajes("error", objcontroles.StrError);
                     return;
                 }
-
                 if (!objcontroles.llenarDrop(drpClientes))
                 {
                     mensajes("error", objcontroles.StrError);
                     return;
                 }
-            }
-
-        }
-        #endregion
-
-        #region "Eventos"
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
-                objcontroles = new clsllenarope(strnombreapp);
-                objadmin = new clsadminop(strnombreapp);
-                RecargarControles();
-            }
-            catch (Exception ex)
-            {
-
-                mensajes("error", ex.Message);
-            }
+                if (!objcontroles.llenarGrid(gvClientes))
+                {
+                    mensajes("error", objcontroles.StrError);
+                    return;
+                }
+            
         }
         private void mensajes(string tipo, string mensajes)
         {
             string javaScript = $"mensajes('{tipo}','{mensajes}');";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "script", javaScript, true);
         }
-
         private bool validar(string MetodoOrigen)
         {
             switch (MetodoOrigen.ToLower())
@@ -96,6 +91,11 @@ namespace prjtallermotos.Admin
                         mensajes("error", "Debe ingresar un número de teléfono");
                         return false;
                     }
+                    if (drpPlaca.SelectedIndex == 0)
+                    {
+                        mensajes("error", "Debe selecionar una placa");
+                        return false;
+                    }
                     break;
                 case "updatecliente":
 
@@ -124,6 +124,11 @@ namespace prjtallermotos.Admin
                         mensajes("error", "Debe ingresar un número de teléfono");
                         return false;
                     }
+                    if (drpPlaca.SelectedIndex == 0)
+                    {
+                        mensajes("error", "Debe selecionar una placa");
+                        return false;
+                    }
                     break;
                 default:
                     break;
@@ -131,6 +136,89 @@ namespace prjtallermotos.Admin
             }
             return true;
         }
+        private void Insertar()
+        {
+            try
+            {
+
+                if (!validar("insertcliente"))
+                {
+                    return;
+                }
+                objadmin.IntUsuario_id = int.Parse(txtIdCliente.Value.Trim());
+                objadmin.StrDireccionC = txtDireccionCl.Value.Trim();
+                objadmin.StrNombreC = txtNombreCl.Value.Trim();
+                objadmin.StrTelefonoC = txtTelefonoCl.Value.Trim();
+                objadmin.StrVehiculo_id = drpPlaca.SelectedItem.Value;
+                if (!objadmin.Ingresar_Usuario())
+                {
+                    objadmin = null;
+                    mensajes("error", objadmin.StrError);
+                    return;
+                }
+                mensajes("success", objadmin.Resultado);
+                RecargarControles();
+                Limpiar();
+            }
+            catch (Exception ex)
+            {
+                mensajes("error", ex.Message);
+            }
+        }
+        private void Actualizar()
+        {
+            try
+            {
+                if (!validar("updatecliente"))
+                {
+                    return;
+                }
+
+                objadmin.IntUsuario_id = int.Parse(txtIdCliente.Value.Trim());
+                objadmin.StrDireccionC = txtDireccionCl.Value.Trim();
+                objadmin.StrNombreC = txtNombreCl.Value.Trim();
+                objadmin.StrTelefonoC = txtTelefonoCl.Value.Trim();
+                objadmin.StrVehiculo_id = drpPlaca.SelectedItem.Value;
+                if (!objadmin.Actualizar_Usuario())
+                {
+                    objadmin = null;
+                    mensajes("error", objadmin.StrError);
+                    return;
+                }
+                mensajes("success", objadmin.Resultado);
+                RecargarControles();
+                Limpiar();
+            }
+            catch (Exception ex)
+            {
+
+                mensajes("error", ex.Message);
+            }
+        }
+        #endregion
+
+        #region "Eventos"
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
+                objcontroles = new clsllenarope(strnombreapp);
+                objadmin = new clsadminop(strnombreapp);
+                if (!IsPostBack)
+                {
+                    RecargarControles();
+                }
+               
+            }
+            catch (Exception ex)
+            {
+
+                mensajes("error", ex.Message);
+            }
+        }
+
+        
         protected void drpClientes_SelectedIndexChanged1(object sender, EventArgs e)
         {
             try
@@ -164,66 +252,20 @@ namespace prjtallermotos.Admin
 
         }
 
-        #endregion
-
         protected void btnActualizarCli_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (!validar("updatecliente"))
-                {
-                    return;
-                }
-
-                objadmin.IntUsuario_id = int.Parse(txtIdCliente.Value.Trim());
-                objadmin.StrDireccionC = txtDireccionCl.Value.Trim();
-                objadmin.StrNombreC = txtNombreCl.Value.Trim();
-                objadmin.StrTelefonoC = txtTelefonoCl.Value.Trim();
-                objadmin.StrVehiculo_id = drpPlaca.SelectedItem.Value;
-                if (!objadmin.Actualizar_Usuario()) 
-                {
-                    objadmin = null;
-                    mensajes("error", objadmin.StrError); 
-                    return;
-                }
-                mensajes("success", objadmin.Resultado);
-                RecargarControles();
-            }
-            catch (Exception ex)
-            {
-
-                mensajes("error",ex.Message);
-            }
+            Actualizar();
         }
 
         protected void btnInsertarCli_Click(object sender, EventArgs e)
         {
-            try
-            {
-
-                if (!validar("insertcliente"))
-                {
-                    return;
-                }
-                objadmin.IntUsuario_id = int.Parse(txtIdCliente.Value.Trim());
-                objadmin.StrDireccionC = txtDireccionCl.Value.Trim();
-                objadmin.StrNombreC = txtNombreCl.Value.Trim();
-                objadmin.StrTelefonoC = txtTelefonoCl.Value.Trim();
-                objadmin.StrVehiculo_id = drpPlaca.SelectedItem.Value;
-                if (!objadmin.Ingresar_Usuario())
-                {
-                    objadmin = null;
-                    mensajes("error", objadmin.StrError);
-                    return;
-                }
-                mensajes("success", objadmin.Resultado);
-                RecargarControles();
-            }
-            catch (Exception ex)
-            {
-                mensajes("error", ex.Message);
-            }
-
+            Insertar();
         }
+
+        protected void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            Limpiar();
+        }
+        #endregion
     }
 }

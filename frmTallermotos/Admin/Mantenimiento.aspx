@@ -29,40 +29,39 @@
             <h1>Mantenimiento</h1>
         </div>
         <br />
-        <div>
-            <asp:Panel runat="server" Visible="true" ID="pnlMantenimiento" CssClass="tablaMantenimiento">
-                <asp:GridView runat="server" ID="gvMantenimiento">
-                </asp:GridView>
-            </asp:Panel>
-        </div>
         <div class="row justify-content-center">
+            <div class="input-group mb-3 Centrar-Medio size">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Placa</span>
+                </div>
             <asp:DropDownList ID="drpIdVehiculo" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server">
-                <asp:ListItem Text="Seleccione una placa" />
             </asp:DropDownList>
+                </div>
         </div>
         <br />
         <div class="row justify-content-center">
+            <div class="input-group mb-3 Centrar-Medio size">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Empleado</span>
+                </div>
             <asp:DropDownList ID="drpIdEmpleado" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server">
             </asp:DropDownList>
+                </div>
         </div>
         <br />
         <div class="row justify-content-center" runat="server" id="idman" visible="false">
             <div class="input-group mb-3 Centrar-Medio size">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon2">Id mantenimiento</span>
-
+                    <span class="input-group-text">Id mantenimiento</span>
         </div>
-               <input type="text" onclick=""  runat="server" id="txtidmantenimiento" class="form-control" aria-label="Id mantenimiento" aria-describedby="basic-addon1" />
+               <input type="text" runat="server" id="txtidmantenimiento" class="form-control" aria-label="Id mantenimiento" aria-describedby="basic-addon1" />
             </div>
-        </div>
-            </div>
-               
+        </div>                      
         <div class="row justify-content-center">
             <div class="input-group mb-3 Centrar-Medio size">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon2">Diagnóstico</span>
-
-        </div>
+                    <span class="input-group-text">Diagnóstico</span>
+                </div>
                 <input type="text" onclick="" runat="server" id="txtDiagnostico" class="form-control" aria-label="Diagnostico" aria-describedby="basic-addon1" />
             </div>
         </div>
@@ -76,16 +75,27 @@
         </div>
         <div class="Centrar-Medio">
             <asp:Button runat="server" ID="btnInsertarMant" CssClass="btn btn-info" Text="Insertar" OnClick="btnInsertarMant_Click" />
-            <asp:Button runat="server" ID="btnActualizarMant" CssClass="btn btn-info" Text="Actualizar" OnClick="btnActualizarMant_Click" />
+            <asp:Button runat="server" ID="btnActualizarMant" Enabled="false" CssClass="btn btn-info" Text="Actualizar" OnClick="btnActualizarMant_Click" />
+            <asp:Button runat="server" ID="btnLimpiar" CssClass="btn btn-info" Text="Limpiar" OnClick="btnLimpiar_Click" />
         </div>
         <br />
-        <h5 class="Centrar-Medio">Si desea actualizar el mantenimiento debe escoger su ID</h5>
+        <h5 class="Centrar-Medio">Si desea actualizar el mantenimiento de una moto debe selecionar su placa</h5>
         <br />
         <div class="row justify-content-center">
-            <asp:DropDownList ID="drpIdMantenim" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server" OnSelectedIndexChanged="drpIdMantenim_SelectedIndexChanged">
+            <div class="input-group mb-3 Centrar-Medio size">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Placa</span>
+                </div>
+            <asp:DropDownList ID="drpIdMantenim" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size Centrar-Medio" runat="server" OnSelectedIndexChanged="drpIdMantenim_SelectedIndexChanged">
             </asp:DropDownList>
-            <br />
-            
+                </div>
+        </div>
+            <br />  
+        <div>    
+            <asp:Panel runat="server" Visible="true" ID="pnlMantenimiento"  CssClass="Centrar-Medio">
+                <asp:GridView runat="server" ID="gvMantenimiento">
+                </asp:GridView>
+            </asp:Panel>
         </div>
         <img src="../img/imageedit_3_5509983854.png" class="logPosicionMant" />
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.11/dist/sweetalert2.all.min.js"></script>

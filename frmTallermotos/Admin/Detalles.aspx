@@ -85,9 +85,10 @@
         <div class="Centrar-Medio">
             <asp:Button runat="server" ID="btnInsertarDet" CssClass="btn btn-info" Text="Insertar" OnClick="btnInsertarDet_Click"/>
             <asp:Button runat="server" ID="btnActualizarDet" CssClass="btn btn-info" Text="Actualizar" OnClick="btnActualizarDet_Click"/>
+            <asp:Button runat="server" ID="btnLimpiar" CssClass="btn btn-info" Text="Limpiar" onClick="btnLimpiar_Click"/>
         </div>
         <br />
-        <h5 class="Centrar-Medio">Si desea actualizar el detalle de la factura debe copiar su ID</h5>
+        <h5 class="Centrar-Medio">Si desea actualizar el detalle de la factura debe seleccionar su ID</h5>
         <br />
         <div class="row justify-content-center">
             <asp:DropDownList ID="drpIdDetalle" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server">

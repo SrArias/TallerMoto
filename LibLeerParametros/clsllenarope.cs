@@ -15,21 +15,23 @@ namespace LibOperativa
         private string error;
         #endregion
 
+        #region "Constructor"
+        public clsllenarope(string nombreapp)
+        {
+            this.strNombreApp = nombreapp;
+            this.strError = string.Empty;
+            this.intidentificacion= 0;
+            this.opcion = 0;
+            this.strvehiculo = string.Empty;
+            this.error = string.Empty;
+        }
+        #endregion
+
         #region "Propiedades"
         public int Identificacion { get => intidentificacion; set => intidentificacion = value; }
         public string Vehiculo { get => strvehiculo; set => strvehiculo = value; }
         public string StrError { get => error; set => error = value; }
         public int Opcion { get => opcion; set => opcion = value; }
-        #endregion
-
-        #region "Constructor"
-        public clsllenarope(string nombreapp)
-        {
-            strNombreApp = nombreapp;
-            strError = string.Empty;
-            intidentificacion=0;
-            opcion=0;
-        }
         #endregion
 
         #region "Métodos Públicos

@@ -1,47 +1,46 @@
 ﻿using LibOperativa;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace prjtallermotos.Admin
 {
     public partial class Proveedores : System.Web.UI.Page
     {
+        #region "Instancias"
         clsllenarope objcontroles;
         clsadminop objadmin;
         private string strnombreapp;
-        protected void Page_Load(object sender, EventArgs e)
+        #endregion
+
+        #region "Métodos Privados"
+        private void Limpiar()
         {
-            try
+            btnInsertarProv.Enabled = true;
+            btnActualizarProv.Enabled = false;
+            txtIdProv.Value = string.Empty;
+            txtNomCompania.Value = string.Empty;
+            txtNomContac.Value = string.Empty;
+            txtTitulo.Value = string.Empty;
+            txtNumContact.Value = string.Empty;
+            txtDireccionProv.Value = string.Empty;
+            drpIdProv.DataSource = null;
+            drpIdProv.Items.Clear();
+            RecargarControles();
+
+        }
+        private void RecargarControles()
+        {
+            if (!objcontroles.llenarGrid(gvProv))
             {
-                strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
-                objcontroles = new clsllenarope(strnombreapp);
-                objadmin = new clsadminop(strnombreapp);
-                if (!IsPostBack)
-                {
-
-                    if (!objcontroles.llenarGrid(gvProv))
-                    {
-                        mensajes("error", objcontroles.StrError);
-                        return;
-                    }
-                    if (!objcontroles.llenarDrop(drpIdProv))
-                    {
-                        mensajes("error", objcontroles.StrError);
-                        return;
-                    }
-                }
+                mensajes("error", objcontroles.StrError);
+                return;
             }
-            catch (Exception ex)
+            if (!objcontroles.llenarDrop(drpIdProv))
             {
-
-                mensajes("error", ex.Message);
+                mensajes("error", objcontroles.StrError);
+                return;
             }
-
         }
         private bool validar(string MetodoOrigen)
         {
@@ -50,12 +49,45 @@ namespace prjtallermotos.Admin
                 case "getoneproveedor":
                     if (drpIdProv.SelectedIndex == 0)
                     {
-                        mensajes("error", "Debe seleccionar un cliente");
+                        mensajes("error", "Debe seleccionar un proveedor");
                         return false;
                     }
                     break;
                 case "insertproveedor":
+
+                    if (txtNomCompania.Value == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar el nombre de la compañia");
+                        return false;
+                    }
+                    if (txtNomContac.Value == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar el nombre del contacto");
+                        return false;
+                    }
+                    if (txtNumContact.Value == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar el numero del contacto");
+                        return false;
+                    }
+                    if (txtDireccionProv.Value == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar la direccion del contacto");
+                        return false;
+                    }
+                    if (txtTitulo.Value == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar el cargo del contacto");
+                        return false;
+                    }
+
+                    break;
                 case "updateproveedor":
+                    if (drpIdProv.SelectedIndex == 0)
+                    {
+                        mensajes("error", "Debe seleccionar un proveedor");
+                        return false;
+                    }
                     if (txtNomCompania.Value == string.Empty)
                     {
                         mensajes("error", "Debe ingresar el nombre de la compañia");
@@ -89,6 +121,95 @@ namespace prjtallermotos.Admin
             return true;
 
         }
+        private void mensajes(string tipo, string mensajes)
+        {
+            string javaScript = $"mensajes('{tipo}','{mensajes}');";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "script", javaScript, true);
+        }
+        private void Insertar()
+        {
+            try
+            {
+                if (!validar("insertproveedor"))
+                {
+                    return;
+                }
+
+                objadmin.IntProv_id = int.Parse(txtIdProv.Value.Trim());
+                objadmin.StrNombreProv = txtNomCompania.Value.Trim();
+                objadmin.StrNombreContacProv = txtNomContac.Value.Trim();
+                objadmin.StrTituloContacProv = txtTitulo.Value.Trim();
+                objadmin.StrNumeroContacprov = txtNumContact.Value.Trim();
+                objadmin.StrDireccionProv = txtDireccionProv.Value.Trim();
+                if (!objadmin.Ingresar_proveedor())
+                {
+
+                    objadmin = null;
+                    mensajes("error", objadmin.StrError);
+                    return;
+                }
+                mensajes("success", objadmin.Resultado);
+                Limpiar();
+            }
+            catch (Exception ex)
+            {
+                mensajes("error", ex.Message);
+            }
+        }
+        private void Actualizar()
+        {
+            try
+            {
+                if (!validar("updateproveedor"))
+                {
+                    return;
+                }
+
+                objadmin.IntProv_id = int.Parse(txtIdProv.Value.Trim());
+                objadmin.StrNombreProv = txtNomCompania.Value.Trim();
+                objadmin.StrNombreContacProv = txtNomContac.Value.Trim();
+                objadmin.StrTituloContacProv = txtTitulo.Value.Trim();
+                objadmin.StrNumeroContacprov = txtNumContact.Value.Trim();
+                objadmin.StrDireccionProv = txtDireccionProv.Value.Trim();
+                if (!objadmin.Actualizar_proveedor())
+                {
+
+                    objadmin = null;
+                    mensajes("error", objadmin.StrError);
+                    return;
+                }
+                mensajes("success", objadmin.Resultado);
+                Limpiar();
+            }
+            catch (Exception ex)
+            {
+                mensajes("error", ex.Message);
+            }
+        }
+        #endregion
+
+        #region "Eventos"
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
+                objcontroles = new clsllenarope(strnombreapp);
+                objadmin = new clsadminop(strnombreapp);
+                if (!IsPostBack)
+                {
+                    RecargarControles();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                mensajes("error", ex.Message);
+            }
+
+        }
+       
        
 
         protected void drpIdProv_SelectedIndexChanged(object sender, EventArgs e)
@@ -106,12 +227,15 @@ namespace prjtallermotos.Admin
                     mensajes("error", objadmin.StrError);
                     return;
                 }
+                txtIdProv.Value =objadmin.IntProv_id.ToString();
+                btnActualizarProv.Enabled = true;
                 btnInsertarProv.Enabled = false;
                 txtNomCompania.Value = objadmin.StrNombreProv;
                 txtNomContac.Value = objadmin.StrNombreContacProv;
                 txtTitulo.Value = objadmin.StrTituloContacProv;
                 txtNumContact.Value = objadmin.StrNumeroContacprov;
                 txtDireccionProv.Value = objadmin.StrDireccionProv;
+                
             }
             catch (Exception ex)
             {
@@ -120,54 +244,25 @@ namespace prjtallermotos.Admin
             }
 
         }
-        private void Recargar_grid()
-        {
-            if (!objcontroles.llenarGrid(gvProv))
-            {
-                mensajes("error", objcontroles.StrError);
-                return;
-            }
-        }
+
         protected void btnInsertarProv_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (!validar("insertproveedor"))
-                {
-                    return;
-                }
-
-                objadmin.StrNombreProv = txtNomCompania.Value.Trim();
-                objadmin.StrNombreContacProv = txtNomContac.Value.Trim();
-                objadmin.StrTituloContacProv = txtTitulo.Value.Trim();
-                objadmin.StrNumeroContacprov = txtNumContact.Value;
-                objadmin.StrDireccionProv = txtDireccionProv.Value;
-                if (!objadmin.Ingresar_proveedor())
-                {
-
-                    objadmin = null;
-                    mensajes("error", objadmin.StrError);
-                    return;
-                }
-                mensajes("success", objadmin.Resultado);
-                Recargar_grid();
-            }
-            catch (Exception ex)
-            {
-                mensajes("error", ex.Message);
-            }
+            Insertar();
         }
-        private void mensajes(string tipo, string mensajes)
-        {
-            string javaScript = $"mensajes('{tipo}','{mensajes}');";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "script", javaScript, true);
-        }
+
+
 
         protected void btnActualizarProv_Click(object sender, EventArgs e)
         {
-
+            Actualizar();
         }
-    }
 
+
+        protected void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            Limpiar();
+        }
+        #endregion
+    }
 
 }
