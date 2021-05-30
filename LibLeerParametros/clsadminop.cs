@@ -92,40 +92,40 @@ namespace LibOperativa
         public clsadminop(string nombreapp)
         {
             strNombreApp = nombreapp;
-            this.intUsuario_id = 0;
-            this.strContrasena = "";
-            this.strVehiculo_id = "";
-            this.strMarca = "";
-            this.strCilindraje = "";
-            this.intModelo = 0;
-            this.strColor = "";
-            this.strRefencia = "";
-            this.strNombreC = "";
-            this.strTelefonoC = "";
-            this.strDireccionC = "";
-            this.intEmpleado_id = 0;
-            this.strNombreE = "";
-            this.strTelefonoE = "";
-            this.strDireccionE = "";
-            this.intSalarioE = 0;
-            this.intProv_id = 0;
-            this.strNombreProv = "";
-            this.strNombreContacProv = "";
-            this.strTituloContacProv = "";
-            this.strNumeroContacprov = "";
-            this.strDireccionProv = "";
-            this.intRepuesto_id = 0;
-            this.strNombreRep = "";
-            this.intUnidStock = 0;
-            this.intUnidOrdenadas = 0;
-            this.intPrecioUnid = 0;
-            this.intCargo = 0;
-            this.intMantenimiento_id = 0;
-            this.strDiagnostico = "";
-            this.strProc_Realizado = "";
-            this.datFecha = DateTime.Now;
-            this.intCant_Repuesto = 0;
-            this.intPrecio_Mant = 0;
+            //this.intUsuario_id = 0;
+            //this.strContrasena = "";
+            //this.strVehiculo_id = "";
+            //this.strMarca = "";
+            //this.strCilindraje = "";
+            //this.intModelo = 0;
+            //this.strColor = "";
+            //this.strRefencia = "";
+            //this.strNombreC = "";
+            //this.strTelefonoC = "";
+            //this.strDireccionC = "";
+            //this.intEmpleado_id = 0;
+            //this.strNombreE = "";
+            //this.strTelefonoE = "";
+            //this.strDireccionE = "";
+            //this.intSalarioE = 0;
+            //this.intProv_id = 0;
+            //this.strNombreProv = "";
+            //this.strNombreContacProv = "";
+            //this.strTituloContacProv = "";
+            //this.strNumeroContacprov = "";
+            //this.strDireccionProv = "";
+            //this.intRepuesto_id = 0;
+            //this.strNombreRep = "";
+            //this.intUnidStock = 0;
+            //this.intUnidOrdenadas = 0;
+            //this.intPrecioUnid = 0;
+            //this.intCargo = 0;
+            //this.intMantenimiento_id = 0;
+            //this.strDiagnostico = "";
+            //this.strProc_Realizado = "";
+            //this.datFecha = DateTime.Now;
+            //this.intCant_Repuesto = 0;
+            //this.intPrecio_Mant = 0;
             
         }
         #endregion
@@ -1031,6 +1031,7 @@ namespace LibOperativa
                     objadminRn = null;
                     return false;
                 }
+                strNombreE = objadminRn.DsDatos.Tables[0].Rows[0]["nombre"].ToString();
 
                 objadminRn = null;
                 return true;

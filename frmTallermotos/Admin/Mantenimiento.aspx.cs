@@ -108,7 +108,7 @@ namespace prjtallermotos.Admin
                         mensajes("error", "Debe seleccionar un ID mantenimiento");
                         return false;
                     }
-                    if (drpIdVehiculo.SelectedIndex == 0)
+                    if (drpIdVehiculo.SelectedItem.Text == string.Empty)
                     {
                         mensajes("error", "Debe seleccionar una placa");
                         return false;
@@ -246,16 +246,13 @@ namespace prjtallermotos.Admin
                     return;
                 }
 
-                //if (!objcontroles.llenarDrop(drpIdEmpleado))
-                //{
-                //    mensajes("error", objcontroles.StrError);
-                //    return;
-                //}
+
                 btnActualizarMant.Enabled = true;
                 btnInsertarMant.Enabled = false;
                 drpIdVehiculo.Enabled = false;
                 idman.Visible = true;
                 drpIdVehiculo.SelectedItem.Text = objcontroles.Vehiculo;
+                drpIdEmpleado.SelectedItem.Text = objadmin.StrNombreE;
                 txtDiagnostico.Value = objadmin.StrDiagnostico;
                 txtProcRealiz.Value = objadmin.StrProc_Realizado;
              

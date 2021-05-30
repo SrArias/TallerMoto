@@ -66,6 +66,11 @@ namespace prjtallermotos.Admin
                     break;
 
                 case "insertvehiculo":
+                    if (txtIdVehiculo.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar la placa de la moto");
+                        return false;
+                    }
 
                     if (txtMarca.Value.Trim() == string.Empty)
                     {
@@ -98,6 +103,11 @@ namespace prjtallermotos.Admin
                     if (drpIdVehiculo.SelectedIndex == 0)
                     {
                         mensajes("error", "Debe seleccionar un vehículo de la moto");
+                        return false;
+                    }
+                    if (txtIdVehiculo.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar la placa de la moto");
                         return false;
                     }
                     if (txtMarca.Value.Trim() == string.Empty)

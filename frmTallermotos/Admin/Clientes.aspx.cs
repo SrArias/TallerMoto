@@ -241,6 +241,7 @@ namespace prjtallermotos.Admin
                 txtDireccionCl.Value = objadmin.StrDireccionC;
                 txtNombreCl.Value = objadmin.StrNombreC;
                 txtTelefonoCl.Value = objadmin.StrTelefonoC;
+                drpPlaca.SelectedItem.Text = objadmin.StrVehiculo_id;
 
             }
 
