@@ -237,24 +237,24 @@ namespace prjtallermotos.Admin
                 {
                     return;
                 }
-                objcontroles.Vehiculo = drpIdMantenim.SelectedItem.Value;
+                objadmin.StrVehiculo_id = drpIdMantenim.SelectedItem.Value;
                 
-                if (!objcontroles.llenarGrid(gvMantenimiento))
+
+                if (!objadmin.getone_Mantenimiento(gvMantenimiento))
                 {
                     objadmin = null;
                     mensajes("error", objcontroles.StrError);
                     return;
                 }
-
-
                 btnActualizarMant.Enabled = true;
                 btnInsertarMant.Enabled = false;
                 drpIdVehiculo.Enabled = false;
                 idman.Visible = true;
-                drpIdVehiculo.SelectedItem.Text = objcontroles.Vehiculo;
+                drpIdVehiculo.SelectedItem.Text = objadmin.StrVehiculo_id;
                 drpIdEmpleado.SelectedItem.Text = objadmin.StrNombreE;
                 txtDiagnostico.Value = objadmin.StrDiagnostico;
                 txtProcRealiz.Value = objadmin.StrProc_Realizado;
+
              
             }
             catch (Exception ex)

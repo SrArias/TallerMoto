@@ -1,4 +1,5 @@
-﻿using LibReglasNegocio;
+﻿using libLlenarGrids;
+using LibReglasNegocio;
 using System;
 using System.Web.UI.WebControls;
 
@@ -45,6 +46,7 @@ namespace LibOperativa
         private string resultado;
         private int intRepuesto_id;
         private int intMantenimiento_id;
+        private int intFactura_id;
         #endregion
 
         #region "Propiedades"
@@ -86,6 +88,7 @@ namespace LibOperativa
         public int IntTurno { get => intTurno; set => intTurno = value; }
         public int IntRepuesto_id { get => intRepuesto_id; set => intRepuesto_id = value; }
         public int IntMantenimiento_id { get => intMantenimiento_id; set => intMantenimiento_id = value; }
+        public int IntFactura_id { get => intFactura_id; set => intFactura_id = value; }
         #endregion
 
         #region "Constructor"
@@ -126,7 +129,7 @@ namespace LibOperativa
             //this.datFecha = DateTime.Now;
             //this.intCant_Repuesto = 0;
             //this.intPrecio_Mant = 0;
-            
+
         }
         #endregion
 
@@ -683,7 +686,7 @@ namespace LibOperativa
         {
             try
             {
-                if (!validar("factura"))
+                if (!validar("facturas"))
                 {
                     return false;
                 }
@@ -706,33 +709,7 @@ namespace LibOperativa
                 throw ex;
             }
         }
-        public bool Actualizar_factura()
-        {
-            try
-            {
-                if (!validar("factura"))
-                {
-                    return false;
-                }
-                clsadminRN objadminRn = new clsadminRN(strNombreApp);
-                objadminRn.StrVehiculo_id = strVehiculo_id;
-                objadminRn.IntEmpleado_id = intEmpleado_id;
-                if (!objadminRn.Factura_Update())
-                {
-                    strError = objadminRn.StrError;
-                    objadminRn = null;
-                    return false;
-                }
-                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["factura_id"].ToString();
-                objadminRn = null;
-                return true;
-            }
-            catch (Exception ex)
-            {
 
-                throw ex;
-            }
-        }
         public bool Ingresar_Vehiculo()
         {
             try
@@ -797,7 +774,7 @@ namespace LibOperativa
             }
 
         }
-        public bool Ingresar_Detalle_factura()
+        public bool Ingresar_Detalle_factura(GridView gvGenerico)
         {
             try
             {
@@ -807,15 +784,30 @@ namespace LibOperativa
                 }
                 clsadminRN objadminRn = new clsadminRN(strNombreApp);
                 objadminRn.DatFecha = datFecha;
+                objadminRn.IntRepuesto_id = intRepuesto_id;
+                objadminRn.IntMantenimiento_id = intMantenimiento_id;
                 objadminRn.IntCant_Repuesto = intCant_Repuesto;
                 objadminRn.IntPrecio_Mant = intPrecio_Mant;
+                objadminRn.IntFactura_id = intFactura_id;
                 if (!objadminRn.Detalle_factura())
                 {
                     strError = objadminRn.StrError;
                     objadminRn = null;
                     return false;
                 }
-                resultado = "";
+                resultado = objadminRn.DsDatos.Tables[0].Rows[0]["mensaje"].ToString();
+
+                clsLlenarGrids objllenar = new clsLlenarGrids();
+                if (objadminRn.DsDatos.Tables.Count > 1)
+                {
+                    if (!objllenar.llenarGridWeb(gvGenerico, objadminRn.DsDatos.Tables[1]))
+                    {
+                        StrError = objllenar.Error;
+                        objllenar = null;
+                        return false;
+                    }
+                }
+                objllenar = null;
                 objadminRn = null;
                 return true;
             }
@@ -826,35 +818,7 @@ namespace LibOperativa
             }
 
         }
-        public bool Actualizar_Detalle_factura()
-        {
-            try
-            {
-                if (!validar("detalle_factura"))
-                {
-                    return false;
-                }
-                clsadminRN objadminRn = new clsadminRN(strNombreApp);
-                objadminRn.DatFecha = datFecha;
-                objadminRn.IntCant_Repuesto = intCant_Repuesto;
-                objadminRn.IntPrecio_Mant = intPrecio_Mant;
-                if (!objadminRn.Detalle_factura_Update())
-                {
-                    strError = objadminRn.StrError;
-                    objadminRn = null;
-                    return false;
-                }
-                resultado = "";
-                objadminRn = null;
-                return true;
-            }
-            catch (Exception ex)
-            {
 
-                throw ex;
-            }
-
-        }
         public bool getone_empleado()
         {
             try
@@ -941,6 +905,7 @@ namespace LibOperativa
                 intModelo = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["modelo"].ToString());
                 strColor = objadminRn.DsDatos.Tables[0].Rows[0]["color"].ToString();
                 strRefencia = objadminRn.DsDatos.Tables[0].Rows[0]["referencia"].ToString();
+                
                 objadminRn = null;
                 return true;
             }
@@ -971,7 +936,7 @@ namespace LibOperativa
                 strNombreRep = objadminRn.DsDatos.Tables[0].Rows[0]["nombre_repuesto"].ToString();
                 intUnidStock = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["unidades_en_stock"].ToString());
                 intUnidOrdenadas = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["unidades_ordenadas"].ToString());
-                intPrecioUnid=int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["precio_por_unidad"].ToString());
+                intPrecioUnid = int.Parse(objadminRn.DsDatos.Tables[0].Rows[0]["precio_por_unidad"].ToString());
                 strNombreProv = objadminRn.DsDatos.Tables[0].Rows[0]["nombre_compania"].ToString();
                 objadminRn = null;
                 return true;
@@ -1032,6 +997,13 @@ namespace LibOperativa
                     return false;
                 }
                 strNombreE = objadminRn.DsDatos.Tables[0].Rows[0]["nombre"].ToString();
+                clsLlenarGrids objllenar = new clsLlenarGrids();
+                if (!objllenar.llenarGridWeb(gvgenerico, objadminRn.DsDatos.Tables[0]))
+                {
+                    objadminRn = null;
+                    objllenar = null;
+                    return false;
+                }
 
                 objadminRn = null;
                 return true;

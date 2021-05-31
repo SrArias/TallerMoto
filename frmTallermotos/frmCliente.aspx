@@ -18,14 +18,14 @@
             </div>
             <div class="containerOptions" style="background-color: #41626a; width: 100%; height: 10%; margin-left: 0%; margin-top: -4%">
                 <asp:RadioButtonList runat="server" AutoPostBack="true" ID="rdlOpciones" RepeatDirection="Horizontal" OnSelectedIndexChanged="rdlOpciones_SelectedIndexChanged" ForeColor="White" CssClass="Centrar-Medio">
-                    <asp:ListItem Selected="True" class="rdbConsultar" Value="opcMantenimiento" Text="Mantenimiento"></asp:ListItem>
+                    <asp:ListItem  class="rdbConsultar" Value="opcMantenimiento" Text="Mantenimiento"></asp:ListItem>
                     <asp:ListItem class="rdbRegistrar" Value="opcFactura" Text="Factura"></asp:ListItem>
                 </asp:RadioButtonList>
             </div>
             <br />
             <br />
             <br />
-            <asp:Panel runat="server" Visible="true" ID="pnlMantenimiento" CssClass="Centrar-Medio">
+            <asp:Panel runat="server" ID="pnlMantenimiento" Visible="true" CssClass="Centrar-Medio">
                 <asp:GridView runat="server" ID="gvmantenimiento"></asp:GridView>
             </asp:Panel>
             <asp:Panel runat="server" Visible="false" ID="pnlFactura" CssClass="Centrar-Medio">

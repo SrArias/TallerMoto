@@ -31,6 +31,7 @@ namespace LibReglasNegocio
         private string strTituloContacProv;
         private string strNumeroContacprov;
         private string strDireccionProv;
+        private int intFactura_id;
         private int intRepuesto_id;
         private string strNombreRep;
         private int intUnidStock;
@@ -110,7 +111,7 @@ namespace LibReglasNegocio
         public string StrNombreC { get => strNombreC; set => strNombreC = value; }
         public string StrTelefonoC { get => strTelefonoC; set => strTelefonoC = value; }
         public string StrDireccionC { get => strDireccionC; set => strDireccionC = value; }
-
+        public int IntFactura_id { get => intFactura_id; set => intFactura_id = value; }
         public string StrNombreE { get => strNombreE; set => strNombreE = value; }
         public string StrTelefonoE { get => strTelefonoE; set => strTelefonoE = value; }
         public string StrDireccionE { get => strDireccionE; set => strDireccionE = value; }
@@ -282,7 +283,7 @@ namespace LibReglasNegocio
                         strError = "La direccion del proveedor no a sido ingresado";
                     }
                     break;
-                case "detalle_factura":
+                case "detalles_factura":
                     if (datFecha < new DateTime().Date)
                     {
                         strError = "la fecha  no a sido ingresado";
@@ -554,8 +555,7 @@ namespace LibReglasNegocio
                         objDatosEscuela[3] = new SqlParameter("precio_por_unidad", intPrecioUnid);
                         objDatosEscuela[4] = new SqlParameter("prov_id", intProv_id);
                         break;
-                    case "FACTURA":
-                    case "FACTURAUPDATE":
+                    case "FACTURAS":              
                         objDatosEscuela = new SqlParameter[2];
                         objDatosEscuela[0] = new SqlParameter("vehiculo_id", strVehiculo_id);
                         objDatosEscuela[1] = new SqlParameter("empleado_id", intEmpleado_id);
@@ -578,13 +578,15 @@ namespace LibReglasNegocio
                         objDatosEscuela[4] = new SqlParameter("color", strColor);
                         objDatosEscuela[5] = new SqlParameter("referencia", strRefencia);
                         break;
-                    case "DETALLES_FACTURA":
-                    case "DETALLES_FACTURAUPDATE":
-                        objDatosEscuela = new SqlParameter[3];
+                    case "DETALLES_FACTURA":                   
+                        objDatosEscuela = new SqlParameter[6];
                         objDatosEscuela[0] = new SqlParameter("fecha", datFecha);
-                        objDatosEscuela[1] = new SqlParameter("cantidad_respuesto", intCant_Repuesto);
-                        objDatosEscuela[2] = new SqlParameter("precio_mantenimiento", intPrecio_Mant);
-                        //revisar valores auto incrementables 
+                        objDatosEscuela[1] = new SqlParameter("repuesto_id",intRepuesto_id );
+                        objDatosEscuela[2] = new SqlParameter("cantidad_repuesto", intCant_Repuesto);
+                        objDatosEscuela[3] = new SqlParameter("mantenimiento_id", intMantenimiento_id);
+                        objDatosEscuela[4] = new SqlParameter("precio_mantenimiento", intPrecio_Mant);
+                        objDatosEscuela[5] = new SqlParameter("factura_id", intFactura_id);
+                        
                         break;
                     case "GETONEEMPLEADO":
                         objDatosEscuela = new SqlParameter[1];
@@ -980,7 +982,7 @@ namespace LibReglasNegocio
         {
             try
             {
-                if (!AgregarParametros("factura"))
+                if (!AgregarParametros("facturas"))
                 {
                     return false;
                 }
@@ -1005,40 +1007,12 @@ namespace LibReglasNegocio
                 throw ex;
             }
         }
-        public bool Factura_Update()
-        {
-            try
-            {
-                if (!AgregarParametros("facturaupdate"))
-                {
-                    return false;
-                }
-                objcnx.SQL = "sp_updatefactura";
-                objcnx.ParametrosSQL = objDatosEscuela;
-                if (!objcnx.llenarDataSet(true, true))
-                {
-                    strError = objcnx.Error;
-                    objcnx.cerrarCnx();
-                    objcnx = null;
-                    return false;
-                }
-                dsDatos = objcnx.DataSetLleno;
-                objcnx.cerrarCnx();
-                objcnx = null;
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
+       
         public bool Detalle_factura()
         {
             try
             {
-                if (!AgregarParametros("factura"))
+                if (!AgregarParametros("DETALLES_FACTURA"))
                 {
                     return false;
                 }
@@ -1063,35 +1037,7 @@ namespace LibReglasNegocio
                 throw ex;
             }
         }
-        public bool Detalle_factura_Update()
-        {
-            try
-            {
-                if (!AgregarParametros("detalles_facturaupdate"))
-                {
-                    return false;
-                }
-                objcnx.SQL = "sp_updatedetallefactura";
-                objcnx.ParametrosSQL = objDatosEscuela;
-                if (!objcnx.llenarDataSet(true, true))
-                {
-                    strError = objcnx.Error;
-                    objcnx.cerrarCnx();
-                    objcnx = null;
-                    return false;
-                }
-                dsDatos = objcnx.DataSetLleno;
-                objcnx.cerrarCnx();
-                objcnx = null;
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
+      
         public bool Obtener_Empleado()
         {
             try

@@ -10,6 +10,8 @@ namespace LibReglasNegocio
     public class clsLlenarControles
     {
         #region "Atributos"
+
+        private const string ID = "Id";
         private clsLlenarGrids objGrid;
         private SqlParameter[] objDatosTaller;
         private clsLlenarCombos objcnx;
@@ -23,26 +25,21 @@ namespace LibReglasNegocio
 
         #endregion
 
-        #region "Constructor"
-        public clsLlenarControles(string NombreApp)
-        {
-            this.objGrid = new clsLlenarGrids(NombreApp);
-            this.objcnx = new clsLlenarCombos(NombreApp);
-            this.strError=string.Empty;
-            this.strid=string.Empty;
-            this.strcampostext=string.Empty;
-            this.strvehiculo=string.Empty;
-            this.identificacion=-1;
-            this.opcion=-1;
-    }
-
-        #endregion
-
         #region "Propiedades"
         public int Identificacion { get => identificacion; set => identificacion = value; }
         public string Error { get => strError; set => strError = value; }
         public string Vehiculo { get => strvehiculo; set => strvehiculo = value; }
         public int Opcion { get => opcion; set => opcion = value; }
+
+        #endregion
+
+        #region "Constructor"
+        public clsLlenarControles(string NombreApp)
+        {
+            objGrid = new clsLlenarGrids(NombreApp);
+            objcnx = new clsLlenarCombos(NombreApp);
+
+        }
 
         #endregion
 
@@ -56,28 +53,32 @@ namespace LibReglasNegocio
                 switch (MetodoOrigen.ToUpper())
                 {
                     case "DRPIDEMPLEADO":
+
                     case "GVEMPLEADOS":
 
                         break;
-
+                    case "DRPMANTENIMIENTOID":
                     case "GVMANTENIMIENTO":
                         objDatosTaller = new SqlParameter[1];
                         objDatosTaller[0] = new SqlParameter("vehiculo_id", strvehiculo);
                         break;
-                    case "GVVEHIC":
-                      
-                        break;
 
                     case "DRPIDMANTENIM":
-                    case "DRPIDVEHICULO":
                     case "GVPROV":
                     case "DRPPLACA":
                     case "DRPCLIENTES":
                     case "GVCLIENTES":
-                    case "GVREP":                   
+                    case "GVREP":
+                    case "GVVEHIC":
                     case "DRPIDPROV":
                     case "DRPPROVID":
                     case "DRPIDREP":
+                    case "DRPVEHICULOID":
+                    case "DRPIDVEHICULO":
+                    case "DRPEMPLEADOFACTURA":
+                    case "DRPREPUESTO":
+
+
 
                         break;
 
@@ -113,6 +114,7 @@ namespace LibReglasNegocio
                     case "ddlcarro":
                     case "drpplaca":
                     case "drpidvehiculo":
+                    case "drpvehiculoid":
                     case "drpidmantenim":
                         strid = "vehiculo_id";
                         strcampostext = "placa";
@@ -123,6 +125,7 @@ namespace LibReglasNegocio
                         strcampostext = "nombre";
                         objcnx.SQL = "sp_getmecanico";
                         break;
+                    case "drpempleadofactura":
                     case "drpidempleado":
                         strid = "empleado_id";
                         strcampostext = "nombre";
@@ -130,12 +133,21 @@ namespace LibReglasNegocio
                         objcnx.SQL = "sp_getempleados";
                         break;
                     case "drpclientes":
-                    
+
                         strid = "cliente_id";
                         strcampostext = "nombre";
                         objcnx.ParametrosSQL = objDatosTaller;
                         objcnx.SQL = "sp_getclientes";
                         break;
+                    case "drpmantenimientoid":
+
+                        strid = "mantenimiento_id";
+                        strcampostext = "procedimiento_realizado";
+                        objcnx.ParametrosSQL = objDatosTaller;
+                        objcnx.SQL = "sp_getmantenimientoautos";
+                        break;
+
+
                     case "drpidprov":
                     case "drpprovid":
                         strid = "prov_id";
@@ -143,6 +155,7 @@ namespace LibReglasNegocio
                         objcnx.ParametrosSQL = objDatosTaller;
                         objcnx.SQL = "sp_getproveedor";
                         break;
+                    case "drprepuesto":
                     case "drpidrep":
                         strid = "repuesto_id";
                         strcampostext = "nombre_repuesto";
@@ -171,6 +184,8 @@ namespace LibReglasNegocio
                 throw ex;
             }
         }
+
+
 
         public bool LlenarGrid(GridView gvGenerico)
         {
@@ -207,7 +222,6 @@ namespace LibReglasNegocio
                         objGrid.SQL = "sp_getrepuesto";
                         break;
                     case "gvvehic":
-                        objGrid.ParametrosSQL = objDatosTaller;
                         objGrid.SQL = "sp_getautos";
                         break;
                     default:

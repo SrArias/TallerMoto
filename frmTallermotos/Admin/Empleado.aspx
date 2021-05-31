@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Empleado.aspx.cs" Inherits="prjtallermotos.Admin.Empleado" %>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -6,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
-    <link href="../css/styleAdmin.css" rel="stylesheet" />
     <link href="../css/styleAdmin.css" rel="stylesheet" />
     <title>Empleados</title>
 </head>
@@ -22,7 +22,15 @@
             <a href="Vehiculos.aspx"><i class="fa fa-fw fa-wrench"></i>Vehículos</a>
             <a href="Proveedores.aspx"><i class="fa fa-fw fa-user"></i>Proveedores</a>
             <a href="Repuestos.aspx"><i class="fa fa-fw fa-wrench"></i>Repuestos</a>
-            <img src="../img/image_icon_logout_pic_512x512.png" style="margin-top:95%"/>
+
+            <asp:ImageButton runat="server" ID="logout_new" ImageUrl="~/img/image_icon_logout_pic_512x512.png" OnClick="logout_new_Click" />
+
+
+
+
+
+
+
         </div>
         <div class="Centrar-Medio">
             <h1>Empleados</h1>
@@ -85,9 +93,9 @@
         </div>
         <br />
         <div class="Centrar-Medio">
-            <asp:Button runat="server" ID="btnInsertarEmp" CssClass="btn btn-info" Text="Insertar" OnClick="btnInsertarEmp_Click"/>
-            <asp:Button runat="server" ID="btnActualizarEmp" CssClass="btn btn-info" Text="Actualizar" Enabled="false" OnClick="btnActualizarEmp_Click"/>
-            <asp:Button runat="server" ID="btnLimpiar" CssClass="btn btn-info" Text="Limpiar" OnClick="btnLimpiar_Click"/>
+            <asp:Button runat="server" ID="btnInsertarEmp" CssClass="btn btn-info" Text="Insertar" OnClick="btnInsertarEmp_Click" />
+            <asp:Button runat="server" ID="btnActualizarEmp" CssClass="btn btn-info" Text="Actualizar" Enabled="false" OnClick="btnActualizarEmp_Click" />
+            <asp:Button runat="server" ID="btnLimpiar" CssClass="btn btn-info" Text="Limpiar" OnClick="btnLimpiar_Click" />
         </div>
         <br />
         <h5 class="Centrar-Medio">Seleccione el nombre del empleado para actualizar sus datos</h5>
@@ -96,16 +104,16 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">Empleado</span>
                 </div>
-            <asp:DropDownList ID="drpIdEmpleado" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server" OnSelectedIndexChanged="drpIdEmpleado_SelectedIndexChanged">
-            </asp:DropDownList>
-                </div>
+                <asp:DropDownList ID="drpIdEmpleado" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server" OnSelectedIndexChanged="drpIdEmpleado_SelectedIndexChanged">
+                </asp:DropDownList>
+            </div>
         </div>
-            <br />
-            <asp:Panel runat="server" Visible="true" ID="pnlEmpleado" CssClass="Centrar-Medio">
-                <asp:GridView runat="server" ID="gvEmpleados">
-                </asp:GridView>
-            </asp:Panel>
-            <img src="../img/imageedit_3_5509983854.png" class="logPosicionEmp" />
+        <br />
+        <asp:Panel runat="server" Visible="true" ID="pnlEmpleado" CssClass="Centrar-Medio">
+            <asp:GridView runat="server" ID="gvEmpleados">
+            </asp:GridView>
+        </asp:Panel>
+        <img src="../img/imageedit_3_5509983854.png" class="logPosicionEmp" />
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.11/dist/sweetalert2.all.min.js"></script>
         <script src="../js/sweetalert.js" type="text/javascript"></script>
     </form>

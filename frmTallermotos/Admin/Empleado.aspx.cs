@@ -228,6 +228,10 @@ namespace prjtallermotos.Admin
         {
             try
             {
+                if (Session["identificacion"].ToString()==string.Empty)
+                {
+                    Response.Redirect("../frmlogin.aspx");
+                }
                 strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
                 objcontroles = new clsllenarope(strnombreapp);
                 objadmin = new clsadminop(strnombreapp);
@@ -299,5 +303,15 @@ namespace prjtallermotos.Admin
         }
         #endregion
 
+        
+
+        
+        
+
+        protected void logout_new_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["identificacion"] =string.Empty;
+            Response.Redirect("../frmlogin.aspx");
+        }
     }
 }

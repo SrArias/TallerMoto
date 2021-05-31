@@ -11,19 +11,22 @@
     padding-top: 16px;
 }
 
-    /* Style sidebar links */
-    .sidebar a {
-        padding: 6px 8px 6px 16px;
-        text-decoration: none;
-        font-size: 20px;
-        color: #818181;
-        display: block;
-    }
+.btnlogout {
+    background-image: url('../img/image_icon_logout_pic_512x512.png');
+}
+/* Style sidebar links */
+.sidebar a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+}
 
-        /* Style links on mouse-over */
-        .sidebar a:hover {
-            color: #f1f1f1;
-        }
+    /* Style links on mouse-over */
+    .sidebar a:hover {
+        color: #f1f1f1;
+    }
 
 /* Style the main content */
 .main {
@@ -74,6 +77,7 @@
     margin-top: 10%;
     margin-left: 30%;
 }
+
 .posicion2 {
     margin-top: -1%;
     margin-left: 30%;
@@ -115,5 +119,3 @@ body1 {
     margin-top: -45%;
     margin-left: 70%;
 }
-
-
