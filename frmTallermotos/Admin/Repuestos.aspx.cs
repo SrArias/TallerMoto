@@ -9,14 +9,105 @@ namespace prjtallermotos.Admin
 
     public partial class Repuestos : System.Web.UI.Page
     {
+        #region "Atributos"
+        private string strnombreapp;
+        #endregion
 
         #region "Instancias"
         clsllenarope objcontroles;
         clsadminop objadmin;
-        private string strnombreapp;
         #endregion
 
         #region "Métodos Privados"
+
+        private bool validar(string MetodoOrigen)
+        {
+            switch (MetodoOrigen.ToLower())
+            {
+                case "getonerepuesto":
+                    if (drpIdRep.SelectedIndex == 0)
+                    {
+                        mensajes("error", "Debe seleccionar un repuesto");
+                        return false;
+                    }
+                    break;
+                case "insertrepuesto":
+
+                    if (txtNomRep.Value == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar el nombre del repuesto");
+                        return false;
+                    }
+                    if (txtUnidStock.Value == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar las unidades disponibles en stock del repuesto");
+                        return false;
+                    }
+                    if (txtUnidOrden.Value == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar las unidades ordenadas del repuesto");
+                        return false;
+                    }
+                    if (txtPrecioxUnid.Value == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar el precio por unidad del repuesto");
+                        return false;
+                    }
+                    if (drpProvID.SelectedIndex == 0)
+                    {
+                        mensajes("error", "Debe ingresar el nombre de la compañía");
+                        return false;
+                    }
+
+                    break;
+                case "updaterepuesto":
+
+                    if (drpIdRep.SelectedIndex == 0)
+                    {
+                        mensajes("error", "Debe seleccionar el nombre del repuesto");
+                        return false;
+                    }
+
+                    if (txtNomRep.Value == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar el nombre del repuesto");
+                        return false;
+                    }
+
+                    if (txtNomRep.Value == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar el nombre del repuesto");
+                        return false;
+                    }
+                    if (txtUnidStock.Value == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar las unidades disponibles en stock del repuesto");
+                        return false;
+                    }
+                    if (txtUnidOrden.Value == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar las unidades ordenadas del repuesto");
+                        return false;
+                    }
+                    if (txtPrecioxUnid.Value == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar el precio por unidad del repuesto");
+                        return false;
+                    }
+                    if (drpProvID.SelectedIndex == 0)
+                    {
+                        mensajes("error", "Debe ingresar el nombre de la compañía");
+                        return false;
+                    }
+
+                    break;
+                default:
+                    break;
+            }
+            return true;
+
+        }
+
         private void Limpiar()
         {
             btnInsertarRep.Enabled = true;
@@ -31,25 +122,35 @@ namespace prjtallermotos.Admin
             drpIdRep.Items.Clear();
             RecargarControles();
         }
+
         private void RecargarControles()
         {
+            try
+            {
+                if (!objcontroles.llenarDrop(drpIdRep))
+                {
+                    mensajes("error", objcontroles.StrError);
+                    return;
+                }
+                if (!objcontroles.llenarDrop(drpProvID))
+                {
+                    mensajes("error", objcontroles.StrError);
+                    return;
+                }
+                if (!objcontroles.llenarGrid(gvRep))
+                {
+                    mensajes("error", objcontroles.StrError);
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
 
-            if (!objcontroles.llenarDrop(drpIdRep))
-            {
-                mensajes("error", objcontroles.StrError);
-                return;
+                mensajes("error", ex.Message);
             }
-            if (!objcontroles.llenarDrop(drpProvID))
-            {
-                mensajes("error", objcontroles.StrError);
-                return;
-            }
-            if (!objcontroles.llenarGrid(gvRep))
-            {
-                mensajes("error", objcontroles.StrError);
-                return;
-            }
+
         }
+
         private void mensajes(string tipo, string mensajes)
         {
             string javaScript = $"mensajes('{tipo}','{mensajes}');";
@@ -60,6 +161,10 @@ namespace prjtallermotos.Admin
         {
             try
             {
+                if (!validar("insertrepuesto"))
+                {
+                    return;
+                }
 
                 objadmin.StrNombreRep = txtNomRep.Value.Trim();
                 objadmin.IntUnidStock = int.Parse(txtUnidStock.Value.Trim());
@@ -78,13 +183,19 @@ namespace prjtallermotos.Admin
             }
             catch (Exception ex)
             {
-                throw ex;
+                mensajes("error", ex.Message);
             }
         }
+
         private void Actualizar()
         {
             try
             {
+                if (!validar("updaterepuesto"))
+                {
+                    return;
+                }
+
 
                 objadmin.StrNombreRep = txtNomRep.Value.Trim();
                 objadmin.IntUnidStock = int.Parse(txtUnidStock.Value.Trim());
@@ -92,6 +203,7 @@ namespace prjtallermotos.Admin
                 objadmin.IntPrecioUnid = int.Parse(txtPrecioxUnid.Value.Trim());
                 objadmin.IntProv_id = int.Parse(drpProvID.SelectedItem.Value);
                 drpProvID.SelectedItem.Text = objadmin.IntProv_id.ToString();
+
                 if (!objadmin.Actualizar_Repuesto())
                 {
 
@@ -104,7 +216,7 @@ namespace prjtallermotos.Admin
             }
             catch (Exception ex)
             {
-                throw ex;
+                mensajes("error", ex.Message);
             }
         }
         #endregion
@@ -115,6 +227,10 @@ namespace prjtallermotos.Admin
         {
             try
             {
+                if (Session["identificacion"].ToString() == string.Empty)
+                {
+                    Response.Redirect("../frmlogin.aspx");
+                }
                 strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
                 objcontroles = new clsllenarope(strnombreapp);
                 objadmin = new clsadminop(strnombreapp);
@@ -131,23 +247,26 @@ namespace prjtallermotos.Admin
             }
         }
 
-       
         protected void drpIdRep_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
+                if (!validar("getonerepuesto"))
+                {
+                    return;
+                }
+
                 objadmin.IntRepuesto_id = int.Parse(drpIdRep.SelectedItem.Value);
                 if (!objadmin.getone_repuesto())
                 {
                     objadmin = null;
-                    mensajes("error",objadmin.StrError);
+                    mensajes("error", objadmin.StrError);
                     return;
                 }
                 btnInsertarRep.Enabled = false;
-                btnActualizarRep.Enabled =true;
-                drpProvID.SelectedItem.Text = objadmin.StrNombreProv; 
+                btnActualizarRep.Enabled = true;
                 txtNomRep.Value = objadmin.StrNombreRep;
-                txtUnidStock.Value=objadmin.IntUnidStock.ToString();
+                txtUnidStock.Value = objadmin.IntUnidStock.ToString();
                 txtUnidOrden.Value = objadmin.IntUnidOrdenadas.ToString();
                 txtPrecioxUnid.Value = objadmin.IntPrecioUnid.ToString();
 
@@ -158,7 +277,7 @@ namespace prjtallermotos.Admin
                 mensajes("error", ex.Message);
             }
         }
-        
+
         protected void btnInsertarRep_Click(object sender, EventArgs e)
         {
             Insertar();
@@ -169,11 +288,17 @@ namespace prjtallermotos.Admin
 
             Actualizar();
         }
-       
 
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
             Limpiar();
+        }
+
+
+        protected void logout_new_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["identificacion"] = string.Empty;
+            Response.Redirect("../frmlogin.aspx");
         }
         #endregion
     }

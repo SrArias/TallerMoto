@@ -1,11 +1,7 @@
 ﻿using LibOperativa;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace prjtallermotos.Admin
 {
@@ -21,23 +17,47 @@ namespace prjtallermotos.Admin
         clsadminop objadmin;
         #endregion
 
-        protected void Page_Load(object sender, EventArgs e)
+        #region "Metodos Privados"
+        private void mensajes(string tipo, string mensajes)
+        {
+            string javaScript = $"mensajes('{tipo}','{mensajes}');";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "script", javaScript, true);
+        }
+        private void RecargarControles()
         {
             try
             {
-                strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
-                objcontroles = new clsllenarope(strnombreapp);
-                objadmin = new clsadminop(strnombreapp);
-                RecargarControles();
+                if (!IsPostBack)
+                {
+
+                    if (!objcontroles.llenarDrop(drpVehiculoId))
+                    {
+                        mensajes("error", objcontroles.StrError);
+                        return;
+                    }
+
+                    if (!objcontroles.llenarDrop(drpempleadofactura))
+                    {
+                        mensajes("error", objcontroles.StrError);
+                        return;
+                    }
+
+                    if (!objcontroles.llenarDrop(drpRepuesto))
+                    {
+                        mensajes("error", objcontroles.StrError);
+                        return;
+                    }
+                }
             }
+
             catch (Exception ex)
             {
 
                 mensajes("error", ex.Message);
             }
-        }
-        #region "Metodos Privados"
 
+
+        }
         private bool validar(string MetodoOrigen)
         {
             switch (MetodoOrigen.ToLower())
@@ -46,7 +66,7 @@ namespace prjtallermotos.Admin
                 case "insertfactura":
                     if (drpVehiculoId.SelectedIndex == 0)
                     {
-                        mensajes("error", "Debe ingresar un vehiculo");
+                        mensajes("error", "Debe ingresar un vehículo");
                         return false;
                     }
                     if (drpempleadofactura.SelectedIndex == 0)
@@ -89,7 +109,7 @@ namespace prjtallermotos.Admin
         {
             try
             {
-                if (!validar("insetfactura"))
+                if (!validar("insertfactura"))
                 {
                     return;
                 }
@@ -107,7 +127,7 @@ namespace prjtallermotos.Admin
                 Session["factura_id"] = objadmin.Resultado;
                 mensajes("success", "Se genero la factura correctamente");
                 btnDetallesFac.Enabled = true;
-                //Limpiar();
+
                 
             }
             catch (Exception ex)
@@ -119,7 +139,7 @@ namespace prjtallermotos.Admin
         {
             try
             {
-                if (!validar("insetdetalles"))
+                if (!validar("insertdetalles"))
                 {
                     return;
                 }
@@ -138,7 +158,7 @@ namespace prjtallermotos.Admin
                 }
                 
                 mensajes("success", "Se genero la factura correctamente");
-                //Limpiar();
+
 
             }
             catch (Exception ex)
@@ -147,37 +167,29 @@ namespace prjtallermotos.Admin
             }
         }
         #endregion
-        private void RecargarControles()
+
+        #region "Eventos"
+
+        protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
+            {
+                if (Session["identificacion"].ToString() == string.Empty)
+                {
+                    Response.Redirect("../frmlogin.aspx");
+                }
+                strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
+                objcontroles = new clsllenarope(strnombreapp);
+                objadmin = new clsadminop(strnombreapp);
+                RecargarControles();
+            }
+            catch (Exception ex)
             {
 
-                if (!objcontroles.llenarDrop(drpVehiculoId))
-                {
-                    mensajes("error", objcontroles.StrError);
-                    return;
-                }
-
-                if (!objcontroles.llenarDrop(drpempleadofactura))
-                {
-                    mensajes("error", objcontroles.StrError);
-                    return;
-                }
-
-                if (!objcontroles.llenarDrop(drpRepuesto))
-                {
-                    mensajes("error", objcontroles.StrError);
-                    return;
-                }
+                mensajes("error", ex.Message);
             }
-
         }
 
-        private void mensajes(string tipo, string mensajes)
-        {
-            string javaScript = $"mensajes('{tipo}','{mensajes}');";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "script", javaScript, true);
-        }
 
 
         protected void btnFactura_Click(object sender, EventArgs e)
@@ -211,18 +223,6 @@ namespace prjtallermotos.Admin
             
 
         }
-        private void Limpiar()
-        {
-            //txtFecha.Value = string.Empty;
-            txtCantidadRep.Value = string.Empty;
-            txtPrecioMant.Value = string.Empty;
-            //drpMantenimientoId.DataSource = null;
-            drpempleadofactura.DataSource = null;
-            drpempleadofactura.Items.Clear();
-            //drpMantenimientoId.Items.Clear();
-            RecargarControles();
-
-        }
 
         protected void btnInsertarDet_Click(object sender, EventArgs e)
         {
@@ -234,5 +234,15 @@ namespace prjtallermotos.Admin
         {
             InsertarFactura();
         }
+
+        protected void logout_new_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["identificacion"] = string.Empty;
+            Response.Redirect("../frmlogin.aspx");
+        }
+
+
+        #endregion
     }
+
 }

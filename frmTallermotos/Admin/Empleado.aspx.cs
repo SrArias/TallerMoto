@@ -7,10 +7,13 @@ namespace prjtallermotos.Admin
 {
     public partial class Empleado : System.Web.UI.Page
     {
+        #region "Atributos"
+        private string strnombreapp;
+        #endregion
+
         #region "Instancias"
         clsllenarope objcontroles;
         clsadminop objadmin;
-        private string strnombreapp;
         #endregion
 
         #region "Métodos Privados"
@@ -35,18 +38,26 @@ namespace prjtallermotos.Admin
 
         private void RecargarControles()
         {
-
-
-            if (!objcontroles.llenarGrid(gvEmpleados))
+            try
             {
-                mensajes("error", objcontroles.StrError);
-                return;
+                if (!objcontroles.llenarGrid(gvEmpleados))
+                {
+                    mensajes("error", objcontroles.StrError);
+                    return;
+                }
+                if (!objcontroles.llenarDrop(drpIdEmpleado))
+                {
+                    mensajes("error", objcontroles.StrError);
+                    return;
+                }
             }
-            if (!objcontroles.llenarDrop(drpIdEmpleado))
+            catch (Exception ex)
             {
-                mensajes("error", objcontroles.StrError);
-                return;
+
+                mensajes("error", ex.Message);
             }
+
+ 
         }
         private void mensajes(string tipo, string mensajes)
         {
@@ -76,16 +87,17 @@ namespace prjtallermotos.Admin
                         mensajes("error", "Debe ingresar un nombre de empleado");
                         return false;
                     }
-                    if (txtDireccion.Value.Trim() == string.Empty)
-                    {
-                        mensajes("error", "Debe ingresar una dirección");
-                        return false;
-                    }
                     if (txtTelefono.Value.Trim() == string.Empty)
                     {
                         mensajes("error", "Debe ingresar un número de teléfono");
                         return false;
                     }
+                    if (txtDireccion.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar una dirección");
+                        return false;
+                    }
+
                     if (txtSalario.Value.Trim() == string.Empty)
                     {
                         mensajes("error", "Debe ingresar el salario");
@@ -301,17 +313,15 @@ namespace prjtallermotos.Admin
         {
             Limpiar();
         }
-        #endregion
-
-        
-
         
         
-
+     
         protected void logout_new_Click(object sender, ImageClickEventArgs e)
         {
             Session["identificacion"] =string.Empty;
             Response.Redirect("../frmlogin.aspx");
         }
+
+        #endregion
     }
 }

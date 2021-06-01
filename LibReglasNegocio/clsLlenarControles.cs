@@ -1,6 +1,5 @@
 ﻿using libLlenarCombos;
 using System;
-using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 using libLlenarGrids;
@@ -11,11 +10,9 @@ namespace LibReglasNegocio
     {
         #region "Atributos"
 
-        private const string ID = "Id";
         private clsLlenarGrids objGrid;
         private SqlParameter[] objDatosTaller;
         private clsLlenarCombos objcnx;
-        private DataSet dsDatos;
         private string strError;
         private string strid;
         private string strcampostext;
@@ -77,9 +74,6 @@ namespace LibReglasNegocio
                     case "DRPIDVEHICULO":
                     case "DRPEMPLEADOFACTURA":
                     case "DRPREPUESTO":
-
-
-
                         break;
 
                     default:

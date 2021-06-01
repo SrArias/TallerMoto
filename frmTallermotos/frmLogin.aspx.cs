@@ -1,11 +1,7 @@
 ﻿using LibOperativa;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace frmTallermotos
 {
@@ -14,30 +10,49 @@ namespace frmTallermotos
         #region "Atributos"
         private string strnombreapp;
         #endregion
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
-        }
 
+        #region "Métodos Privados"
         public bool validar()
         {
-            if (txtusername.Value=="")
+            if (txtusername.Value == "")
             {
-                mensajes("error","Debe ingresar el usuario");
+                mensajes("error", "Debe ingresar el usuario");
                 return false;
             }
-            if (txtpassword.Value=="")
+            if (txtpassword.Value == "")
             {
-                mensajes("error","Debe ingresar la contraseña");
+                mensajes("error", "Debe ingresar la contraseña");
                 return false;
             }
             return true;
         }
-        private void mensajes(string tipo,string mensajes)
+        private void mensajes(string tipo, string mensajes)
         {
             string javaScript = $"mensajes('{tipo}','{mensajes}');";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "script", javaScript, true);
         }
+
+
+
+        #endregion
+
+        #region "Eventos"
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
+            }
+            catch (Exception ex)
+            {
+
+                mensajes("error", ex.Message);
+            }
+
+        }
+
+
         protected void btn_Click(object sender, EventArgs e)
         {
             try
@@ -52,7 +67,7 @@ namespace frmTallermotos
                 objlogin.Password = txtpassword.Value.Trim();
                 if (!objlogin.login())
                 {
-                    //Mensajes(objlogin.Error);
+
                     objlogin = null;
                     return;
                 }
@@ -75,8 +90,10 @@ namespace frmTallermotos
             catch (Exception ex)
             {
 
-                throw ex;
+                mensajes("error", ex.Message);
             }
         }
+
+        #endregion
     }
 }

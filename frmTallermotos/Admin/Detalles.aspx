@@ -16,13 +16,13 @@
         <div class="sidebar">
             <a href="../frmadmin.aspx"><i class="fa fa-home fa-2x"></i>Home</a>
             <a href="Empleado.aspx"><i class="fa fa-fw fa-user"></i>Empleados</a>
-            <a href="Detalles.aspx"><i class="fa fa-fw fa-envelope"></i>Facturación</a>
-            <a href="Mantenimiento.aspx"><i class="fa fa-fw fa-wrench"></i>Mantenimiento</a>
-            <a href="Clientes.aspx"><i class="fa fa-fw fa-user"></i>Clientes</a>
-            <a href="Vehiculos.aspx"><i class="fa fa-fw fa-wrench"></i>Vehículos</a>
             <a href="Proveedores.aspx"><i class="fa fa-fw fa-user"></i>Proveedores</a>
             <a href="Repuestos.aspx"><i class="fa fa-fw fa-wrench"></i>Repuestos</a>
-            <img src="../img/image_icon_logout_pic_512x512.png" style="margin-top: 95%" />
+            <a href="Vehiculos.aspx"><i class="fa fa-fw fa-wrench"></i>Vehículos</a>
+            <a href="Clientes.aspx"><i class="fa fa-fw fa-user"></i>Clientes</a>
+            <a href="Mantenimiento.aspx"><i class="fa fa-fw fa-wrench"></i>Mantenimiento</a>                     
+            <a href="Detalles.aspx"><i class="fa fa-fw fa-envelope"></i>Facturación</a>            
+            <asp:ImageButton runat="server" ID="logout_new" ImageUrl="~/img/image_icon_logout_pic_512x512.png"  style="margin-top:95%" OnClick="logout_new_Click"/>
         </div>
         <div class="Centrar-Medio">
             <h1>Facturación</h1>
@@ -42,15 +42,18 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon2">Fecha</span>
                     </div>
-                    <input type="text" onclick="" runat="server" id="txtFecha" class="form-control" placeholder="AAAA-MM-DD" aria-label="Fecha" aria-describedby="basic-addon1" />
+                    <input type="text" onclick="" disabled="true" runat="server" id="txtFecha" class="form-control" placeholder="AAAA-MM-DD" aria-label="Fecha" aria-describedby="basic-addon1" />
                 </div>
             </div>
             <div class="row justify-content-center">
+                <div class="input-group mb-3 Centrar-Medio size">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Repuesto</span>
+                    </div>
                 <asp:DropDownList ID="drpRepuesto" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server">
-                    
                 </asp:DropDownList>
+                    </div>
             </div>
-            <br />
             <div class="row justify-content-center">
                 <div class="input-group mb-3 Centrar-Medio size">
                     <div class="input-group-prepend">
@@ -60,9 +63,13 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-                <asp:DropDownList ID="drpMantenimientoId" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server">
-                    
+                     <div class="input-group mb-3 Centrar-Medio size">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Procedimiento</span>
+                    </div>
+                <asp:DropDownList ID="drpMantenimientoId" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server">                    
                 </asp:DropDownList>
+                     </div>
             </div>
             <br />
             <div class="row justify-content-center">
@@ -77,7 +84,6 @@
             <br />
             <div class="Centrar-Medio">
                 <asp:Button runat="server" ID="btnInsertarDet" CssClass="btn btn-info" Text="Insertar" OnClick="btnInsertarDet_Click"/>
-            <asp:Button runat="server" ID="btnActualizarDet" CssClass="btn btn-info" Text="Actualizar" />
             </div>
             <div class="Centrar-Medio">
                 <br />
@@ -91,7 +97,7 @@
             <img src="../img/imageedit_3_5509983854.png" class="logPosicionGen" />
             
         </asp:Panel>
-        <asp:Panel runat="server" ID="pnlFactura" Visible="false">
+        <asp:Panel runat="server" ID="pnlFactura" Visible="true">
             <br />
             <div class="row justify-content-center">
                 <div class="input-group-prepend">
@@ -109,15 +115,12 @@
                 </asp:DropDownList>
                 <br />
             </div>
-            <div class="Centrar-Medio">
                 <br />
-                <asp:Button runat="server" CssClass="btn btn-info" ID="btngenerarfactura" Text="Generar factuta" OnClick="btngenerarfactura_Click"></asp:Button>
+                <br />
+            <div class="Centrar-Medio">
+                <asp:Button runat="server" CssClass="btn btn-info" ID="btngenerarfactura" Text="Generar factura" OnClick="btngenerarfactura_Click"></asp:Button>
 
-            </div>
-            <div class="row justify-content-center">
-                <asp:DropDownList ID="drpFacturaID" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size" runat="server">
-                </asp:DropDownList>
-            </div>
+            </div>            
         </asp:Panel>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.11/dist/sweetalert2.all.min.js"></script>
         <script src="../js/sweetalert.js" type="text/javascript"></script>

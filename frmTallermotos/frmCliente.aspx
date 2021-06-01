@@ -13,7 +13,7 @@
                 <div class="container" style="margin-top: -30px">
                     <img src="img/MicrosoftTeams-image%20(2).png" style="margin-top: -1%; margin-left: -13%" />
                     <h2 class="lead" style="margin-left: -7%">¡Bienvenido! Consulte su historial</h2>
-                    <img src="img/logout.png" style="margin-left: 105%; margin-top: -11.5%; height: 110px; width: 110px" />
+                    <asp:ImageButton runat="server" ID="logout_new" ImageUrl="img/logout.png" style="margin-left: 105%; margin-top: -11.5%; height: 110px; width: 110px" OnClick="logout_new_Click"/>
                 </div>
             </div>
             <div class="containerOptions" style="background-color: #41626a; width: 100%; height: 10%; margin-left: 0%; margin-top: -4%">
@@ -42,7 +42,7 @@
                 <div class="card">
                     <img src="img/moto222.jpg" class="card-img-top" />
                     <div class="card-body">
-                        <p class="card-text">"Puedes confiar en in biker porque dice lo que piensa y hace lo que siente".</p>
+                        <p class="card-text">"Puedes confiar en un biker porque dice lo que piensa y hace lo que siente".</p>
                     </div>
                 </div>
                 <div class="card">

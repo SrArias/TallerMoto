@@ -95,40 +95,6 @@ namespace LibOperativa
         public clsadminop(string nombreapp)
         {
             strNombreApp = nombreapp;
-            //this.intUsuario_id = 0;
-            //this.strContrasena = "";
-            //this.strVehiculo_id = "";
-            //this.strMarca = "";
-            //this.strCilindraje = "";
-            //this.intModelo = 0;
-            //this.strColor = "";
-            //this.strRefencia = "";
-            //this.strNombreC = "";
-            //this.strTelefonoC = "";
-            //this.strDireccionC = "";
-            //this.intEmpleado_id = 0;
-            //this.strNombreE = "";
-            //this.strTelefonoE = "";
-            //this.strDireccionE = "";
-            //this.intSalarioE = 0;
-            //this.intProv_id = 0;
-            //this.strNombreProv = "";
-            //this.strNombreContacProv = "";
-            //this.strTituloContacProv = "";
-            //this.strNumeroContacprov = "";
-            //this.strDireccionProv = "";
-            //this.intRepuesto_id = 0;
-            //this.strNombreRep = "";
-            //this.intUnidStock = 0;
-            //this.intUnidOrdenadas = 0;
-            //this.intPrecioUnid = 0;
-            //this.intCargo = 0;
-            //this.intMantenimiento_id = 0;
-            //this.strDiagnostico = "";
-            //this.strProc_Realizado = "";
-            //this.datFecha = DateTime.Now;
-            //this.intCant_Repuesto = 0;
-            //this.intPrecio_Mant = 0;
 
         }
         #endregion
@@ -149,167 +115,202 @@ namespace LibOperativa
                     if (intUsuario_id <= 0)
                     {
                         strError = "Ingrese la id del cliente";
+                        return false;
                     }
 
                     if (StrNombreC == string.Empty)
                     {
                         strError = "Ingrese el nombre del cliente";
+                        return false;
                     }
 
                     if (StrTelefonoC == string.Empty)
                     {
                         strError = "Ingrese el telefono del cliente";
+                        return false;
                     }
 
                     if (StrVehiculo_id == string.Empty)
                     {
                         strError = "Ingrese la placa del vehiculo del cliente";
+                        return false;
                     }
 
                     if (StrContrasena == string.Empty)
                     {
                         strError = "Ingrese una contraseña";
+                        return false;
                     }
                     break;
 
                 case "vehiculo":
                     if (StrVehiculo_id == string.Empty)
                     {
-                        strError = "La placa del vehiculo no  a sido ingresada correctamente";
+                        strError = "La placa del vehiculo no  ha sido ingresada correctamente";
+                        return false;
                     }
                     if (strMarca == string.Empty)
                     {
-                        strError = "la marca del vehiculo no a sido ingresada";
+                        strError = "La marca del vehiculo no ha sido ingresada";
+                        return false;
                     }
                     if (StrCilindraje == string.Empty)
                     {
-                        strError = "el cilindraje del vehiculo no a sido ingresada";
+                        strError = "El cilindraje del vehiculo no ha sido ingresada";
+                        return false;
                     }
                     if (intModelo <= 0)
                     {
-                        strError = "El modelo del vehiculo no a sido ingresada";
+                        strError = "El modelo del vehiculo no ha sido ingresada";
+                        return false;
                     }
                     if (strColor == string.Empty)
                     {
-                        strError = "El color del vehiculo no a sido ingresada";
+                        strError = "El color del vehiculo no ha sido ingresada";
+                        return false;
                     }
                     if (strRefencia == string.Empty)
                     {
-                        strError = "La Refencia del vehiculo no a sido ingresada";
+                        strError = "La Refencia del vehiculo no ha sido ingresada";
+                        return false;
                     }
 
                     break;
                 case "proveedores":
                     if (intProv_id <= 0)
                     {
-                        strError = "El id del proveedor no a sido ingresado";
+                        strError = "El id del proveedor no ha sido ingresado";
+                        return false;
                     }
                     if (strNombreProv == string.Empty)
                     {
-                        strError = "El nombre del proveedor no a sido ingresado";
+                        strError = "El nombre del proveedor no ha sido ingresado";
+                        return false;
                     }
                     if (strNombreContacProv == string.Empty)
                     {
-                        strError = "El nombre del contacto no a sido ingresado";
+                        strError = "El nombre del contacto no ha sido ingresado";
+                        return false;
                     }
                     if (strTituloContacProv == string.Empty)
                     {
-                        strError = "El titulo del contacto no a sido ingresado";
+                        strError = "El titulo del contacto no ha sido ingresado";
+                        return false;
                     }
                     if (strNumeroContacprov == string.Empty)
                     {
-                        strError = "El numero del proveedor no a sido ingresado";
+                        strError = "El número del proveedor no ha sido ingresado";
+                        return false;
                     }
                     if (strDireccionProv == string.Empty)
                     {
-                        strError = "La direccion del proveedor no a sido ingresado";
+                        strError = "La dirección del proveedor no ha sido ingresada";
+                        return false;
                     }
 
                     break;
                 case "detalle_factura":
                     if (datFecha < new DateTime().Date)
                     {
-                        strError = "la fecha  no a sido ingresado";
+                        strError = "La fecha  no ha sido ingresada";
+                        return false;
                     }
                     if (intCant_Repuesto <= -1)
                     {
-                        strError = "la cantidad de no a sido ingresado";
+                        strError = "La cantidad de no ha sido ingresado";
+                        return false;
                     }
                     if (intPrecio_Mant <= 0)
                     {
-                        strError = "El el precio del mantenimiento no a sido ingresado";
+                        strError = "El el precio del mantenimiento no ha sido ingresado";
+                        return false;
                     }
-                    //revisar valores auto incrementables tambien en el inset into de la BD ATT: Harol
                     break;
                 case "empleado":
                     if (intEmpleado_id <= 0)
                     {
-                        strError = "Ingrese la id del empleado";
+                        strError = "Ingrese el id del empleado";
+                        return false;
                     }
                     if (strNombreE == string.Empty)
                     {
                         strError = "Ingrese el nombre del empleado";
+                        return false;
                     }
                     if (strTelefonoE == string.Empty)
                     {
-                        strError = "Ingrese el telefono del empleado";
+                        strError = "Ingrese el teléfono del empleado";
+                        return false;
                     }
                     if (strDireccionE == string.Empty)
                     {
-                        strError = "Ingrese la direccion del empleado";
+                        strError = "Ingrese la dirección del empleado";
+                        return false;
                     }
                     if (intCargo <= 0)
                     {
                         strError = "Seleccione un cargo";
+                        return false;
                     }
                     if (intSalarioE <= 0)
                     {
                         strError = "Ingrese un salario";
+                        return false;
                     }
                     if (StrContrasena == string.Empty)
                     {
                         strError = "Ingrese una contraseña";
+                        return false;
                     }
                     break;
                 case "repuesto":
                     if (strNombreRep == string.Empty)
                     {
                         strError = "Ingrese el nombre del repuesto";
+                        return false;
                     }
-                    if (intUnidStock <= 0)
+                    if (intUnidStock < 0)
                     {
                         strError = "Ingrese las unidades en stock";
+                        return false;
                     }
-                    if (intUnidOrdenadas <= 0)
+                    if (intUnidOrdenadas < 0)
                     {
                         strError = "Ingrese las unidades ordenadas";
+                        return false;
                     }
                     if (intPrecioUnid <= 0)
                     {
                         strError = "Ingrese el valor por unidad del repuesto";
+                        return false;
                     }
                     if (intProv_id <= 0)
                     {
                         strError = "El id del proveedor no a sido ingresado";
+                        return false;
                     }
 
                     break;
                 case "mantenimiento":
                     if (StrVehiculo_id == string.Empty)
                     {
-                        strError = "La placa del vehiculo no  a sido ingresada correctamente";
+                        strError = "La placa del vehiculo no  ha sido ingresada correctamente";
+                        return false;
                     }
                     if (intEmpleado_id <= 0)
                     {
-                        strError = "Ingrese la id del empleado";
+                        strError = "Ingrese el id del empleado";
+                        return false;
                     }
                     if (strDiagnostico == string.Empty)
                     {
-                        strError = "Escriba el diagnostico del vehiculo";
+                        strError = "Escriba el diagnóstico del vehiculo";
+                        return false;
                     }
                     if (strProc_Realizado == string.Empty)
                     {
                         strError = "Escriba el procedimiento realizado";
+                        return false;
                     }
 
                     break;
@@ -317,16 +318,19 @@ namespace LibOperativa
                     if (StrVehiculo_id == string.Empty)
                     {
                         strError = "La placa del vehiculo no  a sido ingresada correctamente";
+                        return false;
                     }
                     if (intEmpleado_id <= 0)
                     {
                         strError = "Ingrese la id del empleado";
+                        return false;
                     }
                     break;
                 case "getoneempleado":
                     if (intEmpleado_id <= 0)
                     {
                         strError = "Seleccione el nombre del empleado";
+                        return false;
                     }
                     break;
                 case "getonecliente":
@@ -334,6 +338,7 @@ namespace LibOperativa
                     if (strVehiculo_id == string.Empty)
                     {
                         strError = "Ingrese la placa del vehiculo";
+                        return false;
                     }
                     break;
 
@@ -341,18 +346,21 @@ namespace LibOperativa
                     if (intRepuesto_id <= 0)
                     {
                         strError = "Seleccione el nombre del repuesto";
+                        return false;
                     }
                     break;
                 case "getoneproveedor":
                     if (intProv_id <= 0)
                     {
                         strError = "Seleccione el nombre de la compañía proveedora";
+                        return false;
                     }
                     break;
                 case "getonemantenimiento":
-                    if (intMantenimiento_id <= 0)
+                    if (strVehiculo_id == string.Empty)
                     {
                         strError = "Seleccione un mantenimiento";
+                        return false;
                     }
                     break;
                 default:
@@ -442,7 +450,7 @@ namespace LibOperativa
                 objadminRn.StrDireccionE = strDireccionE;
                 objadminRn.IntCargo = intCargo;
                 objadminRn.IntTurno = intTurno;
-                objadminRn.IntSalario = IntSalarioE;
+                objadminRn.IntSalarioE = IntSalarioE;
                 objadminRn.StrContrasena = "12345";
 
 
@@ -473,12 +481,12 @@ namespace LibOperativa
                 }
                 clsadminRN objadminRn = new clsadminRN(strNombreApp);
                 objadminRn.IntEmpleado_id = intEmpleado_id;
-                objadminRn.StrNombreE = StrNombreE;
+                objadminRn.StrNombreE = strNombreE;
                 objadminRn.StrTelefonoE = strTelefonoE;
                 objadminRn.StrDireccionE = strDireccionE;
                 objadminRn.IntCargo = intCargo;
                 objadminRn.IntTurno = intTurno;
-                objadminRn.IntSalario = IntSalarioE;
+                objadminRn.IntSalarioE = intSalarioE;
 
                 if (!objadminRn.Empleado_Update())
                 {

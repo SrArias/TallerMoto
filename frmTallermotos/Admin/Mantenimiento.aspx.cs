@@ -7,10 +7,13 @@ namespace prjtallermotos.Admin
 {
     public partial class Mantenimiento : System.Web.UI.Page
     {
+        #region "Atributos"
+        private string strnombreapp;
+        #endregion
+
         #region "Instancias"
         clsllenarope objcontroles;
         clsadminop objadmin;
-        private string strnombreapp;
         #endregion
 
         #region "Métodos Privados"
@@ -30,36 +33,59 @@ namespace prjtallermotos.Admin
             drpIdVehiculo.Items.Clear();
             drpIdEmpleado.Items.Clear();
             drpIdMantenim.Items.Clear();
+            gvMantenimiento.Visible = false;
             RecargarControles();
 
         }
 
         private void Recargar_grid()
         {
-            if (!objcontroles.llenarGrid(gvMantenimiento))
+            try
             {
-                mensajes("error", objcontroles.StrError);
-                return;
+                if (!objcontroles.llenarGrid(gvMantenimiento))
+                {
+                    mensajes("error", objcontroles.StrError);
+                    return;
+                }
             }
+            catch (Exception ex)
+            {
+
+                mensajes("error", ex.Message);
+            }
+
         }
         private void RecargarControles()
         {
+            try
+            {
+                if (!objcontroles.llenarDrop(drpIdMantenim))
+                {
+                    mensajes("error", objcontroles.StrError);
+                    return;
+                }
+                if (!objcontroles.llenarDrop(drpIdVehiculo))
+                {
+                    mensajes("error", objcontroles.StrError);
+                    return;
+                }
+                if (!objcontroles.llenarDrop(drpIdEmpleado))
+                {
+                    mensajes("error", objcontroles.StrError);
+                    return;
+                }
+                if (!objcontroles.llenarGrid(gvMantenimiento))
+                {
+                    mensajes("error", objcontroles.StrError);
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
 
-            if (!objcontroles.llenarDrop(drpIdMantenim))
-            {
-                mensajes("error", objcontroles.StrError);
-                return;
+                mensajes("error", ex.Message);
             }
-            if (!objcontroles.llenarDrop(drpIdVehiculo))
-            {
-                mensajes("error", objcontroles.StrError);
-                return;
-            }
-            if (!objcontroles.llenarDrop(drpIdEmpleado))
-            {
-                mensajes("error", objcontroles.StrError);
-                return;
-            }
+
 
         }
 
@@ -130,7 +156,7 @@ namespace prjtallermotos.Admin
                     }
                     if (txtProcRealiz.Value.Trim() == string.Empty)
                     {
-                        mensajes("error", "Debe ingresar el proceso reliazado");
+                        mensajes("error", "Debe ingresar el proceso realizado");
                         return false;
                     }
 
@@ -185,9 +211,8 @@ namespace prjtallermotos.Admin
                 objadmin.StrVehiculo_id = drpIdVehiculo.SelectedItem.ToString();
                 objadmin.IntEmpleado_id = int.Parse(drpIdEmpleado.SelectedItem.Value);
                 objadmin.IntMantenimiento_id = int.Parse(txtidmantenimiento.Value.ToString());
-
-
                 objcontroles.Vehiculo = drpIdVehiculo.SelectedItem.Value.ToString();
+
                 if (!objadmin.Actualizar_Mantenimiento())
                 {
 
@@ -212,6 +237,10 @@ namespace prjtallermotos.Admin
         {
             try
             {
+                if (Session["identificacion"].ToString() == string.Empty)
+                {
+                    Response.Redirect("../frmlogin.aspx");
+                }
                 strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
                 objcontroles = new clsllenarope(strnombreapp);
                 objadmin = new clsadminop(strnombreapp);
@@ -251,15 +280,14 @@ namespace prjtallermotos.Admin
                 drpIdVehiculo.Enabled = false;
                 idman.Visible = true;
                 drpIdVehiculo.SelectedItem.Text = objadmin.StrVehiculo_id;
-                drpIdEmpleado.SelectedItem.Text = objadmin.StrNombreE;
                 txtDiagnostico.Value = objadmin.StrDiagnostico;
                 txtProcRealiz.Value = objadmin.StrProc_Realizado;
-
+                gvMantenimiento.Visible = true;
              
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                mensajes("error",ex.Message);
+                mensajes("error", "La moto no tiene insertado un mantenimiento");
             }
 
         }
@@ -278,6 +306,12 @@ namespace prjtallermotos.Admin
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
             Limpiar();
+        }
+
+        protected void logout_new_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["identificacion"] = string.Empty;
+            Response.Redirect("../frmlogin.aspx");
         }
         #endregion
     }

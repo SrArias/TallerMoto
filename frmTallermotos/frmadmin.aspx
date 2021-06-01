@@ -46,12 +46,13 @@
         <div class="sidebar">
             <a href="frmadmin.aspx"><i class="fa fa-home fa-2x"></i>Home</a>
             <a href="Admin/Empleado.aspx"><i class="fa fa-fw fa-user"></i>Empleados</a>
-            <a href="Admin/Detalles.aspx"><i class="fa fa-fw fa-envelope"></i>Facturación</a>
-            <a href="Admin/Mantenimiento.aspx"><i class="fa fa-fw fa-wrench"></i>Mantenimiento</a>
-            <a href="Admin/Clientes.aspx"><i class="fa fa-fw fa-user"></i>Clientes</a>
-            <a href="Admin/Vehiculos.aspx"><i class="fa fa-fw fa-wrench"></i>Vehículos</a>
             <a href="Admin/Proveedores.aspx"><i class="fa fa-fw fa-user"></i>Proveedores</a>
             <a href="Admin/Repuestos.aspx"><i class="fa fa-fw fa-wrench"></i>Repuestos</a>
+            <a href="Admin/Vehiculos.aspx"><i class="fa fa-fw fa-wrench"></i>Vehículos</a>
+            <a href="Admin/Clientes.aspx"><i class="fa fa-fw fa-user"></i>Clientes</a>
+            <a href="Admin/Mantenimiento.aspx"><i class="fa fa-fw fa-wrench"></i>Mantenimiento</a>                     
+            <a href="Admin/Detalles.aspx"><i class="fa fa-fw fa-envelope"></i>Facturación</a>            
+            <asp:ImageButton runat="server" ID="logout_new" ImageUrl="~/img/image_icon_logout_pic_512x512.png"  style="margin-top:95%" OnClick="logout_new_Click"/>
         </div>
     </form>
 </body>

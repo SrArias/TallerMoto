@@ -38,7 +38,6 @@ namespace LibReglasNegocio
         private int intUnidOrdenadas;
         private int intPrecioUnid;
         private int intcargo;
-        private int intsalario;
         private int intTurno;
         private int intMantenimiento_id;
         private string strDiagnostico;
@@ -58,43 +57,8 @@ namespace LibReglasNegocio
          {
                 strNombreApp = nombreapp;
                 objcnx = new clsConexionBd(nombreapp);
-                this.intUsuario_id = 0;
-                this.strContrasena = "";
-                this.strVehiculo_id = "";
-                this.strMarca = "";
-                this.strCilindraje = "";
-                this.intModelo = 0;
-                this.strColor = "";
-                this.strRefencia = "";
-                this.strNombreC = "";
-                this.strTelefonoC = "";
-                this.strDireccionC = "";
-                this.intEmpleado_id = 0;
-                this.strNombreE = "";
-                this.strTelefonoE = "";
-                this.strDireccionE = "";
-                this.intSalarioE = 0;
-                this.intProv_id = 0;
-                this.strNombreProv = "";
-                this.strNombreContacProv = "";
-                this.strTituloContacProv = "";
-                this.strNumeroContacprov = "";
-                this.strDireccionProv = "";
-                this.intRepuesto_id = 0;
-                this.strNombreRep = "";
-                this.intUnidStock = 0;
-                this.intUnidOrdenadas = 0;
-                this.intPrecioUnid = 0;
-                this.intcargo = 0;
-                this.intsalario = 0;
-                this.intMantenimiento_id = 0;
-                this.strDiagnostico = "";
-                this.strProc_Realizado = "";
-                this.datFecha = DateTime.Now;
-                this.intCant_Repuesto = 0;
-                this.intPrecio_Mant = 0;
 
-         }
+        }
         
         #endregion
 
@@ -127,7 +91,6 @@ namespace LibReglasNegocio
         public int IntUnidOrdenadas { get => intUnidOrdenadas; set => intUnidOrdenadas = value; }
         public int IntPrecioUnid { get => intPrecioUnid; set => intPrecioUnid = value; }
         public int IntCargo { get => intcargo; set => intcargo = value; }
-        public int IntSalario { get => intsalario; set => intsalario = value; }
         public string StrDiagnostico { get => strDiagnostico; set => strDiagnostico = value; }
         public string StrProc_Realizado { get => strProc_Realizado; set => strProc_Realizado = value; }
         public DateTime DatFecha { get => datFecha; set => datFecha = value; }
@@ -154,49 +117,58 @@ namespace LibReglasNegocio
 
                     if (intUsuario_id <= 0)
                     {
-                        strError = "Ingrese la id del cliente";
+                        strError = "Ingrese el id del cliente";
+                        return false;
                     }
 
                     if (StrNombreC == string.Empty)
                     {
                         strError = "Ingrese el nombre del cliente";
+                        return false;
                     }
 
                     if (StrTelefonoC == string.Empty)
                     {
-                        strError = "Ingrese el telefono del cliente";
+                        strError = "Ingrese el teléfono del cliente";
+                        return false;
                     }
 
                     if (StrVehiculo_id == string.Empty)
                     {
-                        strError = "Ingrese la placa del vehiculo del cliente";
+                        strError = "Ingrese la placa de la moto del cliente";
+                        return false;
                     }
 
                     if (StrContrasena == string.Empty)
                     {
                         strError = "Ingrese una contraseña";
+                        return false;
                     }
                     break;
                 case "userupdate":
 
                     if (intUsuario_id <= 0)
                     {
-                        strError = "Ingrese la id del cliente";
+                        strError = "Ingrese el id del cliente";
+                        return false;
                     }
 
                     if (StrNombreC == string.Empty)
                     {
                         strError = "Ingrese el nombre del cliente";
+                        return false;
                     }
 
                     if (StrTelefonoC == string.Empty)
                     {
-                        strError = "Ingrese el telefono del cliente";
+                        strError = "Ingrese el teléfono del cliente";
+                        return false;
                     }
 
                     if (StrVehiculo_id == string.Empty)
                     {
-                        strError = "Ingrese la placa del vehiculo del cliente";
+                        strError = "Ingrese la placa del vehículo del cliente";
+                        return false;
                     }
 
 
@@ -205,54 +177,66 @@ namespace LibReglasNegocio
                 case "vehiculo":
                     if (StrVehiculo_id == string.Empty)
                     {
-                        strError = "La placa del vehiculo no  a sido ingresada correctamente";
+                        strError = "La placa del vehiculo no  ha sido ingresada correctamente";
+                        return false;
                     }
                     if (strMarca == string.Empty)
                     {
-                        strError = "la marca del vehiculo no a sido ingresada";
+                        strError = "la marca del vehiculo no ha sido ingresada correctamente";
+                        return false;
                     }
                     if (StrCilindraje == string.Empty)
                     {
-                        strError = "el cilindraje del vehiculo no a sido ingresada";
+                        strError = "el cilindraje del vehiculo no ha sido ingresada correctamente";
+                        return false;
                     }
                     if (intModelo <= 0)
                     {
-                        strError = "El modelo del vehiculo no a sido ingresada";
+                        strError = "El modelo del vehiculo no ha sido ingresada correctamente";
+                        return false;
                     }
                     if (strColor == string.Empty)
                     {
-                        strError = "El color del vehiculo no a sido ingresada";
+                        strError = "El color del vehiculo no ha sido ingresada correctamente";
+                        return false;
                     }
                     if (strRefencia == string.Empty)
                     {
-                        strError = "La Refencia del vehiculo no a sido ingresada";
+                        strError = "La Refencia del vehiculo no ha sido ingresada correctamente";
+                        return false;
                     }
 
                     break;
                 case "vehiculoupdate":
                     if (StrVehiculo_id == string.Empty)
                     {
-                        strError = "La placa del vehiculo no  a sido ingresada correctamente";
+                        strError = "La placa del vehiculo no  ha sido ingresada correctamente";
+                        return false;
                     }
                     if (strMarca == string.Empty)
                     {
-                        strError = "la marca del vehiculo no a sido ingresada";
+                        strError = "La marca del vehiculo no ha sido ingresada correctamente";
+                        return false;
                     }
                     if (StrCilindraje == string.Empty)
                     {
-                        strError = "el cilindraje del vehiculo no a sido ingresada";
+                        strError = "El cilindraje del vehiculo no ha sido ingresada correctamente";
+                        return false;
                     }
                     if (intModelo <= 0)
                     {
-                        strError = "El modelo del vehiculo no a sido ingresada";
+                        strError = "El modelo del vehiculo no ha sido ingresado correctamente";
+                        return false;
                     }
                     if (strColor == string.Empty)
                     {
-                        strError = "El color del vehiculo no a sido ingresada";
+                        strError = "El color del vehículo no ha sido ingresado correctamente";
+                        return false;
                     }
                     if (strRefencia == string.Empty)
                     {
-                        strError = "La Refencia del vehiculo no a sido ingresada";
+                        strError = "La Referencia del vehículo no ha sido ingresado correctamente";
+                        return false;
                     }
 
                     break;
@@ -260,97 +244,119 @@ namespace LibReglasNegocio
                 case "updateproveedores":
                     if (intProv_id <= 0)
                     {
-                        strError = "El id del proveedor no a sido ingresado";
+                        strError = "El id del proveedor no ha sido ingresado";
+                        return false;
                     }
                     if (strNombreProv == string.Empty)
                     {
-                        strError = "El nombre del proveedor no a sido ingresado";
+                        strError = "El nombre del proveedor no ha sido ingresado";
+                        return false;
                     }
                     if (strNombreContacProv == string.Empty)
                     {
-                        strError = "El nombre del contacto no a sido ingresado";
+                        strError = "El nombre del contacto no ha sido ingresado";
+                        return false;
                     }
                     if (strTituloContacProv == string.Empty)
                     {
-                        strError = "El titulo del contacto no a sido ingresado";
+                        strError = "El titulo del contacto no ha sido ingresado";
+                        return false;
                     }
                     if (strNumeroContacprov == string.Empty)
                     {
-                        strError = "El numero del proveedor no a sido ingresado";
+                        strError = "El número del proveedor no ha sido ingresado";
+                        return false;
                     }
                     if (strDireccionProv == string.Empty)
                     {
-                        strError = "La direccion del proveedor no a sido ingresado";
+                        strError = "La dirección del proveedor hno a sido ingresado";
+                        return false;
                     }
                     break;
                 case "detalles_factura":
                     if (datFecha < new DateTime().Date)
                     {
-                        strError = "la fecha  no a sido ingresado";
+                        strError = "La fecha  no ha sido ingresada";
+                        return false;
                     }
                     if (intCant_Repuesto <= -1)
                     {
-                        strError = "la cantidad de no a sido ingresado";
+                        strError = "La cantidad del repuesto no ha sido ingresada";
+                        return false;
                     }
                     if (intPrecio_Mant <= 0)
                     {
-                        strError = "El el precio del mantenimiento no a sido ingresado";
+                        strError = "El  precio del mantenimiento no ha sido ingresado";
+                        return false;
                     }
                     break;
                 case "empleado":
                     if (intEmpleado_id <= 0)
                     {
-                        strError = "Ingrese la id del empleado";
+                        strError = "Ingrese el id del empleado";
+                        return false;
                     }
                     if (strNombreE == string.Empty)
                     {
                         strError = "Ingrese el nombre del empleado";
+                        return false;
                     }
                     if (strTelefonoE == string.Empty)
                     {
-                        strError = "Ingrese el telefono del empleado";
+                        strError = "Ingrese el teléfono del empleado";
+                        return false;
                     }
                     if (strDireccionE == string.Empty)
                     {
-                        strError = "Ingrese la direccion del empleado";
+                        strError = "Ingrese la dirección del empleado";
+                        return false;
                     }
                     if (intcargo <= 0)
                     {
                         strError = "Seleccione un cargo";
+                        return false;
                     }
                     if (intSalarioE <= 0)
                     {
                         strError = "Ingrese un salario";
+                        return false;
                     }
                     if (StrContrasena == string.Empty)
                     {
                         strError = "Ingrese una contraseña";
+                        return false;
                     }
                     break;
                 case "empleadoupdate":
                     if (intEmpleado_id <= 0)
                     {
-                        strError = "Ingrese la id del empleado";
+                        strError = "Ingrese el id del empleado";
+                        return false;
                     }
                     if (strNombreE == string.Empty)
                     {
                         strError = "Ingrese el nombre del empleado";
+                        return false;
                     }
                     if (strTelefonoE == string.Empty)
                     {
                         strError = "Ingrese el telefono del empleado";
+                        return false;
                     }
                     if (strDireccionE == string.Empty)
                     {
                         strError = "Ingrese la direccion del empleado";
+                        return false;
                     }
                     if (intcargo <= 0)
                     {
                         strError = "Seleccione un cargo";
+                        return false;
                     }
                     if (intSalarioE <= 0)
                     {
                         strError = "Ingrese un salario";
+                        return false;
                     }                
                     break;
                 case "repuesto":
@@ -358,116 +364,138 @@ namespace LibReglasNegocio
                     if (strNombreRep == string.Empty)
                     {
                         strError = "Ingrese el nombre del repuesto";
+                        return false;
                     }
-                    if (intUnidStock <= 0)
+                    if (intUnidStock < 0)
                     {
-                        strError = "Ingrese las unidades en stock";
+                        strError = "Ingrese las unidades en stock del repuesto";
+                        return false;
                     }
-                    if (intUnidOrdenadas <= 0)
+                    if (intUnidOrdenadas < 0)
                     {
-                        strError = "Ingrese las unidades ordenadas";
+                        strError = "Ingrese las unidades ordenadas del repuesto";
+                        return false;
                     }
                     if (intPrecioUnid <= 0)
                     {
                         strError = "Ingrese el valor por unidad del repuesto";
+                        return false;
                     }
                     if (intProv_id <= 0)
                     {
-                        strError = "El id del proveedor no a sido ingresado";
+                        strError = "El id del proveedor no ha sido ingresado";
+                        return false;
                     }
 
                     break;
                 case "mantenimiento":
                     if (StrVehiculo_id == string.Empty)
                     {
-                        strError = "La placa del vehiculo no  a sido ingresada correctamente";
+                        strError = "La placa del vehículo no  ha sido ingresada correctamente";
+                        return false;
                     }
                     if (intEmpleado_id <= 0)
                     {
-                        strError = "Ingrese la id del empleado";
+                        strError = "Ingrese el id del empleado";
+                        return false;
                     }
                     if (strDiagnostico == string.Empty)
                     {
-                        strError = "Escriba el diagnostico del vehiculo";
+                        strError = "Escriba el diagnóstico del vehículo";
+                        return false;
                     }
                     if (strProc_Realizado == string.Empty)
                     {
                         strError = "Escriba el procedimiento realizado";
+                        return false;
                     }
                     break;
                 case "mantenimientoupdate":
                     if (intMantenimiento_id <= 0)
                     {
                         strError = "El ID debe ser mayor que cero";
+                        return false;
                     }
                     if (StrVehiculo_id == string.Empty)
                     {
-                        strError = "La placa del vehiculo no  a sido ingresada correctamente";
+                        strError = "La placa del vehículo no  ha sido ingresada correctamente";
+                        return false;
                     }
                     if (intEmpleado_id <= 0)
                     {
-                        strError = "Ingrese la id del empleado";
+                        strError = "Ingrese el id del empleado";
+                        return false;
                     }
                     if (strDiagnostico == string.Empty)
                     {
-                        strError = "Escriba el diagnostico del vehiculo";
+                        strError = "Escriba el diagnóstico del vehículo";
+                        return false;
                     }
                     if (strProc_Realizado == string.Empty)
                     {
                         strError = "Escriba el procedimiento realizado";
+                        return false;
                     }
 
                     break;
                 case "facturas":
                     if (StrVehiculo_id == string.Empty)
                     {
-                        strError = "La placa del vehiculo no  a sido ingresada correctamente";
+                        strError = "La placa del vehículo no  ha sido ingresada correctamente";
+                        return false;
                     }
                     if (intEmpleado_id <= 0)
                     {
-                        strError = "Ingrese la id del empleado";
+                        strError = "Ingrese el id del empleado";
+                        return false;
                     }
                     break;
                 case "getoneempleado":
                     if (intEmpleado_id <= 0)
                     {
                         strError = "Seleccione el nombre del empleado";
+                        return false;
                     }
                     break;
                 case "getonecliente":
                     if (intUsuario_id <= 0)
                     {
                         strError = "Seleccione el nombre del  cliente";
+                        return false;
                     }
                     break;
                 case "getonevehiculo":
                     if (strVehiculo_id == string.Empty)
                     {
-                        strError = "La placa del vehiculo no ha sido ingresada correctamente";
+                        strError = "La placa del vehículo no ha sido ingresada correctamente";
+                        return false;
                     }
                     break;
                 case "getonerepuesto":
                     if (intRepuesto_id <= 0)
                     {
                         strError = "Seleccione el nombre del repuesto";
+                        return false;
                     }
                     break;
                 case "getoneproveedor":
                     if (intProv_id <= 0)
                     {
                         strError = "Seleccione el nombre de la compañía proveedora";
+                        return false;
                     }
                     break;
                 case "getonemantenimiento":
-                    if (intMantenimiento_id <= 0)
+                    if (StrVehiculo_id ==string.Empty)
                     {
                         strError = "Seleccione un mantenimiento";
+                        return false;
                     }
                     break;
 
 
                 default:
-                    strError = "Caso no válido OPE";
+                    strError = "Caso no válido RN";
                     return false;
             }
             return true;
@@ -508,7 +536,7 @@ namespace LibReglasNegocio
                         objDatosEscuela[3] = new SqlParameter("direccion", strDireccionE);
                         objDatosEscuela[4] = new SqlParameter("cargo", intcargo);
                         objDatosEscuela[5] = new SqlParameter("turno", intTurno);
-                        objDatosEscuela[6] = new SqlParameter("salario", intsalario);
+                        objDatosEscuela[6] = new SqlParameter("salario", intSalarioE);
                         objDatosEscuela[7] = new SqlParameter("password", strContrasena);
                         break;
                     case "EMPLEADOUPDATE":
@@ -519,7 +547,7 @@ namespace LibReglasNegocio
                         objDatosEscuela[3] = new SqlParameter("direccion", strDireccionE);
                         objDatosEscuela[4] = new SqlParameter("cargo", intcargo);
                         objDatosEscuela[5] = new SqlParameter("turno", intTurno);
-                        objDatosEscuela[6] = new SqlParameter("salario", intsalario);
+                        objDatosEscuela[6] = new SqlParameter("salario", intSalarioE);
                         break;
                     case "PROVEEDORES":
                     case "UPDATEPROVEEDORES":
@@ -1061,10 +1089,10 @@ namespace LibReglasNegocio
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
         public bool Obtener_Cliente()
@@ -1090,10 +1118,10 @@ namespace LibReglasNegocio
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
         public bool Obtener_Vehiculo()
@@ -1206,10 +1234,10 @@ namespace LibReglasNegocio
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
         #endregion

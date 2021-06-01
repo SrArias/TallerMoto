@@ -16,21 +16,13 @@
         <div class="sidebar">
             <a href="../frmadmin.aspx"><i class="fa fa-home fa-2x"></i>Home</a>
             <a href="Empleado.aspx"><i class="fa fa-fw fa-user"></i>Empleados</a>
-            <a href="Detalles.aspx"><i class="fa fa-fw fa-envelope"></i>Facturación</a>
-            <a href="Mantenimiento.aspx"><i class="fa fa-fw fa-wrench"></i>Mantenimiento</a>
-            <a href="Clientes.aspx"><i class="fa fa-fw fa-user"></i>Clientes</a>
-            <a href="Vehiculos.aspx"><i class="fa fa-fw fa-wrench"></i>Vehículos</a>
             <a href="Proveedores.aspx"><i class="fa fa-fw fa-user"></i>Proveedores</a>
             <a href="Repuestos.aspx"><i class="fa fa-fw fa-wrench"></i>Repuestos</a>
-
-            <asp:ImageButton runat="server" ID="logout_new" ImageUrl="~/img/image_icon_logout_pic_512x512.png" OnClick="logout_new_Click" />
-
-
-
-
-
-
-
+            <a href="Vehiculos.aspx"><i class="fa fa-fw fa-wrench"></i>Vehículos</a>
+            <a href="Clientes.aspx"><i class="fa fa-fw fa-user"></i>Clientes</a>
+            <a href="Mantenimiento.aspx"><i class="fa fa-fw fa-wrench"></i>Mantenimiento</a>                     
+            <a href="Detalles.aspx"><i class="fa fa-fw fa-envelope"></i>Facturación</a>            
+            <asp:ImageButton runat="server" ID="logout_new" ImageUrl="~/img/image_icon_logout_pic_512x512.png" OnClick="logout_new_Click" style="margin-top:95%"/>
         </div>
         <div class="Centrar-Medio">
             <h1>Empleados</h1>
@@ -80,7 +72,7 @@
             <asp:DropDownList ID="drpCargo" AutoPostBack="true" CssClass="text-center form-control list-group-horizontal list-group-item-action size  " runat="server">
                 <asp:ListItem Text="Seleccione el cargo" />
                 <asp:ListItem Text="Mecánico" />
-                <asp:ListItem Text="Secretaria" />
+                <asp:ListItem Text="Administrador" />
             </asp:DropDownList>
         </div>
         <br />

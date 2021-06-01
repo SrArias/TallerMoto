@@ -83,7 +83,7 @@ namespace LibReglasNegocio
                         break;
 
                     default:
-                        strError = "Caso no valido en las reglas del negocio";
+                        strError = "Caso no válido en las reglas del negocio";
                         break;
                 }
                 return true;

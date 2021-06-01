@@ -36,7 +36,9 @@ namespace prjtallermotos.Admin
         }
         private void RecargarControles()
         {
- 
+            try
+            {
+
                 if (!objcontroles.llenarDrop(drpPlaca))
                 {
                     mensajes("error", objcontroles.StrError);
@@ -52,6 +54,11 @@ namespace prjtallermotos.Admin
                     mensajes("error", objcontroles.StrError);
                     return;
                 }
+            }
+            catch (Exception ex)
+            {
+                mensajes("error", ex.Message);
+            }
             
         }
         private void mensajes(string tipo, string mensajes)
@@ -81,16 +88,17 @@ namespace prjtallermotos.Admin
                         mensajes("error", "Debe ingresar un nombre de cliente");
                         return false;
                     }
-                    if (txtDireccionCl.Value.Trim() == string.Empty)
-                    {
-                        mensajes("error", "Debe ingresar una dirección");
-                        return false;
-                    }
                     if (txtTelefonoCl.Value.Trim() == string.Empty)
                     {
                         mensajes("error", "Debe ingresar un número de teléfono");
                         return false;
                     }
+                    if (txtDireccionCl.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar una dirección");
+                        return false;
+                    }
+
                     if (drpPlaca.SelectedIndex == 0)
                     {
                         mensajes("error", "Debe selecionar una placa");
@@ -114,16 +122,17 @@ namespace prjtallermotos.Admin
                         mensajes("error", "Debe ingresar un nombre de cliente");
                         return false;
                     }
-                    if (txtDireccionCl.Value.Trim() == string.Empty)
-                    {
-                        mensajes("error", "Debe ingresar una dirección");
-                        return false;
-                    }
                     if (txtTelefonoCl.Value.Trim() == string.Empty)
                     {
                         mensajes("error", "Debe ingresar un número de teléfono");
                         return false;
                     }
+                    if (txtDireccionCl.Value.Trim() == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar una dirección");
+                        return false;
+                    }
+
                     if (drpPlaca.SelectedIndex == 0)
                     {
                         mensajes("error", "Debe selecionar una placa");
@@ -202,6 +211,11 @@ namespace prjtallermotos.Admin
         {
             try
             {
+                if (Session["identificacion"].ToString() == string.Empty)
+                {
+                    Response.Redirect("../frmlogin.aspx");
+                }
+
                 strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
                 objcontroles = new clsllenarope(strnombreapp);
                 objadmin = new clsadminop(strnombreapp);
@@ -241,7 +255,6 @@ namespace prjtallermotos.Admin
                 txtDireccionCl.Value = objadmin.StrDireccionC;
                 txtNombreCl.Value = objadmin.StrNombreC;
                 txtTelefonoCl.Value = objadmin.StrTelefonoC;
-                drpPlaca.SelectedItem.Text = objadmin.StrVehiculo_id;
 
             }
 
@@ -267,6 +280,14 @@ namespace prjtallermotos.Admin
         {
             Limpiar();
         }
+
+        protected void logout_new_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["identificacion"] = string.Empty;
+            Response.Redirect("../frmlogin.aspx");
+        }
         #endregion
+
+
     }
 }

@@ -7,10 +7,14 @@ namespace prjtallermotos.Admin
 {
     public partial class Vehiculos : System.Web.UI.Page
     {
+        #region "Atributos"
+        private string strnombreapp;
+        #endregion
+
         #region "Instancias"
         clsllenarope objcontroles;
         clsadminop objadmin;
-        private string strnombreapp;
+
         #endregion
 
         #region "Métodos Privados"
@@ -33,17 +37,25 @@ namespace prjtallermotos.Admin
 
         private void RecargarControles()
         {
+            try
+            {
+                if (!objcontroles.llenarGrid(gvVehic))
+                {
+                    mensajes("error", objcontroles.StrError);
+                    return;
+                }
+                if (!objcontroles.llenarDrop(drpIdVehiculo))
+                {
+                    mensajes("error", objcontroles.StrError);
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
 
-            if (!objcontroles.llenarGrid(gvVehic))
-            {
-                mensajes("error", objcontroles.StrError);
-                return;
+                mensajes("error", ex.Message);
             }
-            if (!objcontroles.llenarDrop(drpIdVehiculo))
-            {
-                mensajes("error", objcontroles.StrError);
-                return;
-            }
+
 
         }
 
@@ -211,11 +223,14 @@ namespace prjtallermotos.Admin
         protected void Page_Load(object sender, EventArgs e)
         {
             try 
-            { 
+            {
+                if (Session["identificacion"].ToString() == string.Empty)
+                {
+                     Response.Redirect("../frmlogin.aspx");
+                }
             strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
             objcontroles = new clsllenarope(strnombreapp);
             objadmin = new clsadminop(strnombreapp);
-            btnActualizarVeh.Enabled = false;
                 if (!IsPostBack)
                 {
                     RecargarControles();
@@ -262,7 +277,7 @@ namespace prjtallermotos.Admin
             catch (Exception ex)
             {
 
-                throw ex;
+                mensajes("error", ex.Message);
             }
 
         }
@@ -281,6 +296,13 @@ namespace prjtallermotos.Admin
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
             Limpiar();
+        }
+
+
+        protected void logout_new_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["identificacion"] = string.Empty;
+            Response.Redirect("../frmlogin.aspx");
         }
         #endregion
     }

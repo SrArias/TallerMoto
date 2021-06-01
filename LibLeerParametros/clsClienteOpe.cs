@@ -108,22 +108,14 @@ namespace LibOperativa
 
             switch (metodoOrigen.ToLower())
             {
+                case "factura":
                 case "mantenimiento":
                     if (identificacion <= 0)
                     {
-                        strError = "Debe ";
+                        strError = "Debe ingresar un ID mayor a 0";
                         return false;
-                    }
-                    
+                    }                    
                    break;
-                case "factura":
-                    if (identificacion <= 0)
-                    {
-                        strError = "Debe buscar un estudiante para realizar la matrícula";
-                        return false;
-                    }
-
-                    break;
 
                 default:
                     strError = "Caso no válido OPE";

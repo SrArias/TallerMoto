@@ -47,7 +47,7 @@ namespace LibReglasNegocio
                 case "mantenimiento":
                     if (identificacion <= 0)
                     {
-                        strError = "Debe ingresar su cedula";
+                        strError = "Debe ingresar su id";
                         return false;
                     }
                     break;
@@ -71,11 +71,8 @@ namespace LibReglasNegocio
                         objDatosMatri = new SqlParameter[1];
                         objDatosMatri[0] = new SqlParameter("@identificacion", identificacion);
                         
-                        break;
-                    
-                        
-                    
-                    default:
+                        break;                  
+                  default:
                         strError = "Caso no válido RN";
                         return false;
                 }

@@ -1,26 +1,25 @@
 ﻿using LibOperativa;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace prjtallermotos
 {
     public partial class frmadmin : System.Web.UI.Page
     {
-        clsllenarope objcontroles;
-        private string strnombreapp;
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
-            objcontroles = new clsllenarope(strnombreapp);
-        }
 
+        #region "Atributos"
+        private string strnombreapp;
+        #endregion
+
+        #region "Instancias"
+        clsllenarope objcontroles;
+        #endregion
+
+        #region "Métodos Privados"
         private void mostrarpanel()
         {
+
             pnlmecanico.Visible = false;
             pnlCliente.Visible = false;
 
@@ -29,10 +28,10 @@ namespace prjtallermotos
                 default:
                 case 0:
                     pnlmecanico.Visible = true;
-                    
+
                     try
                     {
-                        
+
                         if (!objcontroles.llenarDrop(ddlmecanico))
                         {
                             objcontroles = null;
@@ -52,10 +51,10 @@ namespace prjtallermotos
                     break;
                 case 1:
                     pnlCliente.Visible = true;
-                    
+
                     try
                     {
-                        
+
                         if (!objcontroles.llenarDrop(ddlvehiculo))
                         {
                             objcontroles = null;
@@ -70,13 +69,49 @@ namespace prjtallermotos
                     break;
 
 
-
             }
+        }
+
+        private void mensajes(string tipo, string mensajes)
+        {
+            string javaScript = $"mensajes('{tipo}','{mensajes}');";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "script", javaScript, true);
+        }
+
+        #endregion
+
+        #region "Eventos"
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Session["identificacion"].ToString() == string.Empty)
+                {
+                    Response.Redirect("frmlogin.aspx");
+                }
+
+                strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
+                objcontroles = new clsllenarope(strnombreapp);
+            }
+            catch (Exception ex)
+            {
+
+                mensajes("error", ex.Message);
+            }
+
         }
 
         protected void rdSeleccion_SelectedIndexChanged(object sender, EventArgs e)
         {
             mostrarpanel();
         }
+
+        protected void logout_new_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["identificacion"] = string.Empty;
+            Response.Redirect("frmlogin.aspx");
+        }
+        #endregion
     }
 }

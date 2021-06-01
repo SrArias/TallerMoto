@@ -7,15 +7,20 @@ namespace prjtallermotos.Admin
 {
     public partial class Proveedores : System.Web.UI.Page
     {
+        #region "Atributos"
+        private string strnombreapp;
+        #endregion
+
         #region "Instancias"
         clsllenarope objcontroles;
         clsadminop objadmin;
-        private string strnombreapp;
         #endregion
 
         #region "Métodos Privados"
         private void Limpiar()
         {
+            txtNomCompania.Disabled = false;
+            txtIdProv.Disabled = false;
             btnInsertarProv.Enabled = true;
             btnActualizarProv.Enabled = false;
             txtIdProv.Value = string.Empty;
@@ -31,16 +36,25 @@ namespace prjtallermotos.Admin
         }
         private void RecargarControles()
         {
-            if (!objcontroles.llenarGrid(gvProv))
+            try
             {
-                mensajes("error", objcontroles.StrError);
-                return;
+                if (!objcontroles.llenarGrid(gvProv))
+                {
+                    mensajes("error", objcontroles.StrError);
+                    return;
+                }
+                if (!objcontroles.llenarDrop(drpIdProv))
+                {
+                    mensajes("error", objcontroles.StrError);
+                    return;
+                }
             }
-            if (!objcontroles.llenarDrop(drpIdProv))
+            catch (Exception ex)
             {
-                mensajes("error", objcontroles.StrError);
-                return;
+
+                mensajes("error", ex.Message);
             }
+
         }
         private bool validar(string MetodoOrigen)
         {
@@ -54,15 +68,26 @@ namespace prjtallermotos.Admin
                     }
                     break;
                 case "insertproveedor":
+                    if (txtIdProv.Value == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar el id de la compañia");
+                        return false;
+                    }
 
                     if (txtNomCompania.Value == string.Empty)
                     {
-                        mensajes("error", "Debe ingresar el nombre de la compañia");
+                        mensajes("error", "Debe ingresar el de la compañia");
                         return false;
                     }
+
                     if (txtNomContac.Value == string.Empty)
                     {
                         mensajes("error", "Debe ingresar el nombre del contacto");
+                        return false;
+                    }
+                    if (txtTitulo.Value == string.Empty)
+                    {
+                        mensajes("error", "Debe ingresar el cargo del contacto");
                         return false;
                     }
                     if (txtNumContact.Value == string.Empty)
@@ -75,11 +100,7 @@ namespace prjtallermotos.Admin
                         mensajes("error", "Debe ingresar la direccion del contacto");
                         return false;
                     }
-                    if (txtTitulo.Value == string.Empty)
-                    {
-                        mensajes("error", "Debe ingresar el cargo del contacto");
-                        return false;
-                    }
+
 
                     break;
                 case "updateproveedor":
@@ -194,6 +215,10 @@ namespace prjtallermotos.Admin
         {
             try
             {
+                if (Session["identificacion"].ToString() == string.Empty)
+                {
+                    Response.Redirect("../frmlogin.aspx");
+                }
                 strnombreapp = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
                 objcontroles = new clsllenarope(strnombreapp);
                 objadmin = new clsadminop(strnombreapp);
@@ -227,6 +252,9 @@ namespace prjtallermotos.Admin
                     mensajes("error", objadmin.StrError);
                     return;
                 }
+
+                txtIdProv.Disabled = true;
+                txtNomCompania.Disabled = true;
                 txtIdProv.Value =objadmin.IntProv_id.ToString();
                 btnActualizarProv.Enabled = true;
                 btnInsertarProv.Enabled = false;
@@ -261,6 +289,13 @@ namespace prjtallermotos.Admin
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
             Limpiar();
+        }
+
+
+        protected void logout_new_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["identificacion"] = string.Empty;
+            Response.Redirect("../frmlogin.aspx");
         }
         #endregion
     }
